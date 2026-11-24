@@ -489,8 +489,8 @@ public class W_Orders
     public bool? WO_IsCalStack { get; set; }
 
     /// <summary>序号（换班后从1开始）</summary>
-    [SugarColumn(ColumnName = "IndexNo", IsNullable = true, ColumnDescription = "序号（换班后从1开始）")]
-    public int? IndexNo { get; set; }
+    [SugarColumn(ColumnName = "WIndexNo", IsNullable = true, ColumnDescription = "序号（换班后从1开始）")]
+    public int? WIndexNo { get; set; }
 
     /// <summary>WO_ID</summary>
     [SugarColumn(ColumnName = "WO_ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "WO_ID")]

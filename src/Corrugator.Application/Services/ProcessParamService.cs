@@ -13,7 +13,7 @@ namespace Corrugator.Application.Services;
 
 /// <summary>
 /// 工艺参数服务。
-/// TB_QDM_FormSetFactor 是 192 列的宽表（糊机胶水/烘缸包角/预热缸/压力辊/喷雾/张力…系数），
+/// W_QDM_FormSetFactor 是 192 列的宽表（糊机胶水/烘缸包角/预热缸/压力辊/喷雾/张力…系数），
 /// 这里用“实体元数据 + 中文列说明”把宽表转成键值对，前端工艺参数界面只按 Key 读写，
 /// 后续 IPS 增加系数列时前端无需改代码。
 /// </summary>
@@ -21,10 +21,10 @@ public class ProcessParamService : IProcessParamService
 {
     private static readonly ConcurrentDictionary<Type, PropertyInfo[]> PropertyCache = new();
 
-    private readonly IRepository<S_ProductWaves> _waves;
-    private readonly IRepository<TB_QDM_FormSetFactor> _factors;
+    private readonly IRepository<W_ProductWaves> _waves;
+    private readonly IRepository<W_QDM_FormSetFactor> _factors;
 
-    public ProcessParamService(IRepository<S_ProductWaves> waves, IRepository<TB_QDM_FormSetFactor> factors)
+    public ProcessParamService(IRepository<W_ProductWaves> waves, IRepository<W_QDM_FormSetFactor> factors)
     {
         _waves = waves;
         _factors = factors;
@@ -36,33 +36,33 @@ public class ProcessParamService : IProcessParamService
         var width = query.Width;
         var kw = query.Keyword;
 
-        Expression<Func<S_ProductWaves, bool>> where = it =>
-            (kw == null || (it.SPW_Wave != null && it.SPW_Wave.Contains(kw)))
-            && (wave == null || it.SPW_Wave == wave)
-            && (width == null || it.SPW_Width == width);
+        Expression<Func<W_ProductWaves, bool>> where = it =>
+            (kw == null || (it.WSPW_Wave != null && it.WSPW_Wave.Contains(kw)))
+            && (wave == null || it.WSPW_Wave == wave)
+            && (width == null || it.WSPW_Width == width);
 
-        var page = await _waves.PageAsync(where, query, "SPW_Width ASC, SPW_Wave ASC");
+        var page = await _waves.PageAsync(where, query, "WSPW_Width ASC, WSPW_Wave ASC");
         var items = page.Items.Select(e => new WaveProfileDto
         {
-            SPW_ID = e.SPW_ID,
-            SPW_Width = e.SPW_Width,
-            SPW_Wave = e.SPW_Wave ?? string.Empty,
-            SPW_WDeepSF1 = e.SPW_WDeepSF1,
-            SPW_WRateSF1 = e.SPW_WRateSF1,
-            SPW_WDeepSF2 = e.SPW_WDeepSF2,
-            SPW_WRateSF2 = e.SPW_WRateSF2,
-            SPW_WDeepSF3 = e.SPW_WDeepSF3,
-            SPW_WRateSF3 = e.SPW_WRateSF3,
-            SPW_PaperDeep = e.SPW_PaperDeep,
-            SPW_MaxCN = e.SPW_MaxCN,
-            SPW_MinCutLength = e.SPW_MinCutLength,
-            SPW_MaxCutLength = e.SPW_MaxCutLength,
-            SPW_MinEdge = e.SPW_MinEdge,
-            SPW_MaxEdge = e.SPW_MaxEdge,
-            SPW_SmallScor = e.SPW_SmallScor,
-            SPW_SmallScorDepth = e.SPW_SmallScorDepth,
-            SPW_FlatScorDepth = e.SPW_FlatScorDepth,
-            SPW_ComScorDepth = e.SPW_ComScorDepth,
+            WSPW_ID = e.WSPW_ID,
+            WSPW_Width = e.WSPW_Width,
+            WSPW_Wave = e.WSPW_Wave ?? string.Empty,
+            WSPW_WDeepSF1 = e.WSPW_WDeepSF1,
+            WSPW_WRateSF1 = e.WSPW_WRateSF1,
+            WSPW_WDeepSF2 = e.WSPW_WDeepSF2,
+            WSPW_WRateSF2 = e.WSPW_WRateSF2,
+            WSPW_WDeepSF3 = e.WSPW_WDeepSF3,
+            WSPW_WRateSF3 = e.WSPW_WRateSF3,
+            WSPW_PaperDeep = e.WSPW_PaperDeep,
+            WSPW_MaxCN = e.WSPW_MaxCN,
+            WSPW_MinCutLength = e.WSPW_MinCutLength,
+            WSPW_MaxCutLength = e.WSPW_MaxCutLength,
+            WSPW_MinEdge = e.WSPW_MinEdge,
+            WSPW_MaxEdge = e.WSPW_MaxEdge,
+            WSPW_SmallScor = e.WSPW_SmallScor,
+            WSPW_SmallScorDepth = e.WSPW_SmallScorDepth,
+            WSPW_FlatScorDepth = e.WSPW_FlatScorDepth,
+            WSPW_ComScorDepth = e.WSPW_ComScorDepth,
         }).ToList();
 
         return new PagedResult<WaveProfileDto>(items, page.Total, page.PageIndex, page.PageSize);
@@ -122,7 +122,7 @@ public class ProcessParamService : IProcessParamService
         return inputs.Count;
     }
 
-    private async Task<TB_QDM_FormSetFactor?> GetFactorRowAsync(bool createIfMissing)
+    private async Task<W_QDM_FormSetFactor?> GetFactorRowAsync(bool createIfMissing)
     {
         var list = await _factors.ListAsync(null, null, 1);
         if (list.Count > 0)
@@ -135,12 +135,12 @@ public class ProcessParamService : IProcessParamService
             return null;
         }
 
-        var blank = new TB_QDM_FormSetFactor();
+        var blank = new W_QDM_FormSetFactor();
         await _factors.InsertAsync(blank);
         return blank;
     }
 
-    private static void Apply(TB_QDM_FormSetFactor row, ProcessFactorUpdateDto input)
+    private static void Apply(W_QDM_FormSetFactor row, ProcessFactorUpdateDto input)
     {
         var prop = Props().FirstOrDefault(p => string.Equals(p.Name, input.Key, StringComparison.OrdinalIgnoreCase))
                    ?? throw new BusinessException($"工艺参数列 {input.Key} 不存在");
@@ -175,7 +175,7 @@ public class ProcessParamService : IProcessParamService
 
     private static PropertyInfo[] Props()
     {
-        return PropertyCache.GetOrAdd(typeof(TB_QDM_FormSetFactor), t =>
+        return PropertyCache.GetOrAdd(typeof(W_QDM_FormSetFactor), t =>
             t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => p.GetCustomAttribute<SugarColumn>() is not null)
                 .ToArray());

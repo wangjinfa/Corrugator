@@ -8,7 +8,7 @@ namespace Corrugator.Application.Abstractions;
 /// </summary>
 public interface ILineContext
 {
-    /// <summary>当前线路编码（TB_Line.F_Code），未指定时为空</summary>
+    /// <summary>当前线路编码（TB_Line.WF_Code），未指定时为空</summary>
     string? LineCode { get; }
 
     void Set(string? lineCode);

@@ -9,170 +9,170 @@ GO
 
 
 /* 账号 admin -> 角色 admin */
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Users WHERE SU_Account = N'admin')
-INSERT INTO dbo.S_Users (SU_Account, SU_Password, SU_UserName, SU_IsMulti, SU_IsDel, SU_Creator, SU_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Users WHERE WSU_Account = N'admin')
+INSERT INTO dbo.W_Users (WSU_Account, WSU_Password, WSU_UserName, WSU_IsMulti, WSU_IsDel, WSU_Creator, WSU_CreateTime)
 VALUES (N'admin', N'pbkdf2$100000$iymnE3FajaUQDVIjCGOSUw==$75Lk+ayOsraUqQTS03rc+odzyEVesfNF6Gd5AmUiymo=', N'系统管理员', 1, 0, N'system', SYSDATETIME());
 GO
 
 
 /* 账号 planner -> 角色 planner */
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Users WHERE SU_Account = N'planner')
-INSERT INTO dbo.S_Users (SU_Account, SU_Password, SU_UserName, SU_IsMulti, SU_IsDel, SU_Creator, SU_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Users WHERE WSU_Account = N'planner')
+INSERT INTO dbo.W_Users (WSU_Account, WSU_Password, WSU_UserName, WSU_IsMulti, WSU_IsDel, WSU_Creator, WSU_CreateTime)
 VALUES (N'planner', N'pbkdf2$100000$jzkN4DXHdvxV+wdQ2qbZuA==$3eXlu6mefGXw3M9P6KpZU0YHffIV+X83Xofx0TVhoMU=', N'生管排程员', 1, 0, N'system', SYSDATETIME());
 GO
 
 
 /* 账号 operator -> 角色 operator */
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Users WHERE SU_Account = N'operator')
-INSERT INTO dbo.S_Users (SU_Account, SU_Password, SU_UserName, SU_IsMulti, SU_IsDel, SU_Creator, SU_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Users WHERE WSU_Account = N'operator')
+INSERT INTO dbo.W_Users (WSU_Account, WSU_Password, WSU_UserName, WSU_IsMulti, WSU_IsDel, WSU_Creator, WSU_CreateTime)
 VALUES (N'operator', N'pbkdf2$100000$3XY8sEBtRb/fOSvwzLJSPg==$FXHmukEGaZuRBgiVNqDu+d3qaNJAoxoL8kH65BmwEXU=', N'车间操作工', 0, 0, N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Roles WHERE SR_Name = N'admin')
-INSERT INTO dbo.S_Roles (SR_Name, SR_SortNo, SR_IsDel, SR_Creator, SR_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Roles WHERE WSR_Name = N'admin')
+INSERT INTO dbo.W_Roles (WSR_Name, WSR_SortNo, WSR_IsDel, WSR_Creator, WSR_CreateTime)
 VALUES (N'admin', 1, 0, N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Roles WHERE SR_Name = N'planner')
-INSERT INTO dbo.S_Roles (SR_Name, SR_SortNo, SR_IsDel, SR_Creator, SR_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Roles WHERE WSR_Name = N'planner')
+INSERT INTO dbo.W_Roles (WSR_Name, WSR_SortNo, WSR_IsDel, WSR_Creator, WSR_CreateTime)
 VALUES (N'planner', 2, 0, N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Roles WHERE SR_Name = N'operator')
-INSERT INTO dbo.S_Roles (SR_Name, SR_SortNo, SR_IsDel, SR_Creator, SR_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Roles WHERE WSR_Name = N'operator')
+INSERT INTO dbo.W_Roles (WSR_Name, WSR_SortNo, WSR_IsDel, WSR_Creator, WSR_CreateTime)
 VALUES (N'operator', 3, 0, N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Permissions WHERE SP_Name = N'lines:reload')
-INSERT INTO dbo.S_Permissions (SP_PID, SP_Name, SP_Type, SP_NameSpace, SP_IsDel, SP_SortNo, SP_Remark, SP_Creator, SP_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Permissions WHERE WSP_Name = N'lines:reload')
+INSERT INTO dbo.W_Permissions (WSP_PID, WSP_Name, WSP_Type, WSP_NameSpace, WSP_IsDel, WSP_SortNo, WSP_Remark, WSP_Creator, WSP_CreateTime)
 VALUES (0, N'lines:reload', N'功能', N'api', 0, 1, N'刷新瓦线配置', N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Permissions WHERE SP_Name = N'orders:write')
-INSERT INTO dbo.S_Permissions (SP_PID, SP_Name, SP_Type, SP_NameSpace, SP_IsDel, SP_SortNo, SP_Remark, SP_Creator, SP_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Permissions WHERE WSP_Name = N'orders:write')
+INSERT INTO dbo.W_Permissions (WSP_PID, WSP_Name, WSP_Type, WSP_NameSpace, WSP_IsDel, WSP_SortNo, WSP_Remark, WSP_Creator, WSP_CreateTime)
 VALUES (0, N'orders:write', N'功能', N'api', 0, 2, N'工单新增/修改/删除', N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Permissions WHERE SP_Name = N'params:write')
-INSERT INTO dbo.S_Permissions (SP_PID, SP_Name, SP_Type, SP_NameSpace, SP_IsDel, SP_SortNo, SP_Remark, SP_Creator, SP_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Permissions WHERE WSP_Name = N'params:write')
+INSERT INTO dbo.W_Permissions (WSP_PID, WSP_Name, WSP_Type, WSP_NameSpace, WSP_IsDel, WSP_SortNo, WSP_Remark, WSP_Creator, WSP_CreateTime)
 VALUES (0, N'params:write', N'功能', N'api', 0, 3, N'工艺参数修改', N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Permissions WHERE SP_Name = N'alarms:confirm')
-INSERT INTO dbo.S_Permissions (SP_PID, SP_Name, SP_Type, SP_NameSpace, SP_IsDel, SP_SortNo, SP_Remark, SP_Creator, SP_CreateTime)
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Permissions WHERE WSP_Name = N'alarms:confirm')
+INSERT INTO dbo.W_Permissions (WSP_PID, WSP_Name, WSP_Type, WSP_NameSpace, WSP_IsDel, WSP_SortNo, WSP_Remark, WSP_Creator, WSP_CreateTime)
 VALUES (0, N'alarms:confirm', N'功能', N'api', 0, 4, N'告警确认', N'system', SYSDATETIME());
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Role_Permissions rp
-               JOIN dbo.S_Roles r ON r.SR_ID = rp.SR_ID
-               JOIN dbo.S_Permissions p ON p.SP_ID = rp.SP_ID
-               WHERE r.SR_Name = N'admin' AND p.SP_Name = N'lines:reload')
-INSERT INTO dbo.S_Role_Permissions (SR_ID, SP_ID)
-SELECT r.SR_ID, p.SP_ID FROM dbo.S_Roles r, dbo.S_Permissions p
-WHERE r.SR_Name = N'admin' AND p.SP_Name = N'lines:reload';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Role_Permissions rp
+               JOIN dbo.W_Roles r ON r.WSR_ID = rp.WSR_ID
+               JOIN dbo.W_Permissions p ON p.WSP_ID = rp.WSP_ID
+               WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'lines:reload')
+INSERT INTO dbo.W_Role_Permissions (WSR_ID, WSP_ID)
+SELECT r.WSR_ID, p.WSP_ID FROM dbo.W_Roles r, dbo.W_Permissions p
+WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'lines:reload';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Role_Permissions rp
-               JOIN dbo.S_Roles r ON r.SR_ID = rp.SR_ID
-               JOIN dbo.S_Permissions p ON p.SP_ID = rp.SP_ID
-               WHERE r.SR_Name = N'admin' AND p.SP_Name = N'orders:write')
-INSERT INTO dbo.S_Role_Permissions (SR_ID, SP_ID)
-SELECT r.SR_ID, p.SP_ID FROM dbo.S_Roles r, dbo.S_Permissions p
-WHERE r.SR_Name = N'admin' AND p.SP_Name = N'orders:write';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Role_Permissions rp
+               JOIN dbo.W_Roles r ON r.WSR_ID = rp.WSR_ID
+               JOIN dbo.W_Permissions p ON p.WSP_ID = rp.WSP_ID
+               WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'orders:write')
+INSERT INTO dbo.W_Role_Permissions (WSR_ID, WSP_ID)
+SELECT r.WSR_ID, p.WSP_ID FROM dbo.W_Roles r, dbo.W_Permissions p
+WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'orders:write';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Role_Permissions rp
-               JOIN dbo.S_Roles r ON r.SR_ID = rp.SR_ID
-               JOIN dbo.S_Permissions p ON p.SP_ID = rp.SP_ID
-               WHERE r.SR_Name = N'admin' AND p.SP_Name = N'params:write')
-INSERT INTO dbo.S_Role_Permissions (SR_ID, SP_ID)
-SELECT r.SR_ID, p.SP_ID FROM dbo.S_Roles r, dbo.S_Permissions p
-WHERE r.SR_Name = N'admin' AND p.SP_Name = N'params:write';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Role_Permissions rp
+               JOIN dbo.W_Roles r ON r.WSR_ID = rp.WSR_ID
+               JOIN dbo.W_Permissions p ON p.WSP_ID = rp.WSP_ID
+               WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'params:write')
+INSERT INTO dbo.W_Role_Permissions (WSR_ID, WSP_ID)
+SELECT r.WSR_ID, p.WSP_ID FROM dbo.W_Roles r, dbo.W_Permissions p
+WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'params:write';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Role_Permissions rp
-               JOIN dbo.S_Roles r ON r.SR_ID = rp.SR_ID
-               JOIN dbo.S_Permissions p ON p.SP_ID = rp.SP_ID
-               WHERE r.SR_Name = N'admin' AND p.SP_Name = N'alarms:confirm')
-INSERT INTO dbo.S_Role_Permissions (SR_ID, SP_ID)
-SELECT r.SR_ID, p.SP_ID FROM dbo.S_Roles r, dbo.S_Permissions p
-WHERE r.SR_Name = N'admin' AND p.SP_Name = N'alarms:confirm';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Role_Permissions rp
+               JOIN dbo.W_Roles r ON r.WSR_ID = rp.WSR_ID
+               JOIN dbo.W_Permissions p ON p.WSP_ID = rp.WSP_ID
+               WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'alarms:confirm')
+INSERT INTO dbo.W_Role_Permissions (WSR_ID, WSP_ID)
+SELECT r.WSR_ID, p.WSP_ID FROM dbo.W_Roles r, dbo.W_Permissions p
+WHERE r.WSR_Name = N'admin' AND p.WSP_Name = N'alarms:confirm';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Role_Permissions rp
-               JOIN dbo.S_Roles r ON r.SR_ID = rp.SR_ID
-               JOIN dbo.S_Permissions p ON p.SP_ID = rp.SP_ID
-               WHERE r.SR_Name = N'planner' AND p.SP_Name = N'orders:write')
-INSERT INTO dbo.S_Role_Permissions (SR_ID, SP_ID)
-SELECT r.SR_ID, p.SP_ID FROM dbo.S_Roles r, dbo.S_Permissions p
-WHERE r.SR_Name = N'planner' AND p.SP_Name = N'orders:write';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Role_Permissions rp
+               JOIN dbo.W_Roles r ON r.WSR_ID = rp.WSR_ID
+               JOIN dbo.W_Permissions p ON p.WSP_ID = rp.WSP_ID
+               WHERE r.WSR_Name = N'planner' AND p.WSP_Name = N'orders:write')
+INSERT INTO dbo.W_Role_Permissions (WSR_ID, WSP_ID)
+SELECT r.WSR_ID, p.WSP_ID FROM dbo.W_Roles r, dbo.W_Permissions p
+WHERE r.WSR_Name = N'planner' AND p.WSP_Name = N'orders:write';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Role_Permissions rp
-               JOIN dbo.S_Roles r ON r.SR_ID = rp.SR_ID
-               JOIN dbo.S_Permissions p ON p.SP_ID = rp.SP_ID
-               WHERE r.SR_Name = N'planner' AND p.SP_Name = N'params:write')
-INSERT INTO dbo.S_Role_Permissions (SR_ID, SP_ID)
-SELECT r.SR_ID, p.SP_ID FROM dbo.S_Roles r, dbo.S_Permissions p
-WHERE r.SR_Name = N'planner' AND p.SP_Name = N'params:write';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Role_Permissions rp
+               JOIN dbo.W_Roles r ON r.WSR_ID = rp.WSR_ID
+               JOIN dbo.W_Permissions p ON p.WSP_ID = rp.WSP_ID
+               WHERE r.WSR_Name = N'planner' AND p.WSP_Name = N'params:write')
+INSERT INTO dbo.W_Role_Permissions (WSR_ID, WSP_ID)
+SELECT r.WSR_ID, p.WSP_ID FROM dbo.W_Roles r, dbo.W_Permissions p
+WHERE r.WSR_Name = N'planner' AND p.WSP_Name = N'params:write';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_Role_Permissions rp
-               JOIN dbo.S_Roles r ON r.SR_ID = rp.SR_ID
-               JOIN dbo.S_Permissions p ON p.SP_ID = rp.SP_ID
-               WHERE r.SR_Name = N'operator' AND p.SP_Name = N'alarms:confirm')
-INSERT INTO dbo.S_Role_Permissions (SR_ID, SP_ID)
-SELECT r.SR_ID, p.SP_ID FROM dbo.S_Roles r, dbo.S_Permissions p
-WHERE r.SR_Name = N'operator' AND p.SP_Name = N'alarms:confirm';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_Role_Permissions rp
+               JOIN dbo.W_Roles r ON r.WSR_ID = rp.WSR_ID
+               JOIN dbo.W_Permissions p ON p.WSP_ID = rp.WSP_ID
+               WHERE r.WSR_Name = N'operator' AND p.WSP_Name = N'alarms:confirm')
+INSERT INTO dbo.W_Role_Permissions (WSR_ID, WSP_ID)
+SELECT r.WSR_ID, p.WSP_ID FROM dbo.W_Roles r, dbo.W_Permissions p
+WHERE r.WSR_Name = N'operator' AND p.WSP_Name = N'alarms:confirm';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_User_Roles ur
-               JOIN dbo.S_Users u ON u.SU_ID = ur.SU_ID
-               JOIN dbo.S_Roles r ON r.SR_ID = ur.SR_ID
-               WHERE u.SU_Account = N'admin' AND r.SR_Name = N'admin')
-INSERT INTO dbo.S_User_Roles (SU_ID, SR_ID)
-SELECT u.SU_ID, r.SR_ID FROM dbo.S_Users u, dbo.S_Roles r
-WHERE u.SU_Account = N'admin' AND r.SR_Name = N'admin';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_User_Roles ur
+               JOIN dbo.W_Users u ON u.WSU_ID = ur.WSU_ID
+               JOIN dbo.W_Roles r ON r.WSR_ID = ur.WSR_ID
+               WHERE u.WSU_Account = N'admin' AND r.WSR_Name = N'admin')
+INSERT INTO dbo.W_User_Roles (WSU_ID, WSR_ID)
+SELECT u.WSU_ID, r.WSR_ID FROM dbo.W_Users u, dbo.W_Roles r
+WHERE u.WSU_Account = N'admin' AND r.WSR_Name = N'admin';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_User_Roles ur
-               JOIN dbo.S_Users u ON u.SU_ID = ur.SU_ID
-               JOIN dbo.S_Roles r ON r.SR_ID = ur.SR_ID
-               WHERE u.SU_Account = N'planner' AND r.SR_Name = N'planner')
-INSERT INTO dbo.S_User_Roles (SU_ID, SR_ID)
-SELECT u.SU_ID, r.SR_ID FROM dbo.S_Users u, dbo.S_Roles r
-WHERE u.SU_Account = N'planner' AND r.SR_Name = N'planner';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_User_Roles ur
+               JOIN dbo.W_Users u ON u.WSU_ID = ur.WSU_ID
+               JOIN dbo.W_Roles r ON r.WSR_ID = ur.WSR_ID
+               WHERE u.WSU_Account = N'planner' AND r.WSR_Name = N'planner')
+INSERT INTO dbo.W_User_Roles (WSU_ID, WSR_ID)
+SELECT u.WSU_ID, r.WSR_ID FROM dbo.W_Users u, dbo.W_Roles r
+WHERE u.WSU_Account = N'planner' AND r.WSR_Name = N'planner';
 GO
 
 
-IF NOT EXISTS (SELECT 1 FROM dbo.S_User_Roles ur
-               JOIN dbo.S_Users u ON u.SU_ID = ur.SU_ID
-               JOIN dbo.S_Roles r ON r.SR_ID = ur.SR_ID
-               WHERE u.SU_Account = N'operator' AND r.SR_Name = N'operator')
-INSERT INTO dbo.S_User_Roles (SU_ID, SR_ID)
-SELECT u.SU_ID, r.SR_ID FROM dbo.S_Users u, dbo.S_Roles r
-WHERE u.SU_Account = N'operator' AND r.SR_Name = N'operator';
+IF NOT EXISTS (SELECT 1 FROM dbo.W_User_Roles ur
+               JOIN dbo.W_Users u ON u.WSU_ID = ur.WSU_ID
+               JOIN dbo.W_Roles r ON r.WSR_ID = ur.WSR_ID
+               WHERE u.WSU_Account = N'operator' AND r.WSR_Name = N'operator')
+INSERT INTO dbo.W_User_Roles (WSU_ID, WSR_ID)
+SELECT u.WSU_ID, r.WSR_ID FROM dbo.W_Users u, dbo.W_Roles r
+WHERE u.WSU_Account = N'operator' AND r.WSR_Name = N'operator';
 GO
 
 
-SELECT u.SU_Account, u.SU_UserName, u.SU_IsMulti, r.SR_Name AS RoleName
-FROM dbo.S_Users u
-LEFT JOIN dbo.S_User_Roles ur ON ur.SU_ID = u.SU_ID
-LEFT JOIN dbo.S_Roles r ON r.SR_ID = ur.SR_ID;
+SELECT u.WSU_Account, u.WSU_UserName, u.WSU_IsMulti, r.WSR_Name AS RoleName
+FROM dbo.W_Users u
+LEFT JOIN dbo.W_User_Roles ur ON ur.WSU_ID = u.WSU_ID
+LEFT JOIN dbo.W_Roles r ON r.WSR_ID = ur.WSR_ID;
 GO

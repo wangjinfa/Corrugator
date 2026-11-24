@@ -3,65 +3,65 @@ using SqlSugar;
 namespace Corrugator.Domain.Entities.Pms;
 
 /// <summary>
-/// TB_PMS_StopReasonRecord
+/// W_PMS_StopReasonRecord
 /// </summary>
-[SugarTable("TB_PMS_StopReasonRecord", TableDescription = "TB_PMS_StopReasonRecord")]
-public class TB_PMS_StopReasonRecord
+[SugarTable("W_PMS_StopReasonRecord", TableDescription = "W_PMS_StopReasonRecord")]
+public class W_PMS_StopReasonRecord
 {
-    /// <summary>F_P04SID</summary>
-    [SugarColumn(ColumnName = "F_P04SID", ColumnDescription = "F_P04SID")]
-    public int F_P04SID { get; set; }
+    /// <summary>WF_P04SID</summary>
+    [SugarColumn(ColumnName = "WF_P04SID", ColumnDescription = "WF_P04SID")]
+    public int WF_P04SID { get; set; }
 
-    /// <summary>F_StopReason</summary>
-    [SugarColumn(ColumnName = "F_StopReason", Length = 200, ColumnDescription = "F_StopReason")]
-    public string F_StopReason { get; set; } = default!;
+    /// <summary>WF_StopReason</summary>
+    [SugarColumn(ColumnName = "WF_StopReason", Length = 200, ColumnDescription = "WF_StopReason")]
+    public string WF_StopReason { get; set; } = default!;
 
-    /// <summary>F_StopReasonID</summary>
-    [SugarColumn(ColumnName = "F_StopReasonID", ColumnDescription = "F_StopReasonID")]
-    public int F_StopReasonID { get; set; }
+    /// <summary>WF_StopReasonID</summary>
+    [SugarColumn(ColumnName = "WF_StopReasonID", ColumnDescription = "WF_StopReasonID")]
+    public int WF_StopReasonID { get; set; }
 
-    /// <summary>F_StopType</summary>
-    [SugarColumn(ColumnName = "F_StopType", Length = 200, ColumnDescription = "F_StopType")]
-    public string F_StopType { get; set; } = default!;
+    /// <summary>WF_StopType</summary>
+    [SugarColumn(ColumnName = "WF_StopType", Length = 200, ColumnDescription = "WF_StopType")]
+    public string WF_StopType { get; set; } = default!;
 
-    /// <summary>F_StopTypeID</summary>
-    [SugarColumn(ColumnName = "F_StopTypeID", ColumnDescription = "F_StopTypeID")]
-    public int F_StopTypeID { get; set; }
+    /// <summary>WF_StopTypeID</summary>
+    [SugarColumn(ColumnName = "WF_StopTypeID", ColumnDescription = "WF_StopTypeID")]
+    public int WF_StopTypeID { get; set; }
 
-    /// <summary>F_StatisticsStop</summary>
-    [SugarColumn(ColumnName = "F_StatisticsStop", ColumnDescription = "F_StatisticsStop")]
-    public bool F_StatisticsStop { get; set; }
+    /// <summary>WF_StatisticsStop</summary>
+    [SugarColumn(ColumnName = "WF_StatisticsStop", ColumnDescription = "WF_StatisticsStop")]
+    public bool WF_StatisticsStop { get; set; }
 
-    /// <summary>F_PartName</summary>
-    [SugarColumn(ColumnName = "F_PartName", Length = 50, ColumnDescription = "F_PartName")]
-    public string F_PartName { get; set; } = default!;
+    /// <summary>WF_PartName</summary>
+    [SugarColumn(ColumnName = "WF_PartName", Length = 50, ColumnDescription = "WF_PartName")]
+    public string WF_PartName { get; set; } = default!;
 
-    /// <summary>F_CreateUser</summary>
-    [SugarColumn(ColumnName = "F_CreateUser", Length = 50, IsNullable = true, ColumnDescription = "F_CreateUser")]
-    public string? F_CreateUser { get; set; }
+    /// <summary>WF_CreateUser</summary>
+    [SugarColumn(ColumnName = "WF_CreateUser", Length = 50, IsNullable = true, ColumnDescription = "WF_CreateUser")]
+    public string? WF_CreateUser { get; set; }
 
-    /// <summary>F_CreateTime</summary>
-    [SugarColumn(ColumnName = "F_CreateTime", IsNullable = true, ColumnDescription = "F_CreateTime")]
-    public DateTime? F_CreateTime { get; set; }
+    /// <summary>WF_CreateTime</summary>
+    [SugarColumn(ColumnName = "WF_CreateTime", IsNullable = true, ColumnDescription = "WF_CreateTime")]
+    public DateTime? WF_CreateTime { get; set; }
 
-    /// <summary>F_UpdateUser</summary>
-    [SugarColumn(ColumnName = "F_UpdateUser", Length = 50, IsNullable = true, ColumnDescription = "F_UpdateUser")]
-    public string? F_UpdateUser { get; set; }
+    /// <summary>WF_UpdateUser</summary>
+    [SugarColumn(ColumnName = "WF_UpdateUser", Length = 50, IsNullable = true, ColumnDescription = "WF_UpdateUser")]
+    public string? WF_UpdateUser { get; set; }
 
-    /// <summary>F_UpdateTime</summary>
-    [SugarColumn(ColumnName = "F_UpdateTime", IsNullable = true, ColumnDescription = "F_UpdateTime")]
-    public DateTime? F_UpdateTime { get; set; }
+    /// <summary>WF_UpdateTime</summary>
+    [SugarColumn(ColumnName = "WF_UpdateTime", IsNullable = true, ColumnDescription = "WF_UpdateTime")]
+    public DateTime? WF_UpdateTime { get; set; }
 
-    /// <summary>F_Remark</summary>
-    [SugarColumn(ColumnName = "F_Remark", Length = 500, IsNullable = true, ColumnDescription = "F_Remark")]
-    public string? F_Remark { get; set; }
+    /// <summary>WF_Remark</summary>
+    [SugarColumn(ColumnName = "WF_Remark", Length = 500, IsNullable = true, ColumnDescription = "WF_Remark")]
+    public string? WF_Remark { get; set; }
 
-    /// <summary>F_IsModify</summary>
-    [SugarColumn(ColumnName = "F_IsModify", ColumnDescription = "F_IsModify")]
-    public bool F_IsModify { get; set; }
+    /// <summary>WF_IsModify</summary>
+    [SugarColumn(ColumnName = "WF_IsModify", ColumnDescription = "WF_IsModify")]
+    public bool WF_IsModify { get; set; }
 
-    /// <summary>F_ID</summary>
-    [SugarColumn(ColumnName = "F_ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "F_ID")]
-    public int F_ID { get; set; }
+    /// <summary>WF_ID</summary>
+    [SugarColumn(ColumnName = "WF_ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "WF_ID")]
+    public int WF_ID { get; set; }
 
 }

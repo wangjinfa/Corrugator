@@ -2033,3 +2033,19 @@ _http = new HttpClient(handler) { ... };
 ### 13. 整条顶栏改为蓝色
 
 按要求把顶栏底色 `NavBgBrush` 由深藏青改为主题蓝 `#1A6FD0`；为保证选中页签在蓝底上仍有区分度，选中态 `NavActiveBrush` 调整为深蓝 `#0F56A0`，悬停 `#2E86C8`，顶栏文字 `NavTextBrush` 提亮为 `#E6F0FA`；左上角设置按钮悬停同步改为 `#2E86C8`。
+
+### 14. 主窗标题栏文字改白色
+
+标准 Windows 标题栏的文字颜色由系统绘制、XAML 无法直接指定。主窗在 `SourceInitialized` 时通过 DWM（`DWMWA_USE_IMMERSIVE_DARK_MODE=20`）强制标题栏进入深色模式，系统随之把「瓦楞纸板生产线生管系统」标题文字与最小化/最大化/关闭按钮绘成白色；旧版系统不支持时自动回退默认标题栏，不影响功能。
+
+### 15. 实体表名与字段统一加 W 前缀
+
+按确认口径对 Domain 下全部 170 个实体做了统一重构：
+
+- **表名**：去掉旧前缀（`TB_/S_/P_/E_/T_/L_`），统一为 `W_` 前缀，如 `TB_Paper_Info → W_Paper_Info`、`S_ApiUsers → W_ApiUsers`；已带 `W_` 的保持不变。
+- **列名与 C# 属性名同步改名**：带前缀的字段（`F_/SU_/SR_/SP_/EO_/WO_` 等）在实体、控制器、服务、ViewModel、契约、SQL 脚本中全局联动；已以 W 开头的列（`WO_/WEO_/WA_/WP_` 等）保持原样。
+- **冲突表名单独处理**：`Sys_Users → W_Sys_Users`、`E_Orders → W_E_Orders`，避免与 `W_Users`、`W_Orders` 重名。
+- **未纳入实体的遗留表保持原名**：`TB_Line`（线路配置，Ado 直查）、`T_UserLoginCache`（登录缓存）、`T_Log` 等不属于本系统实体，列名仍按现场旧库，未加 W。
+- `Sys_User / Sys_OperationLog` 实现了 `ISoftDelete / IAuditable` 接口，属性名受接口约束，保持原名，仅表名加 W。
+
+存量库迁移：`db/sqlserver_rename_tables_to_W.sql` 按旧表名逐张 `sp_rename` 到新表名；若是全新库，由 CodeFirst 直接按新表名/列名建表即可，无需执行该脚本。列名变更后，存量库需按实体 `ColumnName` 对齐（或重建业务表）。

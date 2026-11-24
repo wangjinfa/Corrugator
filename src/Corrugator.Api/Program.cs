@@ -145,7 +145,7 @@ using (var scope = app.Services.CreateScope())
         }
         catch (Exception ex)
         {
-            logger.LogError(ex, "公共库（S_Users 等）建表失败，请用 db/sqlserver_basedb_schema.sql 手工初始化");
+            logger.LogError(ex, "公共库（W_Users 等）建表失败，请用 db/sqlserver_basedb_schema.sql 手工初始化");
         }
     }
 
@@ -158,7 +158,7 @@ using (var scope = app.Services.CreateScope())
         }
         catch (Exception ex)
         {
-            logger.LogWarning(ex, "内置账号初始化失败：{Reason}（先按 db/sqlserver_fix_seed_columns.sql 检查 S_Users/S_Roles/S_Permissions 列宽）", ex.Message);
+            logger.LogWarning(ex, "内置账号初始化失败：{Reason}（先按 db/sqlserver_fix_seed_columns.sql 检查 W_Users/W_Roles/W_Permissions 列宽）", ex.Message);
         }
     }
 

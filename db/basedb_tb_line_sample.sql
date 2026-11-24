@@ -8,9 +8,9 @@ SET QUOTED_IDENTIFIER ON;
 GO
 
 /* 一号瓦线 -> 库 IPS_L1 */
-IF NOT EXISTS (SELECT 1 FROM dbo.TB_Line WHERE F_Code = N'Line1')
+IF NOT EXISTS (SELECT 1 FROM dbo.TB_Line WHERE WF_Code = N'Line1')
 INSERT INTO dbo.TB_Line
-    (F_Code, F_Name, F_ConfigID, F_ConnectionString, F_ServerIP, F_ServerPort, F_Gateway, F_WaveLineLayer, F_DoorWidth, F_ApiUrl)
+    (WF_Code, WF_Name, F_ConfigID, F_ConnectionString, F_ServerIP, F_ServerPort, F_Gateway, F_WaveLineLayer, WF_DoorWidth, F_ApiUrl)
 VALUES
     (N'Line1', N'一号瓦线', N'IPS_L1',
      N'Server=localhost;Database=IPS_L1;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;Encrypt=False',
@@ -18,14 +18,14 @@ VALUES
 GO
 
 /* 二号瓦线 -> 库 IPS_L2 */
-IF NOT EXISTS (SELECT 1 FROM dbo.TB_Line WHERE F_Code = N'Line2')
+IF NOT EXISTS (SELECT 1 FROM dbo.TB_Line WHERE WF_Code = N'Line2')
 INSERT INTO dbo.TB_Line
-    (F_Code, F_Name, F_ConfigID, F_ConnectionString, F_ServerIP, F_ServerPort, F_Gateway, F_WaveLineLayer, F_DoorWidth, F_ApiUrl)
+    (WF_Code, WF_Name, F_ConfigID, F_ConnectionString, F_ServerIP, F_ServerPort, F_Gateway, F_WaveLineLayer, WF_DoorWidth, F_ApiUrl)
 VALUES
     (N'Line2', N'二号瓦线', N'IPS_L2',
      N'Server=localhost;Database=IPS_L2;User Id=sa;Password=YourStrong!Passw0rd;TrustServerCertificate=True;Encrypt=False',
      N'127.0.0.1', 5099, NULL, 7, 2800, N'http://127.0.0.1:5099');
 GO
 
-SELECT F_ID, F_Code, F_Name, F_ConfigID, F_WaveLineLayer, F_DoorWidth, F_ApiUrl FROM dbo.TB_Line;
+SELECT WF_ID, WF_Code, WF_Name, F_ConfigID, F_WaveLineLayer, WF_DoorWidth, F_ApiUrl FROM dbo.TB_Line;
 GO

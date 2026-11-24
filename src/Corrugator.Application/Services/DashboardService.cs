@@ -71,13 +71,13 @@ public class DashboardService : IDashboardService
     }
 }
 
-/// <summary>数据字典服务：P_DictTypes / P_DictDatas</summary>
+/// <summary>数据字典服务：W_DictTypes / W_DictDatas</summary>
 public class DictionaryService : IDictionaryService
 {
-    private readonly IRepository<P_DictTypes> _types;
-    private readonly IRepository<P_DictDatas> _datas;
+    private readonly IRepository<W_DictTypes> _types;
+    private readonly IRepository<W_DictDatas> _datas;
 
-    public DictionaryService(IRepository<P_DictTypes> types, IRepository<P_DictDatas> datas)
+    public DictionaryService(IRepository<W_DictTypes> types, IRepository<W_DictDatas> datas)
     {
         _types = types;
         _datas = datas;
@@ -85,48 +85,48 @@ public class DictionaryService : IDictionaryService
 
     public async Task<List<DictTypeDto>> GetTypesAsync()
     {
-        var list = await _types.ListAsync(null, "PD_ID ASC");
+        var list = await _types.ListAsync(null, "WPD_ID ASC");
         return list.Select(t => new DictTypeDto
         {
-            PD_ID = t.PD_ID,
-            PD_PID = t.PD_PID,
-            PD_Name = t.PD_Name,
-            PD_Code = t.PD_Code,
-            PD_Creator = t.PD_Creator,
-            PD_CreateTime = t.PD_CreateTime,
-            PD_Editor = t.PD_Editor,
-            PD_EditTime = t.PD_EditTime,
+            WPD_ID = t.WPD_ID,
+            WPD_PID = t.WPD_PID,
+            WPD_Name = t.WPD_Name,
+            WPD_Code = t.WPD_Code,
+            WPD_Creator = t.WPD_Creator,
+            WPD_CreateTime = t.WPD_CreateTime,
+            WPD_Editor = t.WPD_Editor,
+            WPD_EditTime = t.WPD_EditTime,
         }).ToList();
     }
 
     public async Task<List<DictDataDto>> GetDatasAsync(int typeId)
     {
-        var list = await _datas.ListAsync(it => it.PD_TypeID == typeId, "PD_SortNo ASC, PD_ID ASC");
+        var list = await _datas.ListAsync(it => it.WPD_TypeID == typeId, "WPD_SortNo ASC, WPD_ID ASC");
         return list.Select(d => new DictDataDto
         {
-            PD_ID = d.PD_ID,
-            PD_TypeID = d.PD_TypeID,
-            PD_Property = d.PD_Property,
-            PD_EnglishName = d.PD_EnglishName,
-            PD_Value = d.PD_Value,
-            PD_ChineseName = d.PD_ChineseName,
-            PD_SortNo = d.PD_SortNo,
-            PD_Creator = d.PD_Ctreator,
-            PD_CreateTime = d.PD_CreateTime,
-            PD_Editor = d.PD_Editor,
-            PD_EditTime = d.PD_EditTime,
+            WPD_ID = d.WPD_ID,
+            WPD_TypeID = d.WPD_TypeID,
+            WPD_Property = d.WPD_Property,
+            WPD_EnglishName = d.WPD_EnglishName,
+            WPD_Value = d.WPD_Value,
+            WPD_ChineseName = d.WPD_ChineseName,
+            WPD_SortNo = d.WPD_SortNo,
+            WPD_Creator = d.WPD_Ctreator,
+            WPD_CreateTime = d.WPD_CreateTime,
+            WPD_Editor = d.WPD_Editor,
+            WPD_EditTime = d.WPD_EditTime,
         }).ToList();
     }
 
     public async Task<DictTypeDto> CreateTypeAsync(DictTypeSaveRequest request, string? user)
     {
-        var entity = new P_DictTypes
+        var entity = new W_DictTypes
         {
-            PD_PID = request.PD_PID,
-            PD_Name = request.PD_Name?.Trim(),
-            PD_Code = request.PD_Code?.Trim(),
-            PD_Creator = string.IsNullOrWhiteSpace(user) ? "system" : user,
-            PD_CreateTime = DateTime.Now,
+            WPD_PID = request.WPD_PID,
+            WPD_Name = request.WPD_Name?.Trim(),
+            WPD_Code = request.WPD_Code?.Trim(),
+            WPD_Creator = string.IsNullOrWhiteSpace(user) ? "system" : user,
+            WPD_CreateTime = DateTime.Now,
         };
 
         await _types.InsertAsync(entity);
@@ -141,11 +141,11 @@ public class DictionaryService : IDictionaryService
             return null;
         }
 
-        entity.PD_PID = request.PD_PID;
-        entity.PD_Name = request.PD_Name?.Trim();
-        entity.PD_Code = request.PD_Code?.Trim();
-        entity.PD_Editor = user;
-        entity.PD_EditTime = DateTime.Now;
+        entity.WPD_PID = request.WPD_PID;
+        entity.WPD_Name = request.WPD_Name?.Trim();
+        entity.WPD_Code = request.WPD_Code?.Trim();
+        entity.WPD_Editor = user;
+        entity.WPD_EditTime = DateTime.Now;
 
         await _types.UpdateAsync(entity);
         return ToTypeDto(entity);
@@ -153,13 +153,13 @@ public class DictionaryService : IDictionaryService
 
     public async Task<string?> DeleteTypeAsync(int id)
     {
-        var children = await _types.CountAsync(t => t.PD_PID == id);
+        var children = await _types.CountAsync(t => t.WPD_PID == id);
         if (children > 0)
         {
             return "该分类下还有子分类，请先删除子分类";
         }
 
-        var datas = await _datas.CountAsync(d => d.PD_TypeID == id);
+        var datas = await _datas.CountAsync(d => d.WPD_TypeID == id);
         if (datas > 0)
         {
             return "该分类下还有字典明细，请先删除明细";
@@ -171,16 +171,16 @@ public class DictionaryService : IDictionaryService
 
     public async Task<DictDataDto> CreateDataAsync(DictDataSaveRequest request, string? user)
     {
-        var entity = new P_DictDatas
+        var entity = new W_DictDatas
         {
-            PD_TypeID = request.PD_TypeID,
-            PD_Value = request.PD_Value,
-            PD_EnglishName = request.PD_EnglishName,
-            PD_ChineseName = request.PD_ChineseName,
-            PD_Property = request.PD_Property,
-            PD_SortNo = request.PD_SortNo ?? 0,
-            PD_Ctreator = string.IsNullOrWhiteSpace(user) ? "system" : user,
-            PD_CreateTime = DateTime.Now,
+            WPD_TypeID = request.WPD_TypeID,
+            WPD_Value = request.WPD_Value,
+            WPD_EnglishName = request.WPD_EnglishName,
+            WPD_ChineseName = request.WPD_ChineseName,
+            WPD_Property = request.WPD_Property,
+            WPD_SortNo = request.WPD_SortNo ?? 0,
+            WPD_Ctreator = string.IsNullOrWhiteSpace(user) ? "system" : user,
+            WPD_CreateTime = DateTime.Now,
         };
 
         await _datas.InsertAsync(entity);
@@ -195,13 +195,13 @@ public class DictionaryService : IDictionaryService
             return null;
         }
 
-        entity.PD_Value = request.PD_Value;
-        entity.PD_EnglishName = request.PD_EnglishName;
-        entity.PD_ChineseName = request.PD_ChineseName;
-        entity.PD_Property = request.PD_Property;
-        entity.PD_SortNo = request.PD_SortNo;
-        entity.PD_Editor = user;
-        entity.PD_EditTime = DateTime.Now;
+        entity.WPD_Value = request.WPD_Value;
+        entity.WPD_EnglishName = request.WPD_EnglishName;
+        entity.WPD_ChineseName = request.WPD_ChineseName;
+        entity.WPD_Property = request.WPD_Property;
+        entity.WPD_SortNo = request.WPD_SortNo;
+        entity.WPD_Editor = user;
+        entity.WPD_EditTime = DateTime.Now;
 
         await _datas.UpdateAsync(entity);
         return ToDataDto(entity);
@@ -219,30 +219,30 @@ public class DictionaryService : IDictionaryService
         return true;
     }
 
-    private static DictTypeDto ToTypeDto(P_DictTypes t) => new()
+    private static DictTypeDto ToTypeDto(W_DictTypes t) => new()
     {
-        PD_ID = t.PD_ID,
-        PD_PID = t.PD_PID,
-        PD_Name = t.PD_Name,
-        PD_Code = t.PD_Code,
-        PD_Creator = t.PD_Creator,
-        PD_CreateTime = t.PD_CreateTime,
-        PD_Editor = t.PD_Editor,
-        PD_EditTime = t.PD_EditTime,
+        WPD_ID = t.WPD_ID,
+        WPD_PID = t.WPD_PID,
+        WPD_Name = t.WPD_Name,
+        WPD_Code = t.WPD_Code,
+        WPD_Creator = t.WPD_Creator,
+        WPD_CreateTime = t.WPD_CreateTime,
+        WPD_Editor = t.WPD_Editor,
+        WPD_EditTime = t.WPD_EditTime,
     };
 
-    private static DictDataDto ToDataDto(P_DictDatas d) => new()
+    private static DictDataDto ToDataDto(W_DictDatas d) => new()
     {
-        PD_ID = d.PD_ID,
-        PD_TypeID = d.PD_TypeID,
-        PD_Property = d.PD_Property,
-        PD_EnglishName = d.PD_EnglishName,
-        PD_Value = d.PD_Value,
-        PD_ChineseName = d.PD_ChineseName,
-        PD_SortNo = d.PD_SortNo,
-        PD_Creator = d.PD_Ctreator,
-        PD_CreateTime = d.PD_CreateTime,
-        PD_Editor = d.PD_Editor,
-        PD_EditTime = d.PD_EditTime,
+        WPD_ID = d.WPD_ID,
+        WPD_TypeID = d.WPD_TypeID,
+        WPD_Property = d.WPD_Property,
+        WPD_EnglishName = d.WPD_EnglishName,
+        WPD_Value = d.WPD_Value,
+        WPD_ChineseName = d.WPD_ChineseName,
+        WPD_SortNo = d.WPD_SortNo,
+        WPD_Creator = d.WPD_Ctreator,
+        WPD_CreateTime = d.WPD_CreateTime,
+        WPD_Editor = d.WPD_Editor,
+        WPD_EditTime = d.WPD_EditTime,
     };
 }

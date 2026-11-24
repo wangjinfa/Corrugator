@@ -7,7 +7,7 @@ namespace Corrugator.Client.Wpf.Views;
 
 /// <summary>
 /// 角色管理-编辑：一个窗口同时维护「角色名称 + 权限绑定」（同现场 IPS）。
-/// 确定后由调用方落库：先保存角色本身，再整组替换 S_Role_Permissions。
+/// 确定后由调用方落库：先保存角色本身，再整组替换 W_Role_Permissions。
 /// </summary>
 public partial class RoleEditWindow : Window
 {

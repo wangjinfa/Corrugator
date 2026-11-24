@@ -20,10 +20,10 @@ public class AuthResult
 
     public List<string> Roles { get; set; } = new();
 
-    /// <summary>功能权限编码（S_Permissions.SP_Name）</summary>
+    /// <summary>功能权限编码（W_Permissions.WSP_Name）</summary>
     public List<string> Permissions { get; set; } = new();
 
-    /// <summary>S_Users.SU_IsMulti：是否开通多瓦线切换</summary>
+    /// <summary>W_Users.WSU_IsMulti：是否开通多瓦线切换</summary>
     public bool IsMultiLine { get; set; }
 }
 
@@ -36,7 +36,7 @@ public interface IAuthService
 }
 
 /// <summary>
-/// 登录服务：账号统一走 BaseDB 的 S_Users / S_Roles / S_Permissions。
+/// 登录服务：账号统一走 BaseDB 的 W_Users / W_Roles / W_Permissions。
 /// BaseDB 已并入 IPS 库时就是同一个库；多瓦线部署时它只存在公共库，各线业务库不再各建一套账号。
 /// </summary>
 public class AuthService : IAuthService
@@ -58,25 +58,25 @@ public class AuthService : IAuthService
         var db = _base.Db;
 
         var user = await db.Queryable<S_User>()
-            .Where(u => u.SU_Account == request.UserName && (u.SU_IsDel == null || u.SU_IsDel == false))
+            .Where(u => u.WSU_Account == request.UserName && (u.WSU_IsDel == null || u.WSU_IsDel == false))
             .FirstAsync();
 
-        if (user is null || !VerifyPassword(request.Password, user.SU_Password))
+        if (user is null || !VerifyPassword(request.Password, user.WSU_Password))
         {
             throw new UnauthorizedException("账号或密码错误");
         }
 
         // 角色
         var roleIds = await db.Queryable<S_UserRole>()
-            .Where(x => x.SU_ID == user.SU_ID)
-            .Select(x => x.SR_ID)
+            .Where(x => x.WSU_ID == user.WSU_ID)
+            .Select(x => x.WSR_ID)
             .ToListAsync();
 
         var roles = roleIds.Count == 0
             ? new List<S_Role>()
             : await db.Queryable<S_Role>()
-                .In(x => x.SR_ID, roleIds)
-                .Where(x => x.SR_IsDel == null || x.SR_IsDel == false)
+                .In(x => x.WSR_ID, roleIds)
+                .Where(x => x.WSR_IsDel == null || x.WSR_IsDel == false)
                 .ToListAsync();
 
         // 权限 = 角色权限 + 用户直授权限
@@ -84,35 +84,35 @@ public class AuthService : IAuthService
         if (roleIds.Count > 0)
         {
             permIds.AddRange(await db.Queryable<S_RolePermission>()
-                .In(x => x.SR_ID, roleIds)
-                .Select(x => x.SP_ID)
+                .In(x => x.WSR_ID, roleIds)
+                .Select(x => x.WSP_ID)
                 .ToListAsync());
         }
 
         permIds.AddRange(await db.Queryable<S_UserPermission>()
-            .Where(x => x.SU_ID == user.SU_ID)
-            .Select(x => x.SP_ID)
+            .Where(x => x.WSU_ID == user.WSU_ID)
+            .Select(x => x.WSP_ID)
             .ToListAsync());
 
         var permissions = permIds.Count == 0
             ? new List<string>()
             : await db.Queryable<S_Permission>()
-                .In(x => x.SP_ID, permIds.Distinct().ToList())
-                .Where(x => x.SP_IsDel == null || x.SP_IsDel == false)
-                .Select(x => x.SP_Name)
+                .In(x => x.WSP_ID, permIds.Distinct().ToList())
+                .Where(x => x.WSP_IsDel == null || x.WSP_IsDel == false)
+                .Select(x => x.WSP_Name)
                 .ToListAsync();
 
-        var roleCodes = roles.Select(r => r.SR_Name).ToList();
+        var roleCodes = roles.Select(r => r.WSR_Name).ToList();
 
         return new AuthResult
         {
-            UserId = user.SU_ID,
-            UserName = user.SU_Account,
-            DisplayName = string.IsNullOrWhiteSpace(user.SU_UserName) ? user.SU_Account : user.SU_UserName!,
+            UserId = user.WSU_ID,
+            UserName = user.WSU_Account,
+            DisplayName = string.IsNullOrWhiteSpace(user.WSU_UserName) ? user.WSU_Account : user.WSU_UserName!,
             Role = roleCodes.FirstOrDefault() ?? "operator",
             Roles = roleCodes,
             Permissions = permissions,
-            IsMultiLine = user.SU_IsMulti ?? false,
+            IsMultiLine = user.WSU_IsMulti ?? false,
         };
     }
 
@@ -120,7 +120,7 @@ public class AuthService : IAuthService
     {
         var db = _base.Db;
 
-        // 现场已有的 S_Users / S_Roles / S_Permissions 可能比代码实体短（如 SU_Password 只有 nvarchar(20)），
+        // 现场已有的 W_Users / W_Roles / W_Permissions 可能比代码实体短（如 WSU_Password 只有 nvarchar(20)），
         // 写入 PBKDF2 哈希会被 SQL Server 截断报错，先按需扩列再灌种子。
         await EnsureSeedColumnWidthsAsync(db);
 
@@ -144,16 +144,16 @@ public class AuthService : IAuthService
         var roleIds = new Dictionary<string, int>();
         foreach (var role in roleSeeds)
         {
-            var existing = await db.Queryable<S_Role>().Where(r => r.SR_Name == role.Code).FirstAsync();
+            var existing = await db.Queryable<S_Role>().Where(r => r.WSR_Name == role.Code).FirstAsync();
             if (existing is null)
             {
                 existing = new S_Role
                 {
-                    SR_Name = role.Code,
-                    SR_SortNo = role.Sort,
-                    SR_IsDel = false,
-                    SR_Creator = "超级管理员",
-                    SR_CreateTime = DateTime.Now,
+                    WSR_Name = role.Code,
+                    WSR_SortNo = role.Sort,
+                    WSR_IsDel = false,
+                    WSR_Creator = "超级管理员",
+                    WSR_CreateTime = DateTime.Now,
                 };
                 try
                 {
@@ -162,11 +162,11 @@ public class AuthService : IAuthService
                 catch (Exception ex)
                 {
                     throw new BusinessException(
-                        $"写入 S_Roles 失败（角色 {role.Code}，多半是 SR_Name/SR_Creator 列宽不足）：{ex.Message}");
+                        $"写入 W_Roles 失败（角色 {role.Code}，多半是 WSR_Name/WSR_Creator 列宽不足）：{ex.Message}");
                 }
             }
 
-            roleIds[role.Code] = existing.SR_ID;
+            roleIds[role.Code] = existing.WSR_ID;
         }
 
         // 功能权限
@@ -181,25 +181,25 @@ public class AuthService : IAuthService
         var permIds = new Dictionary<string, int>();
         foreach (var perm in permSeeds)
         {
-            var existing = await db.Queryable<S_Permission>().Where(p => p.SP_Name == perm.Item1).FirstAsync();
+            var existing = await db.Queryable<S_Permission>().Where(p => p.WSP_Name == perm.Item1).FirstAsync();
             if (existing is null)
             {
                 existing = new S_Permission
                 {
-                    SP_PID = 0,
-                    SP_Name = perm.Item1,
-                    SP_Type = "功能",
-                    SP_NameSpace = "api",
-                    SP_IsDel = false,
-                    SP_SortNo = permIds.Count + 1,
-                    SP_Remark = perm.Item2,
-                    SP_Creator = "system",
-                    SP_CreateTime = DateTime.Now,
+                    WSP_PID = 0,
+                    WSP_Name = perm.Item1,
+                    WSP_Type = "功能",
+                    WSP_NameSpace = "api",
+                    WSP_IsDel = false,
+                    WSP_SortNo = permIds.Count + 1,
+                    WSP_Remark = perm.Item2,
+                    WSP_Creator = "system",
+                    WSP_CreateTime = DateTime.Now,
                 };
                 existing = await db.Insertable(existing).ExecuteReturnEntityAsync();
             }
 
-            permIds[perm.Item1] = existing.SP_ID;
+            permIds[perm.Item1] = existing.WSP_ID;
         }
 
         // 角色-权限
@@ -216,8 +216,8 @@ public class AuthService : IAuthService
             {
                 await db.Insertable(new S_RolePermission
                 {
-                    SR_ID = roleIds[grant.Key],
-                    SP_ID = permIds[perm],
+                    WSR_ID = roleIds[grant.Key],
+                    WSP_ID = permIds[perm],
                 }).ExecuteCommandAsync();
             }
         }
@@ -234,13 +234,13 @@ public class AuthService : IAuthService
         {
             var user = new S_User
             {
-                SU_Account = seed.Account,
-                SU_UserName = seed.Name,
-                SU_Password = PasswordHasher.Hash("123456"),
-                SU_IsMulti = seed.Multi,
-                SU_IsDel = false,
-                SU_Creator = "system",
-                SU_CreateTime = DateTime.Now,
+                WSU_Account = seed.Account,
+                WSU_UserName = seed.Name,
+                WSU_Password = PasswordHasher.Hash("123456"),
+                WSU_IsMulti = seed.Multi,
+                WSU_IsDel = false,
+                WSU_Creator = "system",
+                WSU_CreateTime = DateTime.Now,
             };
             try
             {
@@ -249,14 +249,14 @@ public class AuthService : IAuthService
             catch (Exception ex)
             {
                 throw new BusinessException(
-                    $"写入 S_Users 失败（账号 {seed.Account}，多半是 SU_Password/SU_UserName 列宽不足，" +
+                    $"写入 W_Users 失败（账号 {seed.Account}，多半是 WSU_Password/WSU_UserName 列宽不足，" +
                     $"PBKDF2 哈希需要 nvarchar(200)）：{ex.Message}");
             }
 
             await db.Insertable(new S_UserRole
             {
-                SU_ID = user.SU_ID,
-                SR_ID = roleIds[seed.Role],
+                WSU_ID = user.WSU_ID,
+                WSR_ID = roleIds[seed.Role],
             }).ExecuteCommandAsync();
         }
     }
@@ -285,8 +285,8 @@ public class AuthService : IAuthService
             ("弯翘自动控制开关", 17),
         };
 
-        var existing = await db.Queryable<S_Permission>().Where(p => p.SP_Type == "菜单").ToListAsync();
-        var ids = existing.ToDictionary(p => p.SP_Name, p => p.SP_ID);
+        var existing = await db.Queryable<S_Permission>().Where(p => p.WSP_Type == "菜单").ToListAsync();
+        var ids = existing.ToDictionary(p => p.WSP_Name, p => p.WSP_ID);
 
         foreach (var menu in menus)
         {
@@ -297,16 +297,16 @@ public class AuthService : IAuthService
 
             var entity = new S_Permission
             {
-                SP_PID = 0,
-                SP_Name = menu.Name,
-                SP_Type = "菜单",
-                SP_IsDel = false,
-                SP_SortNo = menu.Sort,
-                SP_Creator = "system",
-                SP_CreateTime = DateTime.Now,
+                WSP_PID = 0,
+                WSP_Name = menu.Name,
+                WSP_Type = "菜单",
+                WSP_IsDel = false,
+                WSP_SortNo = menu.Sort,
+                WSP_Creator = "system",
+                WSP_CreateTime = DateTime.Now,
             };
             entity = await db.Insertable(entity).ExecuteReturnEntityAsync();
-            ids[menu.Name] = entity.SP_ID;
+            ids[menu.Name] = entity.WSP_ID;
         }
 
         // 示例分组（结构与现场一致，可按需删除）：生管控制 → 生管总控；图形化控制 → 总控右手机 / 总控左手机
@@ -326,7 +326,7 @@ public class AuthService : IAuthService
             }
 
             var exists = await db.Queryable<S_Permission>()
-                .Where(p => p.SP_PID == parentId && p.SP_Name == group.Name)
+                .Where(p => p.WSP_PID == parentId && p.WSP_Name == group.Name)
                 .AnyAsync();
             if (exists)
             {
@@ -335,17 +335,17 @@ public class AuthService : IAuthService
 
             var entity = new S_Permission
             {
-                SP_PID = parentId,
-                SP_Name = group.Name,
-                SP_Type = "菜单",
-                SP_IsDel = false,
-                SP_SortNo = group.Sort,
-                SP_Remark = "示例分组，可按需删除",
-                SP_Creator = "system",
-                SP_CreateTime = DateTime.Now,
+                WSP_PID = parentId,
+                WSP_Name = group.Name,
+                WSP_Type = "菜单",
+                WSP_IsDel = false,
+                WSP_SortNo = group.Sort,
+                WSP_Remark = "示例分组，可按需删除",
+                WSP_Creator = "system",
+                WSP_CreateTime = DateTime.Now,
             };
             entity = await db.Insertable(entity).ExecuteReturnEntityAsync();
-            ids[group.Name] = entity.SP_ID;
+            ids[group.Name] = entity.WSP_ID;
         }
 
         // 系统管理 → 切换班组
@@ -353,20 +353,20 @@ public class AuthService : IAuthService
         if (systemMenuId > 0)
         {
             var hasChild = await db.Queryable<S_Permission>()
-                .Where(p => p.SP_PID == systemMenuId && p.SP_Name == "切换班组")
+                .Where(p => p.WSP_PID == systemMenuId && p.WSP_Name == "切换班组")
                 .AnyAsync();
 
             if (!hasChild)
             {
                 await db.Insertable(new S_Permission
                 {
-                    SP_PID = systemMenuId,
-                    SP_Name = "切换班组",
-                    SP_Type = "菜单",
-                    SP_IsDel = false,
-                    SP_SortNo = 1,
-                    SP_Creator = "system",
-                    SP_CreateTime = DateTime.Now,
+                    WSP_PID = systemMenuId,
+                    WSP_Name = "切换班组",
+                    WSP_Type = "菜单",
+                    WSP_IsDel = false,
+                    WSP_SortNo = 1,
+                    WSP_Creator = "system",
+                    WSP_CreateTime = DateTime.Now,
                 }).ExecuteCommandAsync();
             }
         }
@@ -382,23 +382,23 @@ public class AuthService : IAuthService
     /// </summary>
     private static readonly (string Table, string Column, int Length)[] SeedColumnWidths =
     {
-        ("S_Users", "SU_Account", 50),
-        ("S_Users", "SU_Password", 200),
-        ("S_Users", "SU_UserName", 50),
-        ("S_Users", "SU_Gender", 10),
-        ("S_Users", "SU_PhoneNo", 50),
-        ("S_Users", "SU_StopPosition", 50),
-        ("S_Users", "SU_Creator", 20),
-        ("S_Users", "SU_Editor", 20),
-        ("S_Roles", "SR_Name", 50),
-        ("S_Roles", "SR_Creator", 20),
-        ("S_Roles", "SR_Editor", 20),
-        ("S_Permissions", "SP_Name", 50),
-        ("S_Permissions", "SP_Type", 10),
-        ("S_Permissions", "SP_NameSpace", 100),
-        ("S_Permissions", "SP_Remark", 500),
-        ("S_Permissions", "SP_Creator", 20),
-        ("S_Permissions", "SP_Editor", 20),
+        ("W_Users", "WSU_Account", 50),
+        ("W_Users", "WSU_Password", 200),
+        ("W_Users", "WSU_UserName", 50),
+        ("W_Users", "WSU_Gender", 10),
+        ("W_Users", "WSU_PhoneNo", 50),
+        ("W_Users", "WSU_StopPosition", 50),
+        ("W_Users", "WSU_Creator", 20),
+        ("W_Users", "WSU_Editor", 20),
+        ("W_Roles", "WSR_Name", 50),
+        ("W_Roles", "WSR_Creator", 20),
+        ("W_Roles", "WSR_Editor", 20),
+        ("W_Permissions", "WSP_Name", 50),
+        ("W_Permissions", "WSP_Type", 10),
+        ("W_Permissions", "WSP_NameSpace", 100),
+        ("W_Permissions", "WSP_Remark", 500),
+        ("W_Permissions", "WSP_Creator", 20),
+        ("W_Permissions", "WSP_Editor", 20),
     };
 
     /// <summary>检查并加宽种子要写的字符列（只动比代码要求更窄的列，已够宽的不动）</summary>
@@ -412,7 +412,7 @@ public class AuthService : IAuthService
         var meta = db.Ado.GetDataTable(
             "SELECT TABLE_NAME, COLUMN_NAME, CHARACTER_MAXIMUM_LENGTH, IS_NULLABLE, DATA_TYPE " +
             "FROM INFORMATION_SCHEMA.COLUMNS " +
-            "WHERE TABLE_NAME IN ('S_Users', 'S_Roles', 'S_Permissions')");
+            "WHERE TABLE_NAME IN ('W_Users', 'W_Roles', 'W_Permissions')");
 
         foreach (var row in meta.Rows.Cast<System.Data.DataRow>())
         {

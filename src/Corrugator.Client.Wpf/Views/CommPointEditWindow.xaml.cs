@@ -5,7 +5,7 @@ namespace Corrugator.Client.Wpf.Views;
 
 /// <summary>
 /// 通讯点位设置-编辑。
-/// 字段口径：部位 = F_Position，所属设备 = F_DriverCode，PLC地址/MDI变量名 = F_VarAddress。
+/// 字段口径：部位 = WF_Position，所属设备 = WF_DriverCode，PLC地址/MDI变量名 = WF_VarAddress。
 /// </summary>
 public partial class CommPointEditWindow : Window
 {

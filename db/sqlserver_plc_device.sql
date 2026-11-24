@@ -1,31 +1,31 @@
-/* 通讯设备表 TB_Plc_Device
+/* 通讯设备表 W_Plc_Device
    通讯设置 → 通讯设备设置 的持久化表。一条记录 = 一个 PLC/工段设备，
-   挂一个通讯协议（F_CommType）和一份通讯配置（F_ConfigName，引用配置名称）。
-   与 TB_Plc_DriverConfig、TB_Plc_PointVar 同库，属于 IPS 线库。 */
+   挂一个通讯协议（WF_CommType）和一份通讯配置（WF_ConfigName，引用配置名称）。
+   与 W_Plc_DriverConfig、W_Plc_PointVar 同库，属于 IPS 线库。 */
 
-IF OBJECT_ID(N'dbo.TB_Plc_Device', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Plc_Device', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_Device] (
-    [F_Code]       nvarchar(36)  NOT NULL,
-    [F_Name]       nvarchar(100) NULL,
-    [F_CommType]   nvarchar(50)  NULL,
-    [F_ConfigName] nvarchar(100) NULL,
-    [F_IsUse]      bit           NULL,
-    [F_IsDelete]   bit           NOT NULL,
-    [F_Creator]    nvarchar(50)  NULL,
-    [F_CreateTime] datetime2     NULL,
-    [F_Editor]     nvarchar(50)  NULL,
-    [F_EditTime]   datetime2     NULL,
-    [F_ID]         bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_Device] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_Device] (
+    [WF_Code]       nvarchar(36)  NOT NULL,
+    [WF_Name]       nvarchar(100) NULL,
+    [WF_CommType]   nvarchar(50)  NULL,
+    [WF_ConfigName] nvarchar(100) NULL,
+    [WF_IsUse]      bit           NULL,
+    [WF_IsDelete]   bit           NOT NULL,
+    [WF_Creator]    nvarchar(50)  NULL,
+    [WF_CreateTime] datetime2     NULL,
+    [WF_Editor]     nvarchar(50)  NULL,
+    [WF_EditTime]   datetime2     NULL,
+    [WF_ID]         bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_Device] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 样例数据（与现场截图一致，可按需删除） */
-IF NOT EXISTS (SELECT 1 FROM dbo.[TB_Plc_Device] WHERE [F_Code] = N'DF')
+IF NOT EXISTS (SELECT 1 FROM dbo.[W_Plc_Device] WHERE [WF_Code] = N'DF')
 BEGIN
-INSERT INTO dbo.[TB_Plc_Device] ([F_Code],[F_Name],[F_CommType],[F_ConfigName],[F_IsUse],[F_IsDelete],[F_Creator],[F_CreateTime])
+INSERT INTO dbo.[W_Plc_Device] ([WF_Code],[WF_Name],[WF_CommType],[WF_ConfigName],[WF_IsUse],[WF_IsDelete],[WF_Creator],[WF_CreateTime])
 VALUES
  (N'DF',    N'双面机',            N'Siemens_S7_1200', N'双面机',           1, 0, N'超级管理员', SYSDATETIME()),
  (N'LSO',   N'面纸接纸机',         N'Siemens_S7_1200', N'面纸接纸机',        1, 0, N'超级管理员', SYSDATETIME()),

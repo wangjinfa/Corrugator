@@ -1,6 +1,6 @@
 namespace Corrugator.Shared.Contracts.System;
 
-/// <summary>用户（S_Users，密码不下发）</summary>
+/// <summary>用户（W_Users，密码不下发）</summary>
 public class SystemUserDto
 {
     public int SuId { get; set; }
@@ -38,7 +38,7 @@ public class UserSaveRequest
     public List<int> RoleIds { get; set; } = new();
 }
 
-/// <summary>角色（S_Roles）</summary>
+/// <summary>角色（W_Roles）</summary>
 public class SystemRoleDto
 {
     public int RoleId { get; set; }
@@ -73,7 +73,7 @@ public class RolePermissionsDto
     public List<int> PermissionIds { get; set; } = new();
 }
 
-/// <summary>功能/菜单权限（S_Permissions）</summary>
+/// <summary>功能/菜单权限（W_Permissions）</summary>
 public class SystemPermissionDto
 {
     public int PermissionId { get; set; }
@@ -94,7 +94,7 @@ public class SystemPermissionDto
     public bool IsSelected { get; set; }
 }
 
-/// <summary>菜单树节点（只含 SP_Type = 菜单）</summary>
+/// <summary>菜单树节点（只含 WSP_Type = 菜单）</summary>
 public class PermissionNodeDto
 {
     public int Id { get; set; }

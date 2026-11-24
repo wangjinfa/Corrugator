@@ -1,26 +1,26 @@
-/* 订单颜色设置 TB_Order_ColorSet
+/* 订单颜色设置 W_Order_ColorSet
    基础信息 → 订单颜色设置。图形化控制页工单彩条按条件匹配，优先级数字越小越优先。 */
 
-IF OBJECT_ID(N'dbo.TB_Order_ColorSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Order_ColorSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Order_ColorSet] (
-    [F_Condition] nvarchar(50) NOT NULL,
-    [F_Priority]  int          NOT NULL,
-    [F_BackColor] nvarchar(20) NULL,
-    [F_FontColor] nvarchar(20) NULL,
-    [F_IsUse]     bit          NULL,
-    [F_Editor]    nvarchar(50) NULL,
-    [F_EditTime]  datetime2    NULL,
-    [F_ID]        bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Order_ColorSet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Order_ColorSet] (
+    [WF_Condition] nvarchar(50) NOT NULL,
+    [WF_Priority]  int          NOT NULL,
+    [WF_BackColor] nvarchar(20) NULL,
+    [WF_FontColor] nvarchar(20) NULL,
+    [WF_IsUse]     bit          NULL,
+    [WF_Editor]    nvarchar(50) NULL,
+    [WF_EditTime]  datetime2    NULL,
+    [WF_ID]        bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Order_ColorSet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 样例（与现场截图一致） */
-IF NOT EXISTS (SELECT 1 FROM dbo.[TB_Order_ColorSet])
+IF NOT EXISTS (SELECT 1 FROM dbo.[W_Order_ColorSet])
 BEGIN
-INSERT INTO dbo.[TB_Order_ColorSet] ([F_Condition],[F_Priority],[F_BackColor],[F_FontColor],[F_IsUse],[F_EditTime]) VALUES
+INSERT INTO dbo.[W_Order_ColorSet] ([WF_Condition],[WF_Priority],[WF_BackColor],[WF_FontColor],[WF_IsUse],[WF_EditTime]) VALUES
  (N'首笔订单',   1, N'#0000FF', N'',       1, SYSDATETIME()),
  (N'前3笔订单',  2, N'#F7941E', N'',       1, SYSDATETIME()),
  (N'插单',       3, N'#FFFF99', N'#000000', 1, SYSDATETIME()),

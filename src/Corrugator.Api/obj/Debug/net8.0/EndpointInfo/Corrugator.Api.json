@@ -5484,32 +5484,32 @@
       "DictDataDto": {
         "type": "object",
         "properties": {
-          "PD_ID": {
+          "WPD_ID": {
             "type": "integer",
             "format": "int32"
           },
-          "PD_TypeID": {
+          "WPD_TypeID": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "PD_Property": {
+          "WPD_Property": {
             "type": "string",
             "nullable": true
           },
-          "PD_EnglishName": {
+          "WPD_EnglishName": {
             "type": "string",
             "nullable": true
           },
-          "PD_Value": {
+          "WPD_Value": {
             "type": "string",
             "nullable": true
           },
-          "PD_ChineseName": {
+          "WPD_ChineseName": {
             "type": "string",
             "nullable": true
           },
-          "PD_SortNo": {
+          "WPD_SortNo": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -5518,20 +5518,20 @@
             "type": "integer",
             "format": "int32"
           },
-          "PD_Creator": {
+          "WPD_Creator": {
             "type": "string",
             "nullable": true
           },
-          "PD_CreateTime": {
+          "WPD_CreateTime": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "PD_Editor": {
+          "WPD_Editor": {
             "type": "string",
             "nullable": true
           },
-          "PD_EditTime": {
+          "WPD_EditTime": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -5596,27 +5596,27 @@
       "DictDataSaveRequest": {
         "type": "object",
         "properties": {
-          "PD_TypeID": {
+          "WPD_TypeID": {
             "type": "integer",
             "format": "int32"
           },
-          "PD_Value": {
+          "WPD_Value": {
             "type": "string",
             "nullable": true
           },
-          "PD_EnglishName": {
+          "WPD_EnglishName": {
             "type": "string",
             "nullable": true
           },
-          "PD_ChineseName": {
+          "WPD_ChineseName": {
             "type": "string",
             "nullable": true
           },
-          "PD_Property": {
+          "WPD_Property": {
             "type": "string",
             "nullable": true
           },
-          "PD_SortNo": {
+          "WPD_SortNo": {
             "type": "integer",
             "format": "int32",
             "nullable": true
@@ -5627,37 +5627,37 @@
       "DictTypeDto": {
         "type": "object",
         "properties": {
-          "PD_ID": {
+          "WPD_ID": {
             "type": "integer",
             "format": "int32"
           },
-          "PD_PID": {
+          "WPD_PID": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "PD_Name": {
+          "WPD_Name": {
             "type": "string",
             "nullable": true
           },
-          "PD_Code": {
+          "WPD_Code": {
             "type": "string",
             "nullable": true
           },
-          "PD_Creator": {
+          "WPD_Creator": {
             "type": "string",
             "nullable": true
           },
-          "PD_CreateTime": {
+          "WPD_CreateTime": {
             "type": "string",
             "format": "date-time",
             "nullable": true
           },
-          "PD_Editor": {
+          "WPD_Editor": {
             "type": "string",
             "nullable": true
           },
-          "PD_EditTime": {
+          "WPD_EditTime": {
             "type": "string",
             "format": "date-time",
             "nullable": true
@@ -5722,16 +5722,16 @@
       "DictTypeSaveRequest": {
         "type": "object",
         "properties": {
-          "PD_PID": {
+          "WPD_PID": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "PD_Name": {
+          "WPD_Name": {
             "type": "string",
             "nullable": true
           },
-          "PD_Code": {
+          "WPD_Code": {
             "type": "string",
             "nullable": true
           }
@@ -8042,94 +8042,94 @@
       "WaveProfileDto": {
         "type": "object",
         "properties": {
-          "SPW_ID": {
+          "WSPW_ID": {
             "type": "integer",
             "format": "int32"
           },
-          "SPW_Width": {
+          "WSPW_Width": {
             "type": "integer",
             "format": "int32"
           },
-          "SPW_Wave": {
+          "WSPW_Wave": {
             "type": "string",
             "nullable": true
           },
-          "SPW_WDeepSF1": {
+          "WSPW_WDeepSF1": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "SPW_WRateSF1": {
+          "WSPW_WRateSF1": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "SPW_WDeepSF2": {
+          "WSPW_WDeepSF2": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "SPW_WRateSF2": {
+          "WSPW_WRateSF2": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "SPW_WDeepSF3": {
+          "WSPW_WDeepSF3": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "SPW_WRateSF3": {
+          "WSPW_WRateSF3": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "SPW_PaperDeep": {
+          "WSPW_PaperDeep": {
             "type": "number",
             "format": "double",
             "nullable": true
           },
-          "SPW_MaxCN": {
+          "WSPW_MaxCN": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_MinCutLength": {
+          "WSPW_MinCutLength": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_MaxCutLength": {
+          "WSPW_MaxCutLength": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_MinEdge": {
+          "WSPW_MinEdge": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_MaxEdge": {
+          "WSPW_MaxEdge": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_SmallScor": {
+          "WSPW_SmallScor": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_SmallScorDepth": {
+          "WSPW_SmallScorDepth": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_FlatScorDepth": {
+          "WSPW_FlatScorDepth": {
             "type": "integer",
             "format": "int32",
             "nullable": true
           },
-          "SPW_ComScorDepth": {
+          "WSPW_ComScorDepth": {
             "type": "integer",
             "format": "int32",
             "nullable": true

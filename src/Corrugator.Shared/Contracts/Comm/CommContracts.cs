@@ -1,6 +1,6 @@
 namespace Corrugator.Shared.Contracts.Comm;
 
-/// <summary>通讯配置（TB_Plc_DriverConfig）</summary>
+/// <summary>通讯配置（W_Plc_DriverConfig）</summary>
 public class CommConfigDto
 {
     public long Id { get; set; }
@@ -29,7 +29,7 @@ public class CommConfigSaveRequest
     public bool IsDelete { get; set; }
 }
 
-/// <summary>通讯设备（TB_Plc_Device）</summary>
+/// <summary>通讯设备（W_Plc_Device）</summary>
 public class CommDeviceDto
 {
     public long Id { get; set; }
@@ -67,7 +67,7 @@ public class CommConfigOption
     public string? Name { get; set; }
 }
 
-/// <summary>通讯点位变量（TB_Plc_PointVar）</summary>
+/// <summary>通讯点位变量（W_Plc_PointVar）</summary>
 public class CommPointDto
 {
     public long Id { get; set; }

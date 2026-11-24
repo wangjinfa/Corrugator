@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj": {}
+    "D:\\Corrugator\\Corrugator\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj": {
+    "D:\\Corrugator\\Corrugator\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj",
+        "projectUniqueName": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj",
         "projectName": "Corrugator.Client",
-        "projectPath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj",
+        "projectPath": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Client.Wpf\\Corrugator.Client.Wpf.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Client.Wpf\\obj\\",
+        "outputPath": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Client.Wpf\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -32,8 +32,8 @@
           "net8.0-windows7.0": {
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Shared\\Corrugator.Shared.csproj": {
-                "projectPath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Shared\\Corrugator.Shared.csproj"
+              "D:\\Corrugator\\Corrugator\\src\\Corrugator.Shared\\Corrugator.Shared.csproj": {
+                "projectPath": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Shared\\Corrugator.Shared.csproj"
               }
             }
           }
@@ -82,14 +82,14 @@
         }
       }
     },
-    "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Shared\\Corrugator.Shared.csproj": {
+    "D:\\Corrugator\\Corrugator\\src\\Corrugator.Shared\\Corrugator.Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Shared\\Corrugator.Shared.csproj",
+        "projectUniqueName": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Shared\\Corrugator.Shared.csproj",
         "projectName": "Corrugator.Shared",
-        "projectPath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Shared\\Corrugator.Shared.csproj",
+        "projectPath": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Shared\\Corrugator.Shared.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Shared\\obj\\",
+        "outputPath": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Shared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

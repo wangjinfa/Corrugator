@@ -9,642 +9,642 @@ SET QUOTED_IDENTIFIER ON;
 GO
 
 /* ERP订单中间表 */
-IF OBJECT_ID(N'dbo.E_Orders', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_E_Orders', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[E_Orders] (
+CREATE TABLE dbo.[W_E_Orders] (
     [WEO_Guid] nvarchar(50) NULL,
-    [EO_IsUrgent] bit NOT NULL,
-    [EO_WorkNo] int NOT NULL,
-    [EO_ClassNo] nvarchar(50) NULL,
-    [EO_PaperCode] nvarchar(50) NOT NULL,
-    [EO_Wave] nvarchar(50) NOT NULL,
-    [EO_Floor] int NOT NULL,
-    [EO_Width] int NOT NULL,
-    [EO_Trim] int NULL,
-    [EO_WidthInch] decimal(18,4) NULL,
-    [EO_Weight] int NULL,
-    [EO_Deep] decimal(18,4) NULL,
-    [EO_Floor1] nvarchar(10) NULL,
-    [EO_Floor1Deep] int NULL,
-    [EO_Floor2] nvarchar(10) NULL,
-    [EO_Floor2Deep] int NULL,
-    [EO_Floor3] nvarchar(10) NULL,
-    [EO_Floor3Deep] int NULL,
-    [EO_Floor4] nvarchar(10) NULL,
-    [EO_Floor4Deep] int NULL,
-    [EO_Floor5] nvarchar(10) NULL,
-    [EO_Floor5Deep] int NULL,
-    [EO_Floor6] nvarchar(10) NULL,
-    [EO_Floor6Deep] int NULL,
-    [EO_Floor7] nvarchar(10) NULL,
-    [EO_Floor7Deep] int NULL,
-    [EO_Send] nvarchar(10) NULL,
-    [EO_Speed] int NULL,
-    [EO_ScheduleMeter] decimal(18,4) NULL,
-    [EO_Stop] bit NOT NULL,
-    [EO_UGoD] bit NOT NULL,
-    [EO_StartTime] datetime2 NULL,
-    [EO_EstFinshTime] datetime2 NULL,
-    [EO_ModCutQty] int NULL,
-    [EO_OrderNo] nvarchar(50) NULL,
-    [EO_CustNo] nvarchar(50) NULL,
-    [EO_TaskNo] nvarchar(50) NULL,
-    [EO_CustName] nvarchar(100) NULL,
-    [EO_CustPaperCode] nvarchar(50) NULL,
-    [EO_CutWidth] int NOT NULL,
-    [EO_CutWidthInch] decimal(18,4) NULL,
-    [EO_CutLength] int NOT NULL,
-    [EO_CutLengthInch] decimal(18,4) NULL,
-    [EO_CutQty] int NOT NULL,
-    [EO_OrderQty] int NULL,
-    [EO_OrderMeter] decimal(18,4) NULL,
-    [EO_OrderNoQty] int NULL,
-    [EO_LabelQty] int NULL,
-    [EO_CN] int NOT NULL,
-    [EO_ScorType] nvarchar(10) NOT NULL,
-    [EO_Scor] nvarchar(100) NULL,
-    [EO_ScorDeep] decimal(18,4) NOT NULL,
-    [EO_Remark] nvarchar(500) NULL,
-    [EO_Stack] bit NOT NULL,
-    [EO_StackQty] int NULL,
-    [EO_BunQty] int NULL,
-    [EO_Bundle] bit NOT NULL,
-    [EO_BundleQty] int NULL,
-    [EO_BundleNum] int NULL,
-    [EO_OrderDate] datetime2 NULL,
-    [EO_DeliDate] datetime2 NULL,
-    [EO_StockMemo] nvarchar(200) NULL,
-    [EO_BoxMemo] nvarchar(200) NULL,
-    [EO_DeliMemo] nvarchar(200) NULL,
-    [EO_PlanMemo] nvarchar(max) NULL,
-    [EO_CutPaperMemo] nvarchar(200) NULL,
-    [EO_Memo] nvarchar(max) NULL,
-    [EO_OrderNo_D] nvarchar(50) NULL,
-    [EO_CustNo_D] nvarchar(50) NULL,
-    [EO_TaskNo_D] nvarchar(50) NULL,
-    [EO_CustName_D] nvarchar(100) NULL,
-    [EO_CustPaperCode_D] nvarchar(50) NULL,
-    [EO_CutWidth_D] int NULL,
-    [EO_CutWidthInch_D] decimal(18,4) NULL,
-    [EO_CutLength_D] int NULL,
-    [EO_CutLengthInch_D] decimal(18,4) NULL,
-    [EO_CutQty_D] int NULL,
-    [EO_OrderQty_D] int NULL,
-    [EO_OrderMeter_D] decimal(18,4) NULL,
-    [EO_OrderNoQty_D] int NULL,
-    [EO_LabelQty_D] int NULL,
-    [EO_CN_D] int NULL,
-    [EO_ScorType_D] nvarchar(10) NULL,
-    [EO_Scor_D] nvarchar(100) NULL,
-    [EO_ScorDeep_D] decimal(18,4) NULL,
-    [EO_Remark_D] nvarchar(500) NULL,
-    [EO_Stack_D] bit NULL,
-    [EO_StackQty_D] int NULL,
-    [EO_BunQty_D] int NULL,
-    [EO_Bundle_D] bit NULL,
-    [EO_BundleQty_D] int NULL,
-    [EO_BundleNum_D] int NULL,
-    [EO_OrderDate_D] datetime2 NULL,
-    [EO_DeliDate_D] datetime2 NULL,
-    [EO_StockMemo_D] nvarchar(200) NULL,
-    [EO_BoxMemo_D] nvarchar(200) NULL,
-    [EO_DeliMemo_D] nvarchar(200) NULL,
-    [EO_PlanMemo_D] nvarchar(max) NULL,
-    [EO_CutPaperMemo_D] nvarchar(200) NULL,
-    [EO_Memo_D] nvarchar(max) NULL,
-    [EO_Status] int NULL,
-    [EO_ErrorMsg] nvarchar(max) NULL,
-    [EO_OperDate] datetime2 NULL,
-    [EO_TrimCode] int NOT NULL,
-    [EO_TOrderNo] nvarchar(50) NULL,
-    [EO_IsDouble] bit NULL,
-    [EO_SortSN] int NULL,
-    [EO_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_E_Orders] PRIMARY KEY CLUSTERED ([EO_ID] ASC)
+    [WEO_IsUrgent] bit NOT NULL,
+    [WEO_WorkNo] int NOT NULL,
+    [WEO_ClassNo] nvarchar(50) NULL,
+    [WEO_PaperCode] nvarchar(50) NOT NULL,
+    [WEO_Wave] nvarchar(50) NOT NULL,
+    [WEO_Floor] int NOT NULL,
+    [WEO_Width] int NOT NULL,
+    [WEO_Trim] int NULL,
+    [WEO_WidthInch] decimal(18,4) NULL,
+    [WEO_Weight] int NULL,
+    [WEO_Deep] decimal(18,4) NULL,
+    [WEO_Floor1] nvarchar(10) NULL,
+    [WEO_Floor1Deep] int NULL,
+    [WEO_Floor2] nvarchar(10) NULL,
+    [WEO_Floor2Deep] int NULL,
+    [WEO_Floor3] nvarchar(10) NULL,
+    [WEO_Floor3Deep] int NULL,
+    [WEO_Floor4] nvarchar(10) NULL,
+    [WEO_Floor4Deep] int NULL,
+    [WEO_Floor5] nvarchar(10) NULL,
+    [WEO_Floor5Deep] int NULL,
+    [WEO_Floor6] nvarchar(10) NULL,
+    [WEO_Floor6Deep] int NULL,
+    [WEO_Floor7] nvarchar(10) NULL,
+    [WEO_Floor7Deep] int NULL,
+    [WEO_Send] nvarchar(10) NULL,
+    [WEO_Speed] int NULL,
+    [WEO_ScheduleMeter] decimal(18,4) NULL,
+    [WEO_Stop] bit NOT NULL,
+    [WEO_UGoD] bit NOT NULL,
+    [WEO_StartTime] datetime2 NULL,
+    [WEO_EstFinshTime] datetime2 NULL,
+    [WEO_ModCutQty] int NULL,
+    [WEO_OrderNo] nvarchar(50) NULL,
+    [WEO_CustNo] nvarchar(50) NULL,
+    [WEO_TaskNo] nvarchar(50) NULL,
+    [WEO_CustName] nvarchar(100) NULL,
+    [WEO_CustPaperCode] nvarchar(50) NULL,
+    [WEO_CutWidth] int NOT NULL,
+    [WEO_CutWidthInch] decimal(18,4) NULL,
+    [WEO_CutLength] int NOT NULL,
+    [WEO_CutLengthInch] decimal(18,4) NULL,
+    [WEO_CutQty] int NOT NULL,
+    [WEO_OrderQty] int NULL,
+    [WEO_OrderMeter] decimal(18,4) NULL,
+    [WEO_OrderNoQty] int NULL,
+    [WEO_LabelQty] int NULL,
+    [WEO_CN] int NOT NULL,
+    [WEO_ScorType] nvarchar(10) NOT NULL,
+    [WEO_Scor] nvarchar(100) NULL,
+    [WEO_ScorDeep] decimal(18,4) NOT NULL,
+    [WEO_Remark] nvarchar(500) NULL,
+    [WEO_Stack] bit NOT NULL,
+    [WEO_StackQty] int NULL,
+    [WEO_BunQty] int NULL,
+    [WEO_Bundle] bit NOT NULL,
+    [WEO_BundleQty] int NULL,
+    [WEO_BundleNum] int NULL,
+    [WEO_OrderDate] datetime2 NULL,
+    [WEO_DeliDate] datetime2 NULL,
+    [WEO_StockMemo] nvarchar(200) NULL,
+    [WEO_BoxMemo] nvarchar(200) NULL,
+    [WEO_DeliMemo] nvarchar(200) NULL,
+    [WEO_PlanMemo] nvarchar(max) NULL,
+    [WEO_CutPaperMemo] nvarchar(200) NULL,
+    [WEO_Memo] nvarchar(max) NULL,
+    [WEO_OrderNo_D] nvarchar(50) NULL,
+    [WEO_CustNo_D] nvarchar(50) NULL,
+    [WEO_TaskNo_D] nvarchar(50) NULL,
+    [WEO_CustName_D] nvarchar(100) NULL,
+    [WEO_CustPaperCode_D] nvarchar(50) NULL,
+    [WEO_CutWidth_D] int NULL,
+    [WEO_CutWidthInch_D] decimal(18,4) NULL,
+    [WEO_CutLength_D] int NULL,
+    [WEO_CutLengthInch_D] decimal(18,4) NULL,
+    [WEO_CutQty_D] int NULL,
+    [WEO_OrderQty_D] int NULL,
+    [WEO_OrderMeter_D] decimal(18,4) NULL,
+    [WEO_OrderNoQty_D] int NULL,
+    [WEO_LabelQty_D] int NULL,
+    [WEO_CN_D] int NULL,
+    [WEO_ScorType_D] nvarchar(10) NULL,
+    [WEO_Scor_D] nvarchar(100) NULL,
+    [WEO_ScorDeep_D] decimal(18,4) NULL,
+    [WEO_Remark_D] nvarchar(500) NULL,
+    [WEO_Stack_D] bit NULL,
+    [WEO_StackQty_D] int NULL,
+    [WEO_BunQty_D] int NULL,
+    [WEO_Bundle_D] bit NULL,
+    [WEO_BundleQty_D] int NULL,
+    [WEO_BundleNum_D] int NULL,
+    [WEO_OrderDate_D] datetime2 NULL,
+    [WEO_DeliDate_D] datetime2 NULL,
+    [WEO_StockMemo_D] nvarchar(200) NULL,
+    [WEO_BoxMemo_D] nvarchar(200) NULL,
+    [WEO_DeliMemo_D] nvarchar(200) NULL,
+    [WEO_PlanMemo_D] nvarchar(max) NULL,
+    [WEO_CutPaperMemo_D] nvarchar(200) NULL,
+    [WEO_Memo_D] nvarchar(max) NULL,
+    [WEO_Status] int NULL,
+    [WEO_ErrorMsg] nvarchar(max) NULL,
+    [WEO_OperDate] datetime2 NULL,
+    [WEO_TrimCode] int NOT NULL,
+    [WEO_TOrderNo] nvarchar(50) NULL,
+    [WEO_IsDouble] bit NULL,
+    [WEO_SortSN] int NULL,
+    [WEO_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_E_Orders] PRIMARY KEY CLUSTERED ([WEO_ID] ASC)
 );
 END
 GO
 
 /* 订单修改日志表 */
-IF OBJECT_ID(N'dbo.L_OrderLogs', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_OrderLogs', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[L_OrderLogs] (
+CREATE TABLE dbo.[W_OrderLogs] (
     [WEO_Guid] nvarchar(50) NULL,
     [WO_ID] int NOT NULL,
-    [LOL_Time] datetime2 NOT NULL,
-    [LOL_UserName] nvarchar(50) NOT NULL,
-    [LOL_MachineIp] nvarchar(50) NOT NULL,
-    [LOL_MachineName] nvarchar(50) NOT NULL,
-    [LOL_Content] nvarchar(100) NOT NULL,
-    [LOL_ClassNo] nvarchar(50) NULL,
-    [LOL_WorkNo] int NOT NULL,
-    [LOL_WorkNo_O] nvarchar(50) NULL,
-    [LOL_PaperCode] nvarchar(50) NOT NULL,
-    [LOL_PaperCode_O] nvarchar(50) NULL,
-    [LOL_Wave] nvarchar(50) NOT NULL,
-    [LOL_Wave_O] nvarchar(50) NULL,
-    [LOL_Width] int NOT NULL,
-    [LOL_Width_O] nvarchar(50) NULL,
-    [LOL_Trim] int NOT NULL,
-    [LOL_Trim_O] nvarchar(50) NULL,
-    [LOL_TrimArea] decimal(18,4) NOT NULL,
-    [LOL_TrimArea_O] nvarchar(50) NULL,
-    [LOL_CustName] nvarchar(50) NOT NULL,
-    [LOL_OrderNo] nvarchar(50) NOT NULL,
-    [LOL_CutWidth] int NOT NULL,
-    [LOL_CutWidth_O] nvarchar(50) NULL,
-    [LOL_CutLength] int NOT NULL,
-    [LOL_CutLength_O] nvarchar(50) NULL,
-    [LOL_CutQty] int NOT NULL,
-    [LOL_CutQty_O] nvarchar(50) NULL,
-    [LOL_CN] int NOT NULL,
-    [LOL_CN_O] nvarchar(50) NULL,
-    [LOL_SheetQty] int NOT NULL,
-    [LOL_SheetQty_O] nvarchar(50) NULL,
-    [LOL_ScorType] nvarchar(10) NOT NULL,
-    [LOL_ScorType_O] nvarchar(10) NULL,
-    [LOL_Scor] nvarchar(100) NOT NULL,
-    [LOL_Scor_O] nvarchar(100) NULL,
-    [LOL_Area] decimal(18,4) NOT NULL,
-    [LOL_Area_O] nvarchar(50) NULL,
-    [LOL_Remark] nvarchar(500) NULL,
-    [LOL_CustName_D] nvarchar(50) NULL,
-    [LOL_OrderNo_D] nvarchar(50) NULL,
-    [LOL_CutWidth_D] int NULL,
-    [LOL_CutWidth_D_O] nvarchar(50) NULL,
-    [LOL_CutLength_D] int NULL,
-    [LOL_CutLength_D_O] nvarchar(50) NULL,
-    [LOL_CutQty_D] int NULL,
-    [LOL_CutQty_D_O] nvarchar(50) NULL,
-    [LOL_CN_D] int NULL,
-    [LOL_CN_D_O] nvarchar(50) NULL,
-    [LOL_SheetQty_D] int NULL,
-    [LOL_SheetQty_D_O] nvarchar(50) NULL,
-    [LOL_ScorType_D] nvarchar(10) NULL,
-    [LOL_ScorType_D_O] nvarchar(10) NULL,
-    [LOL_Scor_D] nvarchar(100) NULL,
-    [LOL_Scor_D_O] nvarchar(100) NULL,
-    [LOL_Area_D] decimal(18,4) NULL,
-    [LOL_Area_D_O] nvarchar(50) NULL,
-    [LOL_Remark_D] nvarchar(500) NULL,
-    [LOL_UpdateReason] nvarchar(500) NULL,
-    [LOL_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_L_OrderLogs] PRIMARY KEY CLUSTERED ([LOL_ID] ASC)
+    [WLOL_Time] datetime2 NOT NULL,
+    [WLOL_UserName] nvarchar(50) NOT NULL,
+    [WLOL_MachineIp] nvarchar(50) NOT NULL,
+    [WLOL_MachineName] nvarchar(50) NOT NULL,
+    [WLOL_Content] nvarchar(100) NOT NULL,
+    [WLOL_ClassNo] nvarchar(50) NULL,
+    [WLOL_WorkNo] int NOT NULL,
+    [WLOL_WorkNo_O] nvarchar(50) NULL,
+    [WLOL_PaperCode] nvarchar(50) NOT NULL,
+    [WLOL_PaperCode_O] nvarchar(50) NULL,
+    [WLOL_Wave] nvarchar(50) NOT NULL,
+    [WLOL_Wave_O] nvarchar(50) NULL,
+    [WLOL_Width] int NOT NULL,
+    [WLOL_Width_O] nvarchar(50) NULL,
+    [WLOL_Trim] int NOT NULL,
+    [WLOL_Trim_O] nvarchar(50) NULL,
+    [WLOL_TrimArea] decimal(18,4) NOT NULL,
+    [WLOL_TrimArea_O] nvarchar(50) NULL,
+    [WLOL_CustName] nvarchar(50) NOT NULL,
+    [WLOL_OrderNo] nvarchar(50) NOT NULL,
+    [WLOL_CutWidth] int NOT NULL,
+    [WLOL_CutWidth_O] nvarchar(50) NULL,
+    [WLOL_CutLength] int NOT NULL,
+    [WLOL_CutLength_O] nvarchar(50) NULL,
+    [WLOL_CutQty] int NOT NULL,
+    [WLOL_CutQty_O] nvarchar(50) NULL,
+    [WLOL_CN] int NOT NULL,
+    [WLOL_CN_O] nvarchar(50) NULL,
+    [WLOL_SheetQty] int NOT NULL,
+    [WLOL_SheetQty_O] nvarchar(50) NULL,
+    [WLOL_ScorType] nvarchar(10) NOT NULL,
+    [WLOL_ScorType_O] nvarchar(10) NULL,
+    [WLOL_Scor] nvarchar(100) NOT NULL,
+    [WLOL_Scor_O] nvarchar(100) NULL,
+    [WLOL_Area] decimal(18,4) NOT NULL,
+    [WLOL_Area_O] nvarchar(50) NULL,
+    [WLOL_Remark] nvarchar(500) NULL,
+    [WLOL_CustName_D] nvarchar(50) NULL,
+    [WLOL_OrderNo_D] nvarchar(50) NULL,
+    [WLOL_CutWidth_D] int NULL,
+    [WLOL_CutWidth_D_O] nvarchar(50) NULL,
+    [WLOL_CutLength_D] int NULL,
+    [WLOL_CutLength_D_O] nvarchar(50) NULL,
+    [WLOL_CutQty_D] int NULL,
+    [WLOL_CutQty_D_O] nvarchar(50) NULL,
+    [WLOL_CN_D] int NULL,
+    [WLOL_CN_D_O] nvarchar(50) NULL,
+    [WLOL_SheetQty_D] int NULL,
+    [WLOL_SheetQty_D_O] nvarchar(50) NULL,
+    [WLOL_ScorType_D] nvarchar(10) NULL,
+    [WLOL_ScorType_D_O] nvarchar(10) NULL,
+    [WLOL_Scor_D] nvarchar(100) NULL,
+    [WLOL_Scor_D_O] nvarchar(100) NULL,
+    [WLOL_Area_D] decimal(18,4) NULL,
+    [WLOL_Area_D_O] nvarchar(50) NULL,
+    [WLOL_Remark_D] nvarchar(500) NULL,
+    [WLOL_UpdateReason] nvarchar(500) NULL,
+    [WLOL_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_OrderLogs] PRIMARY KEY CLUSTERED ([WLOL_ID] ASC)
 );
 END
 GO
 
 /* 系统日志表 */
-IF OBJECT_ID(N'dbo.L_SystemLogs', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_SystemLogs', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[L_SystemLogs] (
-    [LSL_Time] datetime2 NOT NULL,
-    [LSL_UserName] nvarchar(50) NULL,
-    [LSL_MachineIp] nvarchar(50) NULL,
-    [LSL_MachineName] nvarchar(50) NULL,
-    [LSL_SoftwareName] nvarchar(50) NOT NULL,
-    [LSL_Module] nvarchar(50) NOT NULL,
-    [LSL_Content] nvarchar(max) NOT NULL,
-    [LSL_Type] int NOT NULL,
-    [LSL_Order] nvarchar(200) NULL,
-    [LSL_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_L_SystemLogs] PRIMARY KEY CLUSTERED ([LSL_ID] ASC)
+CREATE TABLE dbo.[W_SystemLogs] (
+    [WLSL_Time] datetime2 NOT NULL,
+    [WLSL_UserName] nvarchar(50) NULL,
+    [WLSL_MachineIp] nvarchar(50) NULL,
+    [WLSL_MachineName] nvarchar(50) NULL,
+    [WLSL_SoftwareName] nvarchar(50) NOT NULL,
+    [WLSL_Module] nvarchar(50) NOT NULL,
+    [WLSL_Content] nvarchar(max) NOT NULL,
+    [WLSL_Type] int NOT NULL,
+    [WLSL_Order] nvarchar(200) NULL,
+    [WLSL_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_SystemLogs] PRIMARY KEY CLUSTERED ([WLSL_ID] ASC)
 );
 END
 GO
 
 /* 数据字典明细表 */
-IF OBJECT_ID(N'dbo.P_DictDatas', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_DictDatas', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[P_DictDatas] (
-    [PD_TypeID] int NOT NULL,
-    [PD_Property] nvarchar(50) NULL,
-    [PD_EnglishName] nvarchar(50) NULL,
-    [PD_Value] nvarchar(100) NULL,
-    [PD_SortNo] int NULL,
-    [PD_ChineseName] nvarchar(100) NULL,
-    [PD_Ctreator] nvarchar(20) NOT NULL,
-    [PD_CreateTime] datetime2 NOT NULL,
-    [PD_Editor] nvarchar(20) NULL,
-    [PD_EditTime] datetime2 NULL,
-    [PD_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_P_DictDatas] PRIMARY KEY CLUSTERED ([PD_ID] ASC)
+CREATE TABLE dbo.[W_DictDatas] (
+    [WPD_TypeID] int NOT NULL,
+    [WPD_Property] nvarchar(50) NULL,
+    [WPD_EnglishName] nvarchar(50) NULL,
+    [WPD_Value] nvarchar(100) NULL,
+    [WPD_SortNo] int NULL,
+    [WPD_ChineseName] nvarchar(100) NULL,
+    [WPD_Ctreator] nvarchar(20) NOT NULL,
+    [WPD_CreateTime] datetime2 NOT NULL,
+    [WPD_Editor] nvarchar(20) NULL,
+    [WPD_EditTime] datetime2 NULL,
+    [WPD_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_DictDatas] PRIMARY KEY CLUSTERED ([WPD_ID] ASC)
 );
 END
 GO
 
 /* 数据字典类型表 */
-IF OBJECT_ID(N'dbo.P_DictTypes', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_DictTypes', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[P_DictTypes] (
-    [PD_PID] int NULL,
-    [PD_Name] nvarchar(50) NULL,
-    [PD_Code] nvarchar(50) NULL,
-    [PD_Creator] nvarchar(20) NOT NULL,
-    [PD_CreateTime] datetime2 NOT NULL,
-    [PD_Editor] nvarchar(20) NULL,
-    [PD_EditTime] datetime2 NULL,
-    [PD_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_P_DictTypes] PRIMARY KEY CLUSTERED ([PD_ID] ASC)
+CREATE TABLE dbo.[W_DictTypes] (
+    [WPD_PID] int NULL,
+    [WPD_Name] nvarchar(50) NULL,
+    [WPD_Code] nvarchar(50) NULL,
+    [WPD_Creator] nvarchar(20) NOT NULL,
+    [WPD_CreateTime] datetime2 NOT NULL,
+    [WPD_Editor] nvarchar(20) NULL,
+    [WPD_EditTime] datetime2 NULL,
+    [WPD_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_DictTypes] PRIMARY KEY CLUSTERED ([WPD_ID] ASC)
 );
 END
 GO
 
 /* 预警部位 */
-IF OBJECT_ID(N'dbo.S_AlarmParts', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_AlarmParts', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_AlarmParts] (
-    [SA_Code] nvarchar(20) NOT NULL,
-    [SA_Name] nvarchar(50) NULL,
-    [SA_IPAddress] nvarchar(50) NULL,
-    [SA_PhoneID] nvarchar(max) NULL,
-    [SA_PhoneGroup] nvarchar(100) NULL,
-    [SA_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_AlarmParts] PRIMARY KEY CLUSTERED ([SA_ID] ASC)
+CREATE TABLE dbo.[W_AlarmParts] (
+    [WSA_Code] nvarchar(20) NOT NULL,
+    [WSA_Name] nvarchar(50) NULL,
+    [WSA_IPAddress] nvarchar(50) NULL,
+    [WSA_PhoneID] nvarchar(max) NULL,
+    [WSA_PhoneGroup] nvarchar(100) NULL,
+    [WSA_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_AlarmParts] PRIMARY KEY CLUSTERED ([WSA_ID] ASC)
 );
 END
 GO
 
 /* 预警原因 */
-IF OBJECT_ID(N'dbo.S_AlarmReasons', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_AlarmReasons', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_AlarmReasons] (
-    [SA_Code] nvarchar(20) NOT NULL,
-    [SA_Title] nvarchar(50) NULL,
-    [SA_Content] nvarchar(100) NULL,
-    [SA_SendTimes] int NULL,
-    [SA_IntervalTime] int NULL,
-    [SA_PartCode] nvarchar(20) NULL,
-    [SA_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_AlarmReasons] PRIMARY KEY CLUSTERED ([SA_ID] ASC)
+CREATE TABLE dbo.[W_AlarmReasons] (
+    [WSA_Code] nvarchar(20) NOT NULL,
+    [WSA_Title] nvarchar(50) NULL,
+    [WSA_Content] nvarchar(100) NULL,
+    [WSA_SendTimes] int NULL,
+    [WSA_IntervalTime] int NULL,
+    [WSA_PartCode] nvarchar(20) NULL,
+    [WSA_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_AlarmReasons] PRIMARY KEY CLUSTERED ([WSA_ID] ASC)
 );
 END
 GO
 
 /* 预警复核人 */
-IF OBJECT_ID(N'dbo.S_AlarmReviewers', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_AlarmReviewers', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_AlarmReviewers] (
-    [SA_Name] nvarchar(20) NOT NULL,
-    [SA_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_AlarmReviewers] PRIMARY KEY CLUSTERED ([SA_ID] ASC)
+CREATE TABLE dbo.[W_AlarmReviewers] (
+    [WSA_Name] nvarchar(20) NOT NULL,
+    [WSA_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_AlarmReviewers] PRIMARY KEY CLUSTERED ([WSA_ID] ASC)
 );
 END
 GO
 
 /* 基础楞型组合 */
-IF OBJECT_ID(N'dbo.S_BaseWaveGroup', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_BaseWaveGroup', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_BaseWaveGroup] (
-    [SBG_Wave] nvarchar(50) NOT NULL,
-    [SBG_IsUseDFOuter] bit NULL,
-    [SBG_IsUseSF1Medium] bit NULL,
-    [SBG_IsUseSF1Inside] bit NULL,
-    [SBG_IsUseSF2Medium] bit NULL,
-    [SBG_IsUseSF2Inside] bit NULL,
-    [SBG_IsUseSF3Medium] bit NULL,
-    [SBG_IsUseSF3Inside] bit NULL,
-    [SBG_IsOftenUse] bit NULL,
-    [SBG_Creator] nvarchar(50) NULL,
-    [SBG_CreateTime] datetime2 NULL,
-    [SBG_Editor] nvarchar(50) NULL,
-    [SBG_EditTime] datetime2 NULL,
-    [SBG_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_BaseWaveGroup] PRIMARY KEY CLUSTERED ([SBG_ID] ASC)
+CREATE TABLE dbo.[W_BaseWaveGroup] (
+    [WSBG_Wave] nvarchar(50) NOT NULL,
+    [WSBG_IsUseDFOuter] bit NULL,
+    [WSBG_IsUseSF1Medium] bit NULL,
+    [WSBG_IsUseSF1Inside] bit NULL,
+    [WSBG_IsUseSF2Medium] bit NULL,
+    [WSBG_IsUseSF2Inside] bit NULL,
+    [WSBG_IsUseSF3Medium] bit NULL,
+    [WSBG_IsUseSF3Inside] bit NULL,
+    [WSBG_IsOftenUse] bit NULL,
+    [WSBG_Creator] nvarchar(50) NULL,
+    [WSBG_CreateTime] datetime2 NULL,
+    [WSBG_Editor] nvarchar(50) NULL,
+    [WSBG_EditTime] datetime2 NULL,
+    [WSBG_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_BaseWaveGroup] PRIMARY KEY CLUSTERED ([WSBG_ID] ASC)
 );
 END
 GO
 
 /* 基础楞型表 */
-IF OBJECT_ID(N'dbo.S_BaseWaves', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_BaseWaves', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_BaseWaves] (
-    [SBW_Wave] nvarchar(10) NOT NULL,
-    [SBW_WDeep] decimal(18,4) NOT NULL,
-    [SBW_WRate] decimal(18,4) NOT NULL,
-    [SBW_IsUse] bit NOT NULL,
-    [SBW_Creator] nvarchar(50) NULL,
-    [SBW_CreateTime] datetime2 NULL,
-    [SBW_Editor] nvarchar(50) NULL,
-    [SBW_EditTime] datetime2 NULL,
-    [SBW_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_BaseWaves] PRIMARY KEY CLUSTERED ([SBW_ID] ASC)
+CREATE TABLE dbo.[W_BaseWaves] (
+    [WSBW_Wave] nvarchar(10) NOT NULL,
+    [WSBW_WDeep] decimal(18,4) NOT NULL,
+    [WSBW_WRate] decimal(18,4) NOT NULL,
+    [WSBW_IsUse] bit NOT NULL,
+    [WSBW_Creator] nvarchar(50) NULL,
+    [WSBW_CreateTime] datetime2 NULL,
+    [WSBW_Editor] nvarchar(50) NULL,
+    [WSBW_EditTime] datetime2 NULL,
+    [WSBW_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_BaseWaves] PRIMARY KEY CLUSTERED ([WSBW_ID] ASC)
 );
 END
 GO
 
 /* 班组基础资料设置表 */
-IF OBJECT_ID(N'dbo.S_Classes', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Classes', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_Classes] (
-    [SC_ShiftNum] nvarchar(10) NULL,
-    [SC_Name] nvarchar(50) NOT NULL,
-    [SC_Monitor] nvarchar(50) NULL,
-    [SC_CarHugger1] nvarchar(50) NULL,
-    [SC_CarHugger2] nvarchar(50) NULL,
-    [SC_Creator] nvarchar(50) NOT NULL,
-    [SC_CreateTime] datetime2 NOT NULL,
-    [SC_Editor] nvarchar(50) NULL,
-    [SC_EditTime] datetime2 NULL,
-    [SC_StartTime] nvarchar(50) NULL,
-    [SC_EndTime] nvarchar(50) NULL,
-    [SC_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_Classes] PRIMARY KEY CLUSTERED ([SC_ID] ASC)
+CREATE TABLE dbo.[W_Classes] (
+    [WSC_ShiftNum] nvarchar(10) NULL,
+    [WSC_Name] nvarchar(50) NOT NULL,
+    [WSC_Monitor] nvarchar(50) NULL,
+    [WSC_CarHugger1] nvarchar(50) NULL,
+    [WSC_CarHugger2] nvarchar(50) NULL,
+    [WSC_Creator] nvarchar(50) NOT NULL,
+    [WSC_CreateTime] datetime2 NOT NULL,
+    [WSC_Editor] nvarchar(50) NULL,
+    [WSC_EditTime] datetime2 NULL,
+    [WSC_StartTime] nvarchar(50) NULL,
+    [WSC_EndTime] nvarchar(50) NULL,
+    [WSC_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Classes] PRIMARY KEY CLUSTERED ([WSC_ID] ASC)
 );
 END
 GO
 
 /* 耗材配置界面 */
-IF OBJECT_ID(N'dbo.S_Consumables', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Consumables', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_Consumables] (
-    [SC_ID] int IDENTITY(1,1) NOT NULL,
-    [SC_Number] nvarchar(50) NULL,
-    [SC_Name] nvarchar(50) NULL,
-    [SC_Code] nvarchar(50) NULL,
-    [SC_Type] nvarchar(50) NULL,
-    [SC_Item] nvarchar(50) NULL,
-    [SC_Price] decimal(10,2) NULL,
-    [SC_Property] nvarchar(50) NULL,
-    [SC_ShowPrice] bit NULL,
-    [SC_IsUse] bit NULL,
-    CONSTRAINT [PK_S_Consumables] PRIMARY KEY CLUSTERED ([SC_ID] ASC)
+CREATE TABLE dbo.[W_Consumables] (
+    [WSC_ID] int IDENTITY(1,1) NOT NULL,
+    [WSC_Number] nvarchar(50) NULL,
+    [WSC_Name] nvarchar(50) NULL,
+    [WSC_Code] nvarchar(50) NULL,
+    [WSC_Type] nvarchar(50) NULL,
+    [WSC_Item] nvarchar(50) NULL,
+    [WSC_Price] decimal(10,2) NULL,
+    [WSC_Property] nvarchar(50) NULL,
+    [WSC_ShowPrice] bit NULL,
+    [WSC_IsUse] bit NULL,
+    CONSTRAINT [PK_W_Consumables] PRIMARY KEY CLUSTERED ([WSC_ID] ASC)
 );
 END
 GO
 
 /* 当前班组表 */
-IF OBJECT_ID(N'dbo.S_CurrentShift', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_CurrentShift', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_CurrentShift] (
-    [SCS_ClassId] int NULL,
-    [SCS_P04TID] int NULL,
-    [SCS_ShiftNum] nvarchar(10) NULL,
-    [SCS_Shift] nvarchar(50) NULL,
-    [SCS_LastClassId] int NULL,
-    [SCS_LastP04TID] int NULL,
-    [SCS_LastShiftNum] nvarchar(10) NULL,
-    [SCS_LastShift] nvarchar(50) NULL,
-    [SCS_ChangeTime] datetime2 NULL,
-    [SCS_SF1CurUseFluteSF1] nvarchar(50) NULL,
-    [SCS_SF2CurUseFluteSF2] nvarchar(50) NULL,
-    [SCS_SF3CurUseFluteSF3] nvarchar(50) NULL,
-    [SCS_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_CurrentShift] PRIMARY KEY CLUSTERED ([SCS_Id] ASC)
+CREATE TABLE dbo.[W_CurrentShift] (
+    [WSCS_ClassId] int NULL,
+    [WSCS_P04TID] int NULL,
+    [WSCS_ShiftNum] nvarchar(10) NULL,
+    [WSCS_Shift] nvarchar(50) NULL,
+    [WSCS_LastClassId] int NULL,
+    [WSCS_LastP04TID] int NULL,
+    [WSCS_LastShiftNum] nvarchar(10) NULL,
+    [WSCS_LastShift] nvarchar(50) NULL,
+    [WSCS_ChangeTime] datetime2 NULL,
+    [WSCS_SF1CurUseFluteSF1] nvarchar(50) NULL,
+    [WSCS_SF2CurUseFluteSF2] nvarchar(50) NULL,
+    [WSCS_SF3CurUseFluteSF3] nvarchar(50) NULL,
+    [WSCS_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_CurrentShift] PRIMARY KEY CLUSTERED ([WSCS_Id] ASC)
 );
 END
 GO
 
 /* 切长限速表 */
-IF OBJECT_ID(N'dbo.S_CutSpeeds', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_CutSpeeds', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_CutSpeeds] (
-    [SCS_CutLength] int NOT NULL,
-    [SCS_Speed] int NOT NULL,
-    [SCS_CreateTime] datetime2 NULL,
-    [SCS_Creator] nvarchar(50) NULL,
-    [SCS_EditTime] datetime2 NULL,
-    [SCS_Editor] nvarchar(50) NULL,
-    [SCS_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_CutSpeeds] PRIMARY KEY CLUSTERED ([SCS_ID] ASC)
+CREATE TABLE dbo.[W_CutSpeeds] (
+    [WSCS_CutLength] int NOT NULL,
+    [WSCS_Speed] int NOT NULL,
+    [WSCS_CreateTime] datetime2 NULL,
+    [WSCS_Creator] nvarchar(50) NULL,
+    [WSCS_EditTime] datetime2 NULL,
+    [WSCS_Editor] nvarchar(50) NULL,
+    [WSCS_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_CutSpeeds] PRIMARY KEY CLUSTERED ([WSCS_ID] ASC)
 );
 END
 GO
 
 /* 原纸品牌详情表 */
-IF OBJECT_ID(N'dbo.S_PaperCodeBrands', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_PaperCodeBrands', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_PaperCodeBrands] (
-    [F_Brand] nvarchar(100) NOT NULL,
-    [F_PaperCodeID] int NOT NULL,
-    [F_RatedTension] int NULL,
-    [F_SteamWeight] int NULL,
-    [F_GlueWeight] int NULL,
-    [F_WrapWeight] int NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_LS0Tension] int NOT NULL,
-    [F_MS1Tension] int NULL,
-    [F_LS1Tension] int NULL,
-    [F_MS2Tension] int NULL,
-    [F_LS2Tension] int NULL,
-    [F_MS3Tension] int NULL,
-    [F_LS3Tension] int NULL,
-    CONSTRAINT [PK_S_PaperCodeBrands] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_PaperCodeBrands] (
+    [WF_Brand] nvarchar(100) NOT NULL,
+    [WF_PaperCodeID] int NOT NULL,
+    [WF_RatedTension] int NULL,
+    [WF_SteamWeight] int NULL,
+    [WF_GlueWeight] int NULL,
+    [WF_WrapWeight] int NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_LS0Tension] int NOT NULL,
+    [WF_MS1Tension] int NULL,
+    [WF_LS1Tension] int NULL,
+    [WF_MS2Tension] int NULL,
+    [WF_LS2Tension] int NULL,
+    [WF_MS3Tension] int NULL,
+    [WF_LS3Tension] int NULL,
+    CONSTRAINT [PK_W_PaperCodeBrands] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 原纸基础资料设置表 */
-IF OBJECT_ID(N'dbo.S_PaperCodes', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_PaperCodes', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_PaperCodes] (
-    [SPC_Code] nvarchar(50) NOT NULL,
-    [SPC_ErpCode] nvarchar(50) NULL,
-    [SPC_Weight] int NOT NULL,
-    [SPC_RatedTension] int NULL,
-    [SPC_SteamWeight] int NULL,
-    [SPC_GlueWeight] int NULL,
-    [SPC_WrapWeight] int NULL,
-    [SPC_Deep] decimal(18,4) NOT NULL,
-    [SPC_LS0_TensionFactorLS0] decimal(18,2) NULL,
-    [SPC_MS1_TensionFactorMS1] decimal(18,2) NULL,
-    [SPC_LS1_TensionFactorLS1] decimal(18,2) NULL,
-    [SPC_MS2_TensionFactorMS2] decimal(18,2) NULL,
-    [SPC_LS2_TensionFactorLS2] decimal(18,2) NULL,
-    [SPC_MS3_TensionFactorMS3] decimal(18,2) NULL,
-    [SPC_LS3_TensionFactorLS3] decimal(18,2) NULL,
-    [SPC_LS0_Speed] int NOT NULL,
-    [SPC_MS1_Speed] int NULL,
-    [SPC_LS1_Speed] int NULL,
-    [SPC_MS2_Speed] int NULL,
-    [SPC_LS2_Speed] int NULL,
-    [SPC_MS3_Speed] int NULL,
-    [SPC_LS3_Speed] int NULL,
-    [SPC_Creator] nvarchar(50) NOT NULL,
-    [SPC_CreateTime] datetime2 NOT NULL,
-    [SPC_Editor] nvarchar(50) NULL,
-    [SPC_EditTime] datetime2 NULL,
-    [SPC_ID] int IDENTITY(1,1) NOT NULL,
-    [SPC_LS0_SpeedRemain] int NOT NULL,
-    [SPC_MS1_SpeedRemain] int NULL,
-    [SPC_LS1_SpeedRemain] int NULL,
-    [SPC_MS2_SpeedRemain] int NULL,
-    [SPC_LS2_SpeedRemain] int NULL,
-    [SPC_MS3_SpeedRemain] int NULL,
-    [SPC_LS3_SpeedRemain] int NULL,
-    [SPC_LS0Tension] int NOT NULL,
-    [SPC_MS1Tension] int NULL,
-    [SPC_LS1Tension] int NULL,
-    [SPC_MS2Tension] int NULL,
-    [SPC_LS2Tension] int NULL,
-    [SPC_MS3Tension] int NULL,
-    [SPC_LS3Tension] int NULL,
-    CONSTRAINT [PK_S_PaperCodes] PRIMARY KEY CLUSTERED ([SPC_ID] ASC)
+CREATE TABLE dbo.[W_PaperCodes] (
+    [WSPC_Code] nvarchar(50) NOT NULL,
+    [WSPC_ErpCode] nvarchar(50) NULL,
+    [WSPC_Weight] int NOT NULL,
+    [WSPC_RatedTension] int NULL,
+    [WSPC_SteamWeight] int NULL,
+    [WSPC_GlueWeight] int NULL,
+    [WSPC_WrapWeight] int NULL,
+    [WSPC_Deep] decimal(18,4) NOT NULL,
+    [WSPC_LS0_TensionFactorLS0] decimal(18,2) NULL,
+    [WSPC_MS1_TensionFactorMS1] decimal(18,2) NULL,
+    [WSPC_LS1_TensionFactorLS1] decimal(18,2) NULL,
+    [WSPC_MS2_TensionFactorMS2] decimal(18,2) NULL,
+    [WSPC_LS2_TensionFactorLS2] decimal(18,2) NULL,
+    [WSPC_MS3_TensionFactorMS3] decimal(18,2) NULL,
+    [WSPC_LS3_TensionFactorLS3] decimal(18,2) NULL,
+    [WSPC_LS0_Speed] int NOT NULL,
+    [WSPC_MS1_Speed] int NULL,
+    [WSPC_LS1_Speed] int NULL,
+    [WSPC_MS2_Speed] int NULL,
+    [WSPC_LS2_Speed] int NULL,
+    [WSPC_MS3_Speed] int NULL,
+    [WSPC_LS3_Speed] int NULL,
+    [WSPC_Creator] nvarchar(50) NOT NULL,
+    [WSPC_CreateTime] datetime2 NOT NULL,
+    [WSPC_Editor] nvarchar(50) NULL,
+    [WSPC_EditTime] datetime2 NULL,
+    [WSPC_ID] int IDENTITY(1,1) NOT NULL,
+    [WSPC_LS0_SpeedRemain] int NOT NULL,
+    [WSPC_MS1_SpeedRemain] int NULL,
+    [WSPC_LS1_SpeedRemain] int NULL,
+    [WSPC_MS2_SpeedRemain] int NULL,
+    [WSPC_LS2_SpeedRemain] int NULL,
+    [WSPC_MS3_SpeedRemain] int NULL,
+    [WSPC_LS3_SpeedRemain] int NULL,
+    [WSPC_LS0Tension] int NOT NULL,
+    [WSPC_MS1Tension] int NULL,
+    [WSPC_LS1Tension] int NULL,
+    [WSPC_MS2Tension] int NULL,
+    [WSPC_LS2Tension] int NULL,
+    [WSPC_MS3Tension] int NULL,
+    [WSPC_LS3Tension] int NULL,
+    CONSTRAINT [PK_W_PaperCodes] PRIMARY KEY CLUSTERED ([WSPC_ID] ASC)
 );
 END
 GO
 
 /* 产线错位资料设置表 */
-IF OBJECT_ID(N'dbo.S_ProductBunles', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_ProductBunles', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_ProductBunles] (
-    [SPB_Wave] nvarchar(50) NOT NULL,
-    [SPB_StartSec] decimal(18,4) NOT NULL,
-    [SPB_EndSec] decimal(18,4) NOT NULL,
-    [SPB_CreateTime] datetime2 NOT NULL,
-    [SPB_Creator] nvarchar(50) NOT NULL,
-    [SPB_EditTime] datetime2 NULL,
-    [SPB_Editor] nvarchar(50) NULL,
-    [SPB_BunleQty] int NOT NULL,
-    [SPB_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_ProductBunles] PRIMARY KEY CLUSTERED ([SPB_ID] ASC)
+CREATE TABLE dbo.[W_ProductBunles] (
+    [WSPB_Wave] nvarchar(50) NOT NULL,
+    [WSPB_StartSec] decimal(18,4) NOT NULL,
+    [WSPB_EndSec] decimal(18,4) NOT NULL,
+    [WSPB_CreateTime] datetime2 NOT NULL,
+    [WSPB_Creator] nvarchar(50) NOT NULL,
+    [WSPB_EditTime] datetime2 NULL,
+    [WSPB_Editor] nvarchar(50) NULL,
+    [WSPB_BunleQty] int NOT NULL,
+    [WSPB_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_ProductBunles] PRIMARY KEY CLUSTERED ([WSPB_ID] ASC)
 );
 END
 GO
 
-/* S_ProductTarget */
-IF OBJECT_ID(N'dbo.S_ProductTarget', N'U') IS NULL
+/* W_ProductTarget */
+IF OBJECT_ID(N'dbo.W_ProductTarget', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_ProductTarget] (
-    [SP_ID] int IDENTITY(1,1) NOT NULL,
-    [SP_Number] nvarchar(50) NULL,
-    [SP_Type] nvarchar(50) NULL,
-    [SP_Describe1] nvarchar(50) NULL,
-    [SP_TargetValue1] decimal(18,4) NULL,
-    [SP_Describe2] nvarchar(50) NULL,
-    [SP_TargetValue2] decimal(18,4) NULL,
-    [SP_Property] nvarchar(50) NULL,
-    CONSTRAINT [PK_S_ProductTarget] PRIMARY KEY CLUSTERED ([SP_ID] ASC)
+CREATE TABLE dbo.[W_ProductTarget] (
+    [WSP_ID] int IDENTITY(1,1) NOT NULL,
+    [WSP_Number] nvarchar(50) NULL,
+    [WSP_Type] nvarchar(50) NULL,
+    [WSP_Describe1] nvarchar(50) NULL,
+    [WSP_TargetValue1] decimal(18,4) NULL,
+    [WSP_Describe2] nvarchar(50) NULL,
+    [WSP_TargetValue2] decimal(18,4) NULL,
+    [WSP_Property] nvarchar(50) NULL,
+    CONSTRAINT [PK_W_ProductTarget] PRIMARY KEY CLUSTERED ([WSP_ID] ASC)
 );
 END
 GO
 
 /* 产线楞型基础资料设置表 */
-IF OBJECT_ID(N'dbo.S_ProductWaves', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_ProductWaves', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_ProductWaves] (
-    [SPW_Width] int NOT NULL,
-    [SPW_Wave] nvarchar(50) NOT NULL,
-    [SPW_WDeepSF1] decimal(18,4) NULL,
-    [SPW_WRateSF1] decimal(18,4) NULL,
-    [SPW_WDeepSF2] decimal(18,4) NULL,
-    [SPW_WRateSF2] decimal(18,4) NULL,
-    [SPW_WDeepSF3] decimal(18,4) NULL,
-    [SPW_WRateSF3] decimal(18,4) NULL,
-    [SPW_PaperDeep] decimal(18,4) NOT NULL,
-    [SPW_MaxCN] int NOT NULL,
-    [SPW_MinCutLength] int NOT NULL,
-    [SPW_MaxCutLength] int NOT NULL,
-    [SPW_MinEdge] int NOT NULL,
-    [SPW_MaxEdge] int NOT NULL,
-    [SPW_SmallScor] int NULL,
-    [SPW_SmallScorDepth] int NULL,
-    [SPW_FlatScorDepth] int NULL,
-    [SPW_ComScorDepth] int NULL,
-    [SPW_ProScorDePth] int NULL,
-    [SPW_CreateTime] datetime2 NOT NULL,
-    [SPW_Creator] nvarchar(50) NOT NULL,
-    [SPW_EditTime] datetime2 NULL,
-    [SPW_Editor] nvarchar(50) NULL,
-    [SPW_MaxSpeed] int NULL,
-    [SPW_PaperDeepWeight1] decimal(18,2) NOT NULL,
-    [SPW_PaperDeepWeight2] decimal(18,2) NOT NULL,
-    [SPW_PaperDeepWeight3] decimal(18,2) NOT NULL,
-    [SPW_PaperDeep1] decimal(18,2) NOT NULL,
-    [SPW_PaperDeep2] decimal(18,2) NOT NULL,
-    [SPW_PaperDeep3] decimal(18,2) NOT NULL,
-    [SPW_UpLimite] decimal(18,2) NOT NULL,
-    [SPW_DownLimite] decimal(18,2) NOT NULL,
-    [SPW_CN1] int NOT NULL,
-    [SPW_CN2] int NOT NULL,
-    [SPW_CN3] int NOT NULL,
-    [SPW_StackQty] int NOT NULL,
-    [SPW_StackQty_D] int NOT NULL,
-    [SPW_StackQty2] int NOT NULL,
-    [SPW_StackQty_D2] int NOT NULL,
-    [SPW_StackQty3] int NOT NULL,
-    [SPW_StackQty_D3] int NOT NULL,
+CREATE TABLE dbo.[W_ProductWaves] (
+    [WSPW_Width] int NOT NULL,
+    [WSPW_Wave] nvarchar(50) NOT NULL,
+    [WSPW_WDeepSF1] decimal(18,4) NULL,
+    [WSPW_WRateSF1] decimal(18,4) NULL,
+    [WSPW_WDeepSF2] decimal(18,4) NULL,
+    [WSPW_WRateSF2] decimal(18,4) NULL,
+    [WSPW_WDeepSF3] decimal(18,4) NULL,
+    [WSPW_WRateSF3] decimal(18,4) NULL,
+    [WSPW_PaperDeep] decimal(18,4) NOT NULL,
+    [WSPW_MaxCN] int NOT NULL,
+    [WSPW_MinCutLength] int NOT NULL,
+    [WSPW_MaxCutLength] int NOT NULL,
+    [WSPW_MinEdge] int NOT NULL,
+    [WSPW_MaxEdge] int NOT NULL,
+    [WSPW_SmallScor] int NULL,
+    [WSPW_SmallScorDepth] int NULL,
+    [WSPW_FlatScorDepth] int NULL,
+    [WSPW_ComScorDepth] int NULL,
+    [WSPW_ProScorDePth] int NULL,
+    [WSPW_CreateTime] datetime2 NOT NULL,
+    [WSPW_Creator] nvarchar(50) NOT NULL,
+    [WSPW_EditTime] datetime2 NULL,
+    [WSPW_Editor] nvarchar(50) NULL,
+    [WSPW_MaxSpeed] int NULL,
+    [WSPW_PaperDeepWeight1] decimal(18,2) NOT NULL,
+    [WSPW_PaperDeepWeight2] decimal(18,2) NOT NULL,
+    [WSPW_PaperDeepWeight3] decimal(18,2) NOT NULL,
+    [WSPW_PaperDeep1] decimal(18,2) NOT NULL,
+    [WSPW_PaperDeep2] decimal(18,2) NOT NULL,
+    [WSPW_PaperDeep3] decimal(18,2) NOT NULL,
+    [WSPW_UpLimite] decimal(18,2) NOT NULL,
+    [WSPW_DownLimite] decimal(18,2) NOT NULL,
+    [WSPW_CN1] int NOT NULL,
+    [WSPW_CN2] int NOT NULL,
+    [WSPW_CN3] int NOT NULL,
+    [WSPW_StackQty] int NOT NULL,
+    [WSPW_StackQty_D] int NOT NULL,
+    [WSPW_StackQty2] int NOT NULL,
+    [WSPW_StackQty_D2] int NOT NULL,
+    [WSPW_StackQty3] int NOT NULL,
+    [WSPW_StackQty_D3] int NOT NULL,
     [BundleQty] int NOT NULL,
-    [SPW_Trim] int NULL,
-    [SPW_Wgt1] int NULL,
-    [SPW_Wgt2] int NULL,
-    [SPW_AddDepth1] int NULL,
-    [SPW_AddDepth2] int NULL,
-    [SPW_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_ProductWaves] PRIMARY KEY CLUSTERED ([SPW_ID] ASC)
+    [WSPW_Trim] int NULL,
+    [WSPW_Wgt1] int NULL,
+    [WSPW_Wgt2] int NULL,
+    [WSPW_AddDepth1] int NULL,
+    [WSPW_AddDepth2] int NULL,
+    [WSPW_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_ProductWaves] PRIMARY KEY CLUSTERED ([WSPW_ID] ASC)
 );
 END
 GO
 
 /* 补打原因表 */
-IF OBJECT_ID(N'dbo.S_ReissueReasons', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_ReissueReasons', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_ReissueReasons] (
-    [F_Reason] nvarchar(500) NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_ReissueReasons] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_ReissueReasons] (
+    [WF_Reason] nvarchar(500) NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_ReissueReasons] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 选择楞型 */
-IF OBJECT_ID(N'dbo.S_SelectWave', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_SelectWave', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_SelectWave] (
-    [SSO_ID] int NOT NULL,
-    [SSO_Editor] nvarchar(50) NULL,
-    [SSO_EditTime] datetime2 NULL,
-    [SSW_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_SelectWave] PRIMARY KEY CLUSTERED ([SSW_ID] ASC)
+CREATE TABLE dbo.[W_SelectWave] (
+    [WSSO_ID] int NOT NULL,
+    [WSSO_Editor] nvarchar(50) NULL,
+    [WSSO_EditTime] datetime2 NULL,
+    [WSSW_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_SelectWave] PRIMARY KEY CLUSTERED ([WSSW_ID] ASC)
 );
 END
 GO
 
 /* 楞型配置选项 */
-IF OBJECT_ID(N'dbo.S_SelectWaveOptions', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_SelectWaveOptions', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_SelectWaveOptions] (
-    [SSO_Name] nvarchar(50) NOT NULL,
-    [SSO_Creator] nvarchar(50) NULL,
-    [SSO_CreateTime] datetime2 NULL,
-    [SSO_Editor] nvarchar(50) NULL,
-    [SSO_EditTime] datetime2 NULL,
-    [SSO_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_SelectWaveOptions] PRIMARY KEY CLUSTERED ([SSO_ID] ASC)
+CREATE TABLE dbo.[W_SelectWaveOptions] (
+    [WSSO_Name] nvarchar(50) NOT NULL,
+    [WSSO_Creator] nvarchar(50) NULL,
+    [WSSO_CreateTime] datetime2 NULL,
+    [WSSO_Editor] nvarchar(50) NULL,
+    [WSSO_EditTime] datetime2 NULL,
+    [WSSO_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_SelectWaveOptions] PRIMARY KEY CLUSTERED ([WSSO_ID] ASC)
 );
 END
 GO
 
 /* 楞型配置关系 */
-IF OBJECT_ID(N'dbo.S_SelectWaveRelation', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_SelectWaveRelation', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_SelectWaveRelation] (
-    [SSO_ID] int NOT NULL,
-    [SBG_ID] int NOT NULL,
-    [SSR_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_SelectWaveRelation] PRIMARY KEY CLUSTERED ([SSR_ID] ASC)
+CREATE TABLE dbo.[W_SelectWaveRelation] (
+    [WSSO_ID] int NOT NULL,
+    [WSBG_ID] int NOT NULL,
+    [WSSR_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_SelectWaveRelation] PRIMARY KEY CLUSTERED ([WSSR_ID] ASC)
 );
 END
 GO
 
 /* 瓦楞辊对照表 */
-IF OBJECT_ID(N'dbo.S_WaveComparison', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_WaveComparison', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_WaveComparison] (
+CREATE TABLE dbo.[W_WaveComparison] (
     [Wave] nvarchar(50) NOT NULL,
     [Type] nvarchar(50) NOT NULL,
     [Code] nvarchar(50) NOT NULL,
     [IDExtra] nvarchar(50) NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_WaveComparison] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_WaveComparison] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
 /* 瓦楞辊设置表 */
-IF OBJECT_ID(N'dbo.S_WaveSetting', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_WaveSetting', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[S_WaveSetting] (
+CREATE TABLE dbo.[W_WaveSetting] (
     [Code] nvarchar(50) NOT NULL,
     [Name] nvarchar(50) NOT NULL,
     [Wave] nvarchar(50) NOT NULL,
@@ -652,2539 +652,2539 @@ CREATE TABLE dbo.[S_WaveSetting] (
     [Rate] decimal(18,4) NOT NULL,
     [Position] nvarchar(50) NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_S_WaveSetting] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_WaveSetting] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
-/* TB_BundleSetting */
-IF OBJECT_ID(N'dbo.TB_BundleSetting', N'U') IS NULL
+/* W_BundleSetting */
+IF OBJECT_ID(N'dbo.W_BundleSetting', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_BundleSetting] (
+CREATE TABLE dbo.[W_BundleSetting] (
     [HalfBundleMinWeight] int NOT NULL,
     [HalfBundleMinQty] int NOT NULL,
     [IsUseSplitPaperBundle] bit NOT NULL,
     [MinCutCount] int NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_BundleSetting] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_BundleSetting] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
 /* 订单列表行背景色设置 */
-IF OBJECT_ID(N'dbo.TB_ColorSets', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_ColorSets', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_ColorSets] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Code] nvarchar(255) NOT NULL,
-    [F_Name] nvarchar(255) NOT NULL,
-    [F_BackColor] nvarchar(255) NOT NULL,
-    [F_IsUse] bit NOT NULL,
-    [F_Sort] nvarchar(255) NOT NULL,
-    [F_ForeColor] nvarchar(255) NOT NULL,
-    CONSTRAINT [PK_TB_ColorSets] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_ColorSets] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Code] nvarchar(255) NOT NULL,
+    [WF_Name] nvarchar(255) NOT NULL,
+    [WF_BackColor] nvarchar(255) NOT NULL,
+    [WF_IsUse] bit NOT NULL,
+    [WF_Sort] nvarchar(255) NOT NULL,
+    [WF_ForeColor] nvarchar(255) NOT NULL,
+    CONSTRAINT [PK_W_ColorSets] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_HotPlateSteamGram */
-IF OBJECT_ID(N'dbo.TB_HotPlateSteamGram', N'U') IS NULL
+/* W_HotPlateSteamGram */
+IF OBJECT_ID(N'dbo.W_HotPlateSteamGram', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_HotPlateSteamGram] (
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_MinSteam] int NOT NULL,
-    [F_MaxSteam] int NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_PrPressIncrease] int NULL,
-    [F_Offset_1st] decimal(18,2) NULL,
-    [F_Offset_2nd] decimal(18,2) NULL,
-    [F_Offset_3rd] decimal(18,2) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_HotPlateSteamGram] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_HotPlateSteamGram] (
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_MinSteam] int NOT NULL,
+    [WF_MaxSteam] int NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_PrPressIncrease] int NULL,
+    [WF_Offset_1st] decimal(18,2) NULL,
+    [WF_Offset_2nd] decimal(18,2) NULL,
+    [WF_Offset_3rd] decimal(18,2) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_HotPlateSteamGram] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 报警读写偏差值设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_AlarmRWSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_AlarmRWSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_AlarmRWSet] (
-    [F_Code] nvarchar(50) NOT NULL,
-    [F_Name] nvarchar(50) NOT NULL,
-    [F_OffSet] decimal(18,2) NOT NULL,
-    [F_Interval] int NOT NULL,
-    [F_IsUse] bit NOT NULL,
-    [F_IsSend] bit NOT NULL,
-    [F_IsSave] bit NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_AlarmRWSet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_AlarmRWSet] (
+    [WF_Code] nvarchar(50) NOT NULL,
+    [WF_Name] nvarchar(50) NOT NULL,
+    [WF_OffSet] decimal(18,2) NOT NULL,
+    [WF_Interval] int NOT NULL,
+    [WF_IsUse] bit NOT NULL,
+    [WF_IsSend] bit NOT NULL,
+    [WF_IsSave] bit NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_AlarmRWSet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 自动预警设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_AlarmSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_AlarmSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_AlarmSet] (
-    [F_Code] nvarchar(36) NOT NULL,
-    [F_Name] nvarchar(100) NULL,
-    [F_Desc] nvarchar(max) NULL,
-    [F_AlarmCron] nvarchar(200) NULL,
-    [F_IsUse] bit NOT NULL,
-    [F_IsSend] bit NOT NULL,
-    [F_IsSave] bit NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_AlarmSet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_AlarmSet] (
+    [WF_Code] nvarchar(36) NOT NULL,
+    [WF_Name] nvarchar(100) NULL,
+    [WF_Desc] nvarchar(max) NULL,
+    [WF_AlarmCron] nvarchar(200) NULL,
+    [WF_IsUse] bit NOT NULL,
+    [WF_IsSend] bit NOT NULL,
+    [WF_IsSave] bit NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_AlarmSet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* BHS喷淋基础设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_BHS_Spray', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_BHS_Spray', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_BHS_Spray] (
-    [F_Position] nvarchar(50) NULL,
-    [F_IsUse] bit NULL,
-    [F_Power] int NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_BHS_Spray] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_IPS_BHS_Spray] (
+    [WF_Position] nvarchar(50) NULL,
+    [WF_IsUse] bit NULL,
+    [WF_Power] int NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_BHS_Spray] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 天桥张力设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_BridgeTension', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_BridgeTension', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_BridgeTension] (
-    [F_Position] int NOT NULL,
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_MinValue] int NOT NULL,
-    [F_MaxValue] int NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_BridgeTension] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_BridgeTension] (
+    [WF_Position] int NOT NULL,
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_MinValue] int NOT NULL,
+    [WF_MaxValue] int NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_BridgeTension] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 天桥张力门幅设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_BridgeTensionWidth', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_BridgeTensionWidth', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_BridgeTensionWidth] (
-    [F_Width] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_BridgeTensionWidth] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_BridgeTensionWidth] (
+    [WF_Width] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_BridgeTensionWidth] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_IPS_ChangeMaterialQua */
-IF OBJECT_ID(N'dbo.TB_IPS_ChangeMaterialQua', N'U') IS NULL
+/* W_IPS_ChangeMaterialQua */
+IF OBJECT_ID(N'dbo.W_IPS_ChangeMaterialQua', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_ChangeMaterialQua] (
-    [F_MachinePosition] nvarchar(50) NULL,
-    [F_RealMaterialQua] nvarchar(50) NULL,
-    [F_RealWidth] int NULL,
-    [F_TheoryMaterialQua] nvarchar(50) NULL,
-    [F_TheoryWidth] int NULL,
-    [F_TheoryNextMaterialQua] nvarchar(50) NULL,
-    [F_TheoryNextWidth] int NULL,
-    [F_SF_SameRemainMeter] int NULL,
-    [F_DF_SameRemainMeter] int NULL,
-    [F_IsSameReplaceMaterialQua] bit NULL,
-    [F_IsRelaceMaterialQua] bit NULL,
-    [F_DateTime] datetime2 NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_ChangeMaterialQua] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_ChangeMaterialQua] (
+    [WF_MachinePosition] nvarchar(50) NULL,
+    [WF_RealMaterialQua] nvarchar(50) NULL,
+    [WF_RealWidth] int NULL,
+    [WF_TheoryMaterialQua] nvarchar(50) NULL,
+    [WF_TheoryWidth] int NULL,
+    [WF_TheoryNextMaterialQua] nvarchar(50) NULL,
+    [WF_TheoryNextWidth] int NULL,
+    [WF_SF_SameRemainMeter] int NULL,
+    [WF_DF_SameRemainMeter] int NULL,
+    [WF_IsSameReplaceMaterialQua] bit NULL,
+    [WF_IsRelaceMaterialQua] bit NULL,
+    [WF_DateTime] datetime2 NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_ChangeMaterialQua] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 瓦楞辊压力设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_CorrugatedRollPaperPress', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CorrugatedRollPaperPress', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_CorrugatedRollPaperPress] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_PaperCode] nvarchar(50) NULL,
-    [F_PressValue] decimal(18,2) NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_CorrugatedRollPaperPress] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CorrugatedRollPaperPress] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_PaperCode] nvarchar(50) NULL,
+    [WF_PressValue] decimal(18,2) NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_CorrugatedRollPaperPress] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 瓦楞辊机台系数表 */
-IF OBJECT_ID(N'dbo.TB_IPS_CorrugatedRollSFCoef', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CorrugatedRollSFCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_CorrugatedRollSFCoef] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_SF1Coef] decimal(18,2) NULL,
-    [F_SF2Coef] decimal(18,2) NULL,
-    [F_SF3Coef] decimal(18,2) NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_CorrugatedRollSFCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CorrugatedRollSFCoef] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_SF1Coef] decimal(18,2) NULL,
+    [WF_SF2Coef] decimal(18,2) NULL,
+    [WF_SF3Coef] decimal(18,2) NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_CorrugatedRollSFCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 瓦楞辊门幅系数表 */
-IF OBJECT_ID(N'dbo.TB_IPS_CorrugatedRollWidthCoef', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CorrugatedRollWidthCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_CorrugatedRollWidthCoef] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_CorrugatedRollWidthCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CorrugatedRollWidthCoef] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_CorrugatedRollWidthCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 换愣降速设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_CruiseChangewave', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CruiseChangewave', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_CruiseChangewave] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Flute1] nvarchar(255) NOT NULL,
-    [F_Flute2] nvarchar(255) NOT NULL,
-    [F_PreMeter] int NOT NULL,
-    [F_Speed] int NOT NULL,
-    CONSTRAINT [PK_TB_IPS_CruiseChangewave] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CruiseChangewave] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Flute1] nvarchar(255) NOT NULL,
+    [WF_Flute2] nvarchar(255) NOT NULL,
+    [WF_PreMeter] int NOT NULL,
+    [WF_Speed] int NOT NULL,
+    CONSTRAINT [PK_W_IPS_CruiseChangewave] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 小订单米数对应的巡航车速 */
-IF OBJECT_ID(N'dbo.TB_IPS_CruiseOrderMeterSpeed', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CruiseOrderMeterSpeed', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_CruiseOrderMeterSpeed] (
-    [F_Meter] int NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_CruiseOrderMeterSpeed] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CruiseOrderMeterSpeed] (
+    [WF_Meter] int NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_CruiseOrderMeterSpeed] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 备卷未就绪 剩余米数对应的巡航车速 */
-IF OBJECT_ID(N'dbo.TB_IPS_CuriseRamain', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CuriseRamain', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_CuriseRamain] (
-    [F_Remain] int NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_CuriseRamain] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CuriseRamain] (
+    [WF_Remain] int NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_CuriseRamain] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 糊机糊间隙基础设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_GlueGu', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_GlueGu', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_GlueGu] (
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_Position] int NOT NULL,
-    [F_MinGlue] int NOT NULL,
-    [F_MaxGlue] int NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_GlueGu] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_GlueGu] (
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_Position] int NOT NULL,
+    [WF_MinGlue] int NOT NULL,
+    [WF_MaxGlue] int NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_GlueGu] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 单面机糊间隙设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_GlueSF', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_GlueSF', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_GlueSF] (
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_MinGlue] int NOT NULL,
-    [F_MaxGlue] int NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_GlueSF] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_GlueSF] (
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_MinGlue] int NOT NULL,
+    [WF_MaxGlue] int NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_GlueSF] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 糊间隙车速系数设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_GlueSpeedCoef', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_GlueSpeedCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_GlueSpeedCoef] (
-    [F_Position] int NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_MinValue] int NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_GlueSpeedCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_GlueSpeedCoef] (
+    [WF_Position] int NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_MinValue] int NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_GlueSpeedCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 坑机热喷雾设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_HotSpraySF', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_HotSpraySF', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_HotSpraySF] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_PaperCode] nvarchar(50) NULL,
-    [F_Value] decimal(18,2) NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_HotSpraySF] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_HotSpraySF] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_PaperCode] nvarchar(50) NULL,
+    [WF_Value] decimal(18,2) NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_HotSpraySF] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 三段热板蒸汽设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_HotSteam', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_HotSteam', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_HotSteam] (
-    [F_Flute] nvarchar(100) NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Part1] decimal(18,2) NOT NULL,
-    [F_Part2] decimal(18,2) NOT NULL,
-    [F_Part3] decimal(18,2) NOT NULL,
-    [F_MinValue] decimal(18,2) NOT NULL,
-    [F_MaxValue] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_HotSteam] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_HotSteam] (
+    [WF_Flute] nvarchar(100) NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Part1] decimal(18,2) NOT NULL,
+    [WF_Part2] decimal(18,2) NOT NULL,
+    [WF_Part3] decimal(18,2) NOT NULL,
+    [WF_MinValue] decimal(18,2) NOT NULL,
+    [WF_MaxValue] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_HotSteam] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 三段热板蒸汽车速系数表 */
-IF OBJECT_ID(N'dbo.TB_IPS_HotSteamSpeedCoef', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_HotSteamSpeedCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_HotSteamSpeedCoef] (
-    [F_Speed] int NOT NULL,
-    [F_Coef3] decimal(18,2) NULL,
-    [F_Coef4] decimal(18,2) NULL,
-    [F_Coef5] decimal(18,2) NULL,
-    [F_Coef6] decimal(18,2) NULL,
-    [F_Coef7] decimal(18,2) NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_HotSteamSpeedCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_HotSteamSpeedCoef] (
+    [WF_Speed] int NOT NULL,
+    [WF_Coef3] decimal(18,2) NULL,
+    [WF_Coef4] decimal(18,2) NULL,
+    [WF_Coef5] decimal(18,2) NULL,
+    [WF_Coef6] decimal(18,2) NULL,
+    [WF_Coef7] decimal(18,2) NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_HotSteamSpeedCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_IPS_MaterialQuaForMachine */
-IF OBJECT_ID(N'dbo.TB_IPS_MaterialQuaForMachine', N'U') IS NULL
+/* W_IPS_MaterialQuaForMachine */
+IF OBJECT_ID(N'dbo.W_IPS_MaterialQuaForMachine', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_MaterialQuaForMachine] (
-    [F_P04TID] int NULL,
-    [F_ErpTableId] bigint NOT NULL,
-    [F_MachinePsition] nvarchar(50) NOT NULL,
-    [F_MaterialQua] nvarchar(50) NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_Barcode] nvarchar(100) NOT NULL,
-    [F_StartOrderId] int NOT NULL,
-    [F_EndOrderId] int NULL,
-    [F_GUID] nvarchar(200) NULL,
-    [F_ErpStartRollMeters] int NULL,
-    [F_StartSameMeters] int NULL,
-    [F_EndSameMeters] int NULL,
-    [F_StartRollMeters] int NULL,
-    [F_EndRollMeters] int NULL,
-    [F_StartTime] datetime2 NULL,
-    [F_UpdateTime] datetime2 NULL,
-    [F_EndTime] datetime2 NULL,
-    [F_UseMeters] int NULL,
-    [F_TheoryMaterialQua] nvarchar(50) NULL,
-    [F_TheoryWidth] int NULL,
-    [F_IsSameReplaceMaterialQua] bit NULL,
-    [F_IsRelaceMaterialQua] bit NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_MaterialQuaForMachine] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_MaterialQuaForMachine] (
+    [WF_P04TID] int NULL,
+    [WF_ErpTableId] bigint NOT NULL,
+    [WF_MachinePsition] nvarchar(50) NOT NULL,
+    [WF_MaterialQua] nvarchar(50) NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_Barcode] nvarchar(100) NOT NULL,
+    [WF_StartOrderId] int NOT NULL,
+    [WF_EndOrderId] int NULL,
+    [WF_GUID] nvarchar(200) NULL,
+    [WF_ErpStartRollMeters] int NULL,
+    [WF_StartSameMeters] int NULL,
+    [WF_EndSameMeters] int NULL,
+    [WF_StartRollMeters] int NULL,
+    [WF_EndRollMeters] int NULL,
+    [WF_StartTime] datetime2 NULL,
+    [WF_UpdateTime] datetime2 NULL,
+    [WF_EndTime] datetime2 NULL,
+    [WF_UseMeters] int NULL,
+    [WF_TheoryMaterialQua] nvarchar(50) NULL,
+    [WF_TheoryWidth] int NULL,
+    [WF_IsSameReplaceMaterialQua] bit NULL,
+    [WF_IsRelaceMaterialQua] bit NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_MaterialQuaForMachine] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_IPS_PressRoll */
-IF OBJECT_ID(N'dbo.TB_IPS_PressRoll', N'U') IS NULL
+/* W_IPS_PressRoll */
+IF OBJECT_ID(N'dbo.W_IPS_PressRoll', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_PressRoll] (
-    [F_MinWidth] int NOT NULL,
-    [F_MaxWidth] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_MinPress] decimal(18,2) NOT NULL,
-    [F_MaxPress] decimal(18,2) NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_PressRoll] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_PressRoll] (
+    [WF_MinWidth] int NOT NULL,
+    [WF_MaxWidth] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_MinPress] decimal(18,2) NOT NULL,
+    [WF_MaxPress] decimal(18,2) NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_PressRoll] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_IPS_PressRollCoef */
-IF OBJECT_ID(N'dbo.TB_IPS_PressRollCoef', N'U') IS NULL
+/* W_IPS_PressRollCoef */
+IF OBJECT_ID(N'dbo.W_IPS_PressRollCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_PressRollCoef] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_CoefSF1] decimal(18,2) NOT NULL,
-    [F_CoefSF2] decimal(18,2) NOT NULL,
-    [F_CoefSF3] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_PressRollCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_PressRollCoef] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_CoefSF1] decimal(18,2) NOT NULL,
+    [WF_CoefSF2] decimal(18,2) NOT NULL,
+    [WF_CoefSF3] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_PressRollCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_IPS_PressRollSpeedCoef */
-IF OBJECT_ID(N'dbo.TB_IPS_PressRollSpeedCoef', N'U') IS NULL
+/* W_IPS_PressRollSpeedCoef */
+IF OBJECT_ID(N'dbo.W_IPS_PressRollSpeedCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_PressRollSpeedCoef] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Machine] nvarchar(255) NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_Coef] decimal(18,4) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_PressRollSpeedCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_PressRollSpeedCoef] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Machine] nvarchar(255) NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_Coef] decimal(18,4) NOT NULL,
+    CONSTRAINT [PK_W_IPS_PressRollSpeedCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_IPS_PressRollWidth_MP */
-IF OBJECT_ID(N'dbo.TB_IPS_PressRollWidth_MP', N'U') IS NULL
+/* W_IPS_PressRollWidth_MP */
+IF OBJECT_ID(N'dbo.W_IPS_PressRollWidth_MP', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_PressRollWidth_MP] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_Flute] nvarchar(255) NOT NULL,
-    [F_Coef] decimal(18,4) NOT NULL,
-    [F_Machine] nvarchar(255) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_PressRollWidth_MP] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_PressRollWidth_MP] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_Flute] nvarchar(255) NOT NULL,
+    [WF_Coef] decimal(18,4) NOT NULL,
+    [WF_Machine] nvarchar(255) NOT NULL,
+    CONSTRAINT [PK_W_IPS_PressRollWidth_MP] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_IPS_PressRoll_MP */
-IF OBJECT_ID(N'dbo.TB_IPS_PressRoll_MP', N'U') IS NULL
+/* W_IPS_PressRoll_MP */
+IF OBJECT_ID(N'dbo.W_IPS_PressRoll_MP', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_PressRoll_MP] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Machine] nvarchar(255) NOT NULL,
-    [F_Flute] nvarchar(255) NOT NULL,
-    [F_WgtMin] decimal(18,4) NOT NULL,
-    [F_WgtMax] decimal(18,4) NOT NULL,
-    [F_ValueMin] decimal(18,4) NOT NULL,
-    [F_ValueMax] decimal(18,4) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_PressRoll_MP] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_PressRoll_MP] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Machine] nvarchar(255) NOT NULL,
+    [WF_Flute] nvarchar(255) NOT NULL,
+    [WF_WgtMin] decimal(18,4) NOT NULL,
+    [WF_WgtMax] decimal(18,4) NOT NULL,
+    [WF_ValueMin] decimal(18,4) NOT NULL,
+    [WF_ValueMax] decimal(18,4) NOT NULL,
+    CONSTRAINT [PK_W_IPS_PressRoll_MP] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 压力辊QDM系数表 */
-IF OBJECT_ID(N'dbo.TB_IPS_QDMPressRollCoef', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_QDMPressRollCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_QDMPressRollCoef] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_QdmID] int NOT NULL,
-    [F_CoefSF1] decimal(18,2) NOT NULL,
-    [F_CoefSF2] decimal(18,2) NOT NULL,
-    [F_CoefSF3] decimal(18,2) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_QDMPressRollCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_QDMPressRollCoef] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_QdmID] int NOT NULL,
+    [WF_CoefSF1] decimal(18,2) NOT NULL,
+    [WF_CoefSF2] decimal(18,2) NOT NULL,
+    [WF_CoefSF3] decimal(18,2) NOT NULL,
+    CONSTRAINT [PK_W_IPS_QDMPressRollCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 双面机糊机QDM系数 */
-IF OBJECT_ID(N'dbo.TB_IPS_QdmCoefDF', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_QdmCoefDF', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_QdmCoefDF] (
-    [F_Paper] nvarchar(100) NOT NULL,
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_Glue1] decimal(18,2) NOT NULL,
-    [F_Glue2] decimal(18,2) NOT NULL,
-    [F_Glue3] decimal(18,2) NOT NULL,
-    [F_Wrap0] decimal(18,2) NOT NULL,
-    [F_Wrap1] decimal(18,2) NOT NULL,
-    [F_Wrap2] decimal(18,2) NOT NULL,
-    [F_Wrap3] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam0] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam1] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam2] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam3] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam1] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam2] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam3] decimal(18,2) NOT NULL,
-    [F_HotLoadGroupQty] decimal(18,2) NOT NULL,
-    [F_HotPlatePress] decimal(18,2) NOT NULL,
-    [F_ColdPlatePress] decimal(18,2) NOT NULL,
-    [F_SplicerTensionLS0] decimal(18,2) NOT NULL,
-    [F_BridgeTension1] decimal(18,2) NOT NULL,
-    [F_BridgeTension2] decimal(18,2) NOT NULL,
-    [F_BridgeTension3] decimal(18,2) NOT NULL,
-    [F_Spray0] decimal(18,2) NOT NULL,
-    [F_Spray1] decimal(18,2) NOT NULL,
-    [F_Spray2] decimal(18,2) NOT NULL,
-    [F_Spray3] decimal(18,2) NOT NULL,
-    [F_CruiseSpeed] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_QdmCoefDF] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_QdmCoefDF] (
+    [WF_Paper] nvarchar(100) NOT NULL,
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_Glue1] decimal(18,2) NOT NULL,
+    [WF_Glue2] decimal(18,2) NOT NULL,
+    [WF_Glue3] decimal(18,2) NOT NULL,
+    [WF_Wrap0] decimal(18,2) NOT NULL,
+    [WF_Wrap1] decimal(18,2) NOT NULL,
+    [WF_Wrap2] decimal(18,2) NOT NULL,
+    [WF_Wrap3] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam0] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam1] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam2] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam3] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam1] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam2] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam3] decimal(18,2) NOT NULL,
+    [WF_HotLoadGroupQty] decimal(18,2) NOT NULL,
+    [WF_HotPlatePress] decimal(18,2) NOT NULL,
+    [WF_ColdPlatePress] decimal(18,2) NOT NULL,
+    [WF_SplicerTensionLS0] decimal(18,2) NOT NULL,
+    [WF_BridgeTension1] decimal(18,2) NOT NULL,
+    [WF_BridgeTension2] decimal(18,2) NOT NULL,
+    [WF_BridgeTension3] decimal(18,2) NOT NULL,
+    [WF_Spray0] decimal(18,2) NOT NULL,
+    [WF_Spray1] decimal(18,2) NOT NULL,
+    [WF_Spray2] decimal(18,2) NOT NULL,
+    [WF_Spray3] decimal(18,2) NOT NULL,
+    [WF_CruiseSpeed] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_QdmCoefDF] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 单面机QDM系数 */
-IF OBJECT_ID(N'dbo.TB_IPS_QdmCoefSF', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_QdmCoefSF', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_QdmCoefSF] (
-    [F_MS] nvarchar(10) NOT NULL,
-    [F_LS] nvarchar(10) NOT NULL,
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_Glue] decimal(18,2) NOT NULL,
-    [F_WrapMS] decimal(18,2) NOT NULL,
-    [F_WrapLS] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam] decimal(18,2) NOT NULL,
-    [F_PressRoll] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll] decimal(18,2) NOT NULL,
-    [F_SplicerTensionMS] decimal(18,2) NOT NULL,
-    [F_SplicerTensionLS] decimal(18,2) NOT NULL,
-    [F_VacuumBlower] decimal(18,2) NOT NULL,
-    [F_Spray] decimal(18,2) NOT NULL,
-    [F_CruiseSpeed] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_QdmCoefSF] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_QdmCoefSF] (
+    [WF_MS] nvarchar(10) NOT NULL,
+    [WF_LS] nvarchar(10) NOT NULL,
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_Glue] decimal(18,2) NOT NULL,
+    [WF_WrapMS] decimal(18,2) NOT NULL,
+    [WF_WrapLS] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam] decimal(18,2) NOT NULL,
+    [WF_PressRoll] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll] decimal(18,2) NOT NULL,
+    [WF_SplicerTensionMS] decimal(18,2) NOT NULL,
+    [WF_SplicerTensionLS] decimal(18,2) NOT NULL,
+    [WF_VacuumBlower] decimal(18,2) NOT NULL,
+    [WF_Spray] decimal(18,2) NOT NULL,
+    [WF_CruiseSpeed] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_QdmCoefSF] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* IPS控制模块显示/隐藏设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_VisibleSets', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_VisibleSets', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_VisibleSets] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Code] nvarchar(255) NOT NULL,
-    [F_Name] nvarchar(255) NOT NULL,
-    [F_IsShow] bit NOT NULL,
-    CONSTRAINT [PK_TB_IPS_VisibleSets] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_VisibleSets] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Code] nvarchar(255) NOT NULL,
+    [WF_Name] nvarchar(255) NOT NULL,
+    [WF_IsShow] bit NOT NULL,
+    CONSTRAINT [PK_W_IPS_VisibleSets] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 弯翘设备检测信息表 */
-IF OBJECT_ID(N'dbo.TB_IPS_WarpInspect', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WarpInspect', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WarpInspect] (
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    [F_WarpState] nvarchar(100) NULL,
-    [F_WarpDegree] decimal(18,4) NULL,
-    [F_CreateTime] datetime2 NULL,
-    CONSTRAINT [PK_TB_IPS_WarpInspect] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_IPS_WarpInspect] (
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    [WF_WarpState] nvarchar(100) NULL,
+    [WF_WarpDegree] decimal(18,4) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    CONSTRAINT [PK_W_IPS_WarpInspect] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 弯翘调平设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_WarpSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WarpSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WarpSet] (
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    [F_Position] int NOT NULL,
-    [F_ThreeUp1] decimal(18,4) NULL,
-    [F_ThreeUp2] decimal(18,4) NULL,
-    [F_ThreeUp3] decimal(18,4) NULL,
-    [F_ThreeDown1] decimal(18,4) NULL,
-    [F_ThreeDown2] decimal(18,4) NULL,
-    [F_ThreeDown3] decimal(18,4) NULL,
-    [F_FourUp1] decimal(18,4) NULL,
-    [F_FourUp2] decimal(18,4) NULL,
-    [F_FourUp3] decimal(18,4) NULL,
-    [F_FourDown1] decimal(18,4) NULL,
-    [F_FourDown2] decimal(18,4) NULL,
-    [F_FourDown3] decimal(18,4) NULL,
-    [F_FiveUp1] decimal(18,4) NULL,
-    [F_FiveUp2] decimal(18,4) NULL,
-    [F_FiveUp3] decimal(18,4) NULL,
-    [F_FiveDown1] decimal(18,4) NULL,
-    [F_FiveDown2] decimal(18,4) NULL,
-    [F_FiveDown3] decimal(18,4) NULL,
-    [F_SixUp1] decimal(18,4) NULL,
-    [F_SixUp2] decimal(18,4) NULL,
-    [F_SixUp3] decimal(18,4) NULL,
-    [F_SixDown1] decimal(18,4) NULL,
-    [F_SixDown2] decimal(18,4) NULL,
-    [F_SixDown3] decimal(18,4) NULL,
-    [F_SevenUp1] decimal(18,4) NULL,
-    [F_SevenUp2] decimal(18,4) NULL,
-    [F_SevenUp3] decimal(18,4) NULL,
-    [F_SevenDown1] decimal(18,4) NULL,
-    [F_SevenDown2] decimal(18,4) NULL,
-    [F_SevenDown3] decimal(18,4) NULL,
-    CONSTRAINT [PK_TB_IPS_WarpSet] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_IPS_WarpSet] (
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    [WF_Position] int NOT NULL,
+    [WF_ThreeUp1] decimal(18,4) NULL,
+    [WF_ThreeUp2] decimal(18,4) NULL,
+    [WF_ThreeUp3] decimal(18,4) NULL,
+    [WF_ThreeDown1] decimal(18,4) NULL,
+    [WF_ThreeDown2] decimal(18,4) NULL,
+    [WF_ThreeDown3] decimal(18,4) NULL,
+    [WF_FourUp1] decimal(18,4) NULL,
+    [WF_FourUp2] decimal(18,4) NULL,
+    [WF_FourUp3] decimal(18,4) NULL,
+    [WF_FourDown1] decimal(18,4) NULL,
+    [WF_FourDown2] decimal(18,4) NULL,
+    [WF_FourDown3] decimal(18,4) NULL,
+    [WF_FiveUp1] decimal(18,4) NULL,
+    [WF_FiveUp2] decimal(18,4) NULL,
+    [WF_FiveUp3] decimal(18,4) NULL,
+    [WF_FiveDown1] decimal(18,4) NULL,
+    [WF_FiveDown2] decimal(18,4) NULL,
+    [WF_FiveDown3] decimal(18,4) NULL,
+    [WF_SixUp1] decimal(18,4) NULL,
+    [WF_SixUp2] decimal(18,4) NULL,
+    [WF_SixUp3] decimal(18,4) NULL,
+    [WF_SixDown1] decimal(18,4) NULL,
+    [WF_SixDown2] decimal(18,4) NULL,
+    [WF_SixDown3] decimal(18,4) NULL,
+    [WF_SevenUp1] decimal(18,4) NULL,
+    [WF_SevenUp2] decimal(18,4) NULL,
+    [WF_SevenUp3] decimal(18,4) NULL,
+    [WF_SevenDown1] decimal(18,4) NULL,
+    [WF_SevenDown2] decimal(18,4) NULL,
+    [WF_SevenDown3] decimal(18,4) NULL,
+    CONSTRAINT [PK_W_IPS_WarpSet] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 糊机烘缸包角设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapGU', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapGU', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapGU] (
-    [F_Position] int NOT NULL,
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_MinWrap] int NOT NULL,
-    [F_MaxWrap] int NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapGU] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapGU] (
+    [WF_Position] int NOT NULL,
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_MinWrap] int NOT NULL,
+    [WF_MaxWrap] int NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapGU] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 包角基础设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapOfMP', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapOfMP', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapOfMP] (
-    [F_Flag] int NOT NULL,
-    [F_Position] int NOT NULL,
-    [F_MinWrap] int NOT NULL,
-    [F_MaxWrap] int NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Flute] nvarchar(50) NULL,
-    [F_Coef] decimal(18,2) NULL,
-    [F_AdustRange] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapOfMP] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapOfMP] (
+    [WF_Flag] int NOT NULL,
+    [WF_Position] int NOT NULL,
+    [WF_MinWrap] int NOT NULL,
+    [WF_MaxWrap] int NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_Coef] decimal(18,2) NULL,
+    [WF_AdustRange] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapOfMP] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 单面机烘缸包角设置 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapSF', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapSF', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapSF] (
-    [F_Position] nvarchar(10) NOT NULL,
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_MinWrap] int NOT NULL,
-    [F_MaxWrap] int NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapSF] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapSF] (
+    [WF_Position] nvarchar(10) NOT NULL,
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_MinWrap] int NOT NULL,
+    [WF_MaxWrap] int NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapSF] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 车速修正 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapSpeedOfMP', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapSpeedOfMP', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapSpeedOfMP] (
-    [F_Flag] int NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_Value] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapSpeedOfMP] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapSpeedOfMP] (
+    [WF_Flag] int NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_Value] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapSpeedOfMP] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 糊机烘缸蒸汽设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapSteamHPH', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapSteamHPH', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapSteamHPH] (
-    [F_Flute] nvarchar(100) NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_GU0] decimal(18,2) NULL,
-    [F_GU1] decimal(18,2) NULL,
-    [F_GU2] decimal(18,2) NULL,
-    [F_GU3] decimal(18,2) NULL,
-    [F_GUAdd1] decimal(18,2) NULL,
-    [F_GUAdd2] decimal(18,2) NULL,
-    [F_GUAdd3] decimal(18,2) NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapSteamHPH] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapSteamHPH] (
+    [WF_Flute] nvarchar(100) NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_GU0] decimal(18,2) NULL,
+    [WF_GU1] decimal(18,2) NULL,
+    [WF_GU2] decimal(18,2) NULL,
+    [WF_GU3] decimal(18,2) NULL,
+    [WF_GUAdd1] decimal(18,2) NULL,
+    [WF_GUAdd2] decimal(18,2) NULL,
+    [WF_GUAdd3] decimal(18,2) NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapSteamHPH] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 单面机烘缸蒸汽设置表 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapSteamSF', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapSteamSF', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapSteamSF] (
-    [F_Flute] nvarchar(100) NOT NULL,
-    [F_MinWeight] int NOT NULL,
-    [F_MaxWeight] int NOT NULL,
-    [F_Value] decimal(18,2) NOT NULL,
-    [F_MinValue] decimal(18,2) NOT NULL,
-    [F_MaxValue] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapSteamSF] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapSteamSF] (
+    [WF_Flute] nvarchar(100) NOT NULL,
+    [WF_MinWeight] int NOT NULL,
+    [WF_MaxWeight] int NOT NULL,
+    [WF_Value] decimal(18,2) NOT NULL,
+    [WF_MinValue] decimal(18,2) NOT NULL,
+    [WF_MaxValue] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapSteamSF] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 单面机烘缸蒸汽车速系数表 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapSteamSFSpeedCoef', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapSteamSFSpeedCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapSteamSFSpeedCoef] (
-    [F_Speed] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapSteamSFSpeedCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapSteamSFSpeedCoef] (
+    [WF_Speed] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapSteamSFSpeedCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 包角克重修正表 */
-IF OBJECT_ID(N'dbo.TB_IPS_WrapWeightOfMP', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_WrapWeightOfMP', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_IPS_WrapWeightOfMP] (
-    [F_Flag] int NOT NULL,
-    [F_Weight] int NOT NULL,
-    [F_Value] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_IPS_WrapWeightOfMP] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_WrapWeightOfMP] (
+    [WF_Flag] int NOT NULL,
+    [WF_Weight] int NOT NULL,
+    [WF_Value] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_WrapWeightOfMP] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 订单生产路线分配设置表 */
-IF OBJECT_ID(N'dbo.TB_OrderRoute', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_OrderRoute', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_OrderRoute] (
-    [F_OrderNum] int NOT NULL,
-    [F_OrderName] nvarchar(20) NOT NULL,
-    [F_CutoffAllocation] int NOT NULL,
-    [F_OSDS] int NOT NULL,
-    [F_IsDouble] bit NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_OrderRoute] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_OrderRoute] (
+    [WF_OrderNum] int NOT NULL,
+    [WF_OrderName] nvarchar(20) NOT NULL,
+    [WF_CutoffAllocation] int NOT NULL,
+    [WF_OSDS] int NOT NULL,
+    [WF_IsDouble] bit NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_OrderRoute] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 订单扩展字段对应关系表 */
-IF OBJECT_ID(N'dbo.TB_Order_JsonTrans', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Order_JsonTrans', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Order_JsonTrans] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Code] nvarchar(50) NULL,
-    [F_Name] nvarchar(50) NULL,
-    [F_DataType] nvarchar(20) NULL,
-    [F_IsShow] bit NOT NULL,
-    [F_DCode] nvarchar(50) NOT NULL,
-    [F_Sort] int NOT NULL,
-    CONSTRAINT [PK_TB_Order_JsonTrans] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Order_JsonTrans] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Code] nvarchar(50) NULL,
+    [WF_Name] nvarchar(50) NULL,
+    [WF_DataType] nvarchar(20) NULL,
+    [WF_IsShow] bit NOT NULL,
+    [WF_DCode] nvarchar(50) NOT NULL,
+    [WF_Sort] int NOT NULL,
+    CONSTRAINT [PK_W_Order_JsonTrans] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_PMS_CurrentShiftStopMes */
-IF OBJECT_ID(N'dbo.TB_PMS_CurrentShiftStopMes', N'U') IS NULL
+/* W_PMW_CurrentShiftStopMes */
+IF OBJECT_ID(N'dbo.W_PMW_CurrentShiftStopMes', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_PMS_CurrentShiftStopMes] (
-    [F_CurrShiftNum] nvarchar(50) NULL,
-    [F_StopTimesDF] int NULL,
-    [F_StopDateTimeDF] int NULL,
-    [F_CurrP04SIdDF] int NULL,
-    [F_StopTimesSF1] int NULL,
-    [F_StopDateTimeSF1] int NULL,
-    [F_CurrP04SIdSF1] int NULL,
-    [F_StopTimesSF2] int NULL,
-    [F_StopDateTimeSF2] int NULL,
-    [F_CurrP04SIdSF2] int NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_PMS_CurrentShiftStopMes] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_PMW_CurrentShiftStopMes] (
+    [WF_CurrShiftNum] nvarchar(50) NULL,
+    [WF_StopTimesDF] int NULL,
+    [WF_StopDateTimeDF] int NULL,
+    [WF_CurrP04SIdDF] int NULL,
+    [WF_StopTimesSF1] int NULL,
+    [WF_StopDateTimeSF1] int NULL,
+    [WF_CurrP04SIdSF1] int NULL,
+    [WF_StopTimesSF2] int NULL,
+    [WF_StopDateTimeSF2] int NULL,
+    [WF_CurrP04SIdSF2] int NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_PMW_CurrentShiftStopMes] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_PMS_EnergyMaintenance */
-IF OBJECT_ID(N'dbo.TB_PMS_EnergyMaintenance', N'U') IS NULL
+/* W_PMS_EnergyMaintenance */
+IF OBJECT_ID(N'dbo.W_PMS_EnergyMaintenance', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_PMS_EnergyMaintenance] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_P04TID] int NOT NULL,
-    [F_ShiftNum] nvarchar(20) NULL,
-    [F_StartTime] datetime2 NULL,
-    [F_EndTime] datetime2 NULL,
-    [F_Number] nvarchar(50) NULL,
-    [F_Name] nvarchar(50) NULL,
-    [F_StartValue] decimal(18,4) NULL,
-    [F_EndValue] decimal(18,4) NULL,
-    [F_DiffValue] decimal(18,4) NULL,
-    [F_Price] decimal(10,2) NULL,
-    [F_Source] nvarchar(50) NULL,
-    [F_ShowPrice] bit NULL,
-    CONSTRAINT [PK_TB_PMS_EnergyMaintenance] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_PMS_EnergyMaintenance] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_P04TID] int NOT NULL,
+    [WF_ShiftNum] nvarchar(20) NULL,
+    [WF_StartTime] datetime2 NULL,
+    [WF_EndTime] datetime2 NULL,
+    [WF_Number] nvarchar(50) NULL,
+    [WF_Name] nvarchar(50) NULL,
+    [WF_StartValue] decimal(18,4) NULL,
+    [WF_EndValue] decimal(18,4) NULL,
+    [WF_DiffValue] decimal(18,4) NULL,
+    [WF_Price] decimal(10,2) NULL,
+    [WF_Source] nvarchar(50) NULL,
+    [WF_ShowPrice] bit NULL,
+    CONSTRAINT [PK_W_PMS_EnergyMaintenance] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 标签打印设置 */
-IF OBJECT_ID(N'dbo.TB_PMS_LabelPrint', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_PMS_LabelPrint', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_PMS_LabelPrint] (
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_CN] int NOT NULL,
-    [F_CutWidth] int NOT NULL,
-    [F_LabelQty] int NOT NULL,
-    CONSTRAINT [PK_TB_PMS_LabelPrint] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_PMS_LabelPrint] (
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_CN] int NOT NULL,
+    [WF_CutWidth] int NOT NULL,
+    [WF_LabelQty] int NOT NULL,
+    CONSTRAINT [PK_W_PMS_LabelPrint] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_PMS_LineMsg */
-IF OBJECT_ID(N'dbo.TB_PMS_LineMsg', N'U') IS NULL
+/* W_PMS_LineMsg */
+IF OBJECT_ID(N'dbo.W_PMS_LineMsg', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_PMS_LineMsg] (
-    [F_IsRun] bit NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_PMS_LineMsg] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_PMS_LineMsg] (
+    [WF_IsRun] bit NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_PMS_LineMsg] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_PMS_Report_Class */
-IF OBJECT_ID(N'dbo.TB_PMS_Report_Class', N'U') IS NULL
+/* W_PMS_Report_Class */
+IF OBJECT_ID(N'dbo.W_PMS_Report_Class', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_PMS_Report_Class] (
-    [P04T_ID] int NULL,
-    [P04T_ShiftNumber] nvarchar(20) NULL,
-    [P04T_GroupNameShift] nvarchar(20) NULL,
-    [P04T_Year] int NULL,
-    [P04T_Month] int NULL,
-    [P04T_Day] int NULL,
-    [P04T_WeekDay] nvarchar(30) NULL,
-    [P04T_Week] int NULL,
-    [P04T_StartTime] datetime2 NULL,
-    [P04T_EndTime] datetime2 NULL,
-    [P04T_StartYearMontDay] datetime2 NULL,
-    [P04P_StartTime] datetime2 NULL,
-    [P04P_EndTime] datetime2 NULL,
-    [P04T_ProduceTime] decimal(28,2) NULL,
-    [P04T_OrderStopTime] int NULL,
-    [P04T_OrderStopNum] int NULL,
-    [P04T_ScheduleMeter] float NULL,
-    [P04T_ProduceMeter] float NULL,
-    [P04T_BadMeter] float NULL,
-    [P04T_GoodMeter] float NULL,
-    [P04T_ScheduleArea] float NULL,
-    [P04T_ProduceArea] float NULL,
-    [P04T_BadArea] float NULL,
-    [P04T_GoodArea] float NULL,
-    [P04T_ScheduleSheet] bigint NULL,
-    [P04T_ProduceSheet] bigint NULL,
-    [P04T_BadSheet] bigint NULL,
-    [P04T_GoodSheet] bigint NULL,
-    [P04T_AvgSpeed] decimal(28,2) NULL,
-    [P04T_BadPercent] decimal(18,6) NULL,
-    [P04T_TrimArea] float NULL,
-    [P04T_TrimPecent] decimal(18,6) NULL,
-    [P04T_OrderNum] bigint NULL,
-    [P04T_AvgWidth] int NULL,
-    [P04T_AvgMeter] decimal(18,2) NULL,
-    [P04T_PaperCodeNum] int NULL,
-    [P04T_PaperCodeAvgMeter] decimal(18,2) NULL,
-    [P04T_BadOrderNum] int NULL,
-    [P04T_BadMuchNum] int NULL,
-    [P04T_OrderNumUp] bigint NULL,
-    [P04T_OrderNumUp_All] bigint NULL,
-    [P04T_OrderNumDown] bigint NULL,
-    [P04T_CountWidth] float NULL,
-    [P04T_IsEnd] bit NULL,
-    [P04T_AccumulatedSteamFlow] decimal(18,4) NULL,
-    [P04T_AccumulatedElectricity] decimal(18,4) NULL,
-    [P04T_TheoryWeight] decimal(18,4) NULL,
-    [P04T_SteamRate] decimal(18,4) NULL,
-    [P04T_ElectricityRate] decimal(18,4) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_PMS_Report_Class] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_PMS_Report_Class] (
+    [WP04T_ID] int NULL,
+    [WP04T_ShiftNumber] nvarchar(20) NULL,
+    [WP04T_GroupNameShift] nvarchar(20) NULL,
+    [WP04T_Year] int NULL,
+    [WP04T_Month] int NULL,
+    [WP04T_Day] int NULL,
+    [WP04T_WeekDay] nvarchar(30) NULL,
+    [WP04T_Week] int NULL,
+    [WP04T_StartTime] datetime2 NULL,
+    [WP04T_EndTime] datetime2 NULL,
+    [WP04T_StartYearMontDay] datetime2 NULL,
+    [WP04P_StartTime] datetime2 NULL,
+    [WP04P_EndTime] datetime2 NULL,
+    [WP04T_ProduceTime] decimal(28,2) NULL,
+    [WP04T_OrderStopTime] int NULL,
+    [WP04T_OrderStopNum] int NULL,
+    [WP04T_ScheduleMeter] float NULL,
+    [WP04T_ProduceMeter] float NULL,
+    [WP04T_BadMeter] float NULL,
+    [WP04T_GoodMeter] float NULL,
+    [WP04T_ScheduleArea] float NULL,
+    [WP04T_ProduceArea] float NULL,
+    [WP04T_BadArea] float NULL,
+    [WP04T_GoodArea] float NULL,
+    [WP04T_ScheduleSheet] bigint NULL,
+    [WP04T_ProduceSheet] bigint NULL,
+    [WP04T_BadSheet] bigint NULL,
+    [WP04T_GoodSheet] bigint NULL,
+    [WP04T_AvgSpeed] decimal(28,2) NULL,
+    [WP04T_BadPercent] decimal(18,6) NULL,
+    [WP04T_TrimArea] float NULL,
+    [WP04T_TrimPecent] decimal(18,6) NULL,
+    [WP04T_OrderNum] bigint NULL,
+    [WP04T_AvgWidth] int NULL,
+    [WP04T_AvgMeter] decimal(18,2) NULL,
+    [WP04T_PaperCodeNum] int NULL,
+    [WP04T_PaperCodeAvgMeter] decimal(18,2) NULL,
+    [WP04T_BadOrderNum] int NULL,
+    [WP04T_BadMuchNum] int NULL,
+    [WP04T_OrderNumUp] bigint NULL,
+    [WP04T_OrderNumUp_All] bigint NULL,
+    [WP04T_OrderNumDown] bigint NULL,
+    [WP04T_CountWidth] float NULL,
+    [WP04T_IsEnd] bit NULL,
+    [WP04T_AccumulatedSteamFlow] decimal(18,4) NULL,
+    [WP04T_AccumulatedElectricity] decimal(18,4) NULL,
+    [WP04T_TheoryWeight] decimal(18,4) NULL,
+    [WP04T_SteamRate] decimal(18,4) NULL,
+    [WP04T_ElectricityRate] decimal(18,4) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_PMS_Report_Class] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_PMS_StopReasonRecord */
-IF OBJECT_ID(N'dbo.TB_PMS_StopReasonRecord', N'U') IS NULL
+/* W_PMS_StopReasonRecord */
+IF OBJECT_ID(N'dbo.W_PMS_StopReasonRecord', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_PMS_StopReasonRecord] (
-    [F_P04SID] int NOT NULL,
-    [F_StopReason] nvarchar(200) NOT NULL,
-    [F_StopReasonID] int NOT NULL,
-    [F_StopType] nvarchar(200) NOT NULL,
-    [F_StopTypeID] int NOT NULL,
-    [F_StatisticsStop] bit NOT NULL,
-    [F_PartName] nvarchar(50) NOT NULL,
-    [F_CreateUser] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_UpdateUser] nvarchar(50) NULL,
-    [F_UpdateTime] datetime2 NULL,
-    [F_Remark] nvarchar(500) NULL,
-    [F_IsModify] bit NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_PMS_StopReasonRecord] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_PMS_StopReasonRecord] (
+    [WF_P04SID] int NOT NULL,
+    [WF_StopReason] nvarchar(200) NOT NULL,
+    [WF_StopReasonID] int NOT NULL,
+    [WF_StopType] nvarchar(200) NOT NULL,
+    [WF_StopTypeID] int NOT NULL,
+    [WF_StatisticsStop] bit NOT NULL,
+    [WF_PartName] nvarchar(50) NOT NULL,
+    [WF_CreateUser] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_UpdateUser] nvarchar(50) NULL,
+    [WF_UpdateTime] datetime2 NULL,
+    [WF_Remark] nvarchar(500) NULL,
+    [WF_IsModify] bit NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_PMS_StopReasonRecord] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_Plc_AcceleratorSet */
-IF OBJECT_ID(N'dbo.TB_Plc_AcceleratorSet', N'U') IS NULL
+/* W_Plc_AcceleratorSet */
+IF OBJECT_ID(N'dbo.W_Plc_AcceleratorSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_AcceleratorSet] (
-    [F_Speed] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_AcceleratorSet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_AcceleratorSet] (
+    [WF_Speed] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_AcceleratorSet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* PLC设备表 */
-IF OBJECT_ID(N'dbo.TB_Plc_Driver', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Plc_Driver', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_Driver] (
-    [F_Code] nvarchar(36) NOT NULL,
-    [F_Name] nvarchar(100) NOT NULL,
-    [F_CommunicationType] int NOT NULL,
-    [F_ConfigCode] nvarchar(36) NOT NULL,
-    [F_IsUse] bit NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_Driver] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_Driver] (
+    [WF_Code] nvarchar(36) NOT NULL,
+    [WF_Name] nvarchar(100) NOT NULL,
+    [WF_CommunicationType] int NOT NULL,
+    [WF_ConfigCode] nvarchar(36) NOT NULL,
+    [WF_IsUse] bit NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_Driver] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* PLC设备配置表 */
-IF OBJECT_ID(N'dbo.TB_Plc_DriverConfig', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Plc_DriverConfig', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_DriverConfig] (
-    [F_Code] nvarchar(36) NOT NULL,
-    [F_Name] nvarchar(100) NULL,
-    [F_Desc] nvarchar(max) NULL,
-    [F_ParCode] nvarchar(100) NULL,
-    [F_ParValue] nvarchar(100) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_DriverConfig] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_DriverConfig] (
+    [WF_Code] nvarchar(36) NOT NULL,
+    [WF_Name] nvarchar(100) NULL,
+    [WF_Desc] nvarchar(max) NULL,
+    [WF_ParCode] nvarchar(100) NULL,
+    [WF_ParValue] nvarchar(100) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_DriverConfig] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* PLC点位配置表 */
-IF OBJECT_ID(N'dbo.TB_Plc_PointVar', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Plc_PointVar', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_PointVar] (
-    [F_Code] nvarchar(200) NOT NULL,
-    [F_Name] nvarchar(100) NULL,
-    [F_Desc] nvarchar(100) NULL,
-    [F_DriverCode] nvarchar(36) NULL,
-    [F_VarAddress] nvarchar(100) NULL,
-    [F_DataType] nvarchar(36) NULL,
-    [F_RW] int NOT NULL,
-    [F_Interval] int NOT NULL,
-    [F_Priority] int NOT NULL,
-    [F_IsUse] bit NULL,
-    [F_CurValue] nvarchar(100) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Position] nvarchar(50) NULL,
-    [F_IsAlarm] bit NOT NULL,
-    [F_AlarmInterval] int NOT NULL,
-    [F_AlarmOffset] decimal(18,2) NOT NULL,
-    [F_DataOKAddress] nvarchar(100) NULL,
-    [F_DataOKDataType] nvarchar(36) NULL,
-    [F_TransferKeyAddress] nvarchar(100) NULL,
-    [F_TransferKeyDataType] nvarchar(36) NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_PointVar] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_PointVar] (
+    [WF_Code] nvarchar(200) NOT NULL,
+    [WF_Name] nvarchar(100) NULL,
+    [WF_Desc] nvarchar(100) NULL,
+    [WF_DriverCode] nvarchar(36) NULL,
+    [WF_VarAddress] nvarchar(100) NULL,
+    [WF_DataType] nvarchar(36) NULL,
+    [WF_RW] int NOT NULL,
+    [WF_Interval] int NOT NULL,
+    [WF_Priority] int NOT NULL,
+    [WF_IsUse] bit NULL,
+    [WF_CurValue] nvarchar(100) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Position] nvarchar(50) NULL,
+    [WF_IsAlarm] bit NOT NULL,
+    [WF_AlarmInterval] int NOT NULL,
+    [WF_AlarmOffset] decimal(18,2) NOT NULL,
+    [WF_DataOKAddress] nvarchar(100) NULL,
+    [WF_DataOKDataType] nvarchar(36) NULL,
+    [WF_TransferKeyAddress] nvarchar(100) NULL,
+    [WF_TransferKeyDataType] nvarchar(36) NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_PointVar] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* PLC喷雾设置 */
-IF OBJECT_ID(N'dbo.TB_Plc_SpraySet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Plc_SpraySet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_SpraySet] (
-    [F_Flute] nvarchar(10) NOT NULL,
-    [F_MinPower] decimal(18,2) NOT NULL,
-    [F_MaxPower] decimal(18,2) NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_CoefUp] decimal(18,2) NOT NULL,
-    [F_CoefMid] decimal(18,2) NOT NULL,
-    [F_CoefDown] decimal(18,2) NOT NULL,
-    [F_CoefDF] decimal(18,2) NOT NULL,
-    [F_Speed30] decimal(18,2) NOT NULL,
-    [F_Speed50] decimal(18,2) NOT NULL,
-    [F_Speed80] decimal(18,2) NOT NULL,
-    [F_Speed110] decimal(18,2) NOT NULL,
-    [F_Speed130] decimal(18,2) NOT NULL,
-    [F_Speed160] decimal(18,2) NOT NULL,
-    [F_Speed180] decimal(18,2) NOT NULL,
-    [F_Speed210] decimal(18,2) NOT NULL,
-    [F_Speed240] decimal(18,2) NOT NULL,
-    [F_Speed270] decimal(18,2) NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_SpraySet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_SpraySet] (
+    [WF_Flute] nvarchar(10) NOT NULL,
+    [WF_MinPower] decimal(18,2) NOT NULL,
+    [WF_MaxPower] decimal(18,2) NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_CoefUp] decimal(18,2) NOT NULL,
+    [WF_CoefMid] decimal(18,2) NOT NULL,
+    [WF_CoefDown] decimal(18,2) NOT NULL,
+    [WF_CoefDF] decimal(18,2) NOT NULL,
+    [WF_Speed30] decimal(18,2) NOT NULL,
+    [WF_Speed50] decimal(18,2) NOT NULL,
+    [WF_Speed80] decimal(18,2) NOT NULL,
+    [WF_Speed110] decimal(18,2) NOT NULL,
+    [WF_Speed130] decimal(18,2) NOT NULL,
+    [WF_Speed160] decimal(18,2) NOT NULL,
+    [WF_Speed180] decimal(18,2) NOT NULL,
+    [WF_Speed210] decimal(18,2) NOT NULL,
+    [WF_Speed240] decimal(18,2) NOT NULL,
+    [WF_Speed270] decimal(18,2) NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_SpraySet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* PLC喷雾车速系数表 */
-IF OBJECT_ID(N'dbo.TB_Plc_SpraySpeedCoef', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Plc_SpraySpeedCoef', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_SpraySpeedCoef] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_Coef] decimal(18,2) NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_SpraySpeedCoef] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_SpraySpeedCoef] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_Coef] decimal(18,2) NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_SpraySpeedCoef] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* PLC喷嘴设置 */
-IF OBJECT_ID(N'dbo.TB_Plc_SprayWidthSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Plc_SprayWidthSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Plc_SprayWidthSet] (
-    [F_Code] int NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_IsUse] bit NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Plc_SprayWidthSet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Plc_SprayWidthSet] (
+    [WF_Code] int NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_IsUse] bit NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Plc_SprayWidthSet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 延时自动 */
-IF OBJECT_ID(N'dbo.TB_QDM_AutoDelay', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_AutoDelay', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_AutoDelay] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Glue] int NULL,
-    [F_Wrap] int NULL,
-    [F_Tension] int NULL,
-    [F_PressRollPress] int NULL,
-    [F_CorrugatedRollPress] int NULL,
-    [F_Steam] int NULL,
-    [F_Spray] int NULL,
-    [F_LoadingSystemQty] int NULL,
-    [F_OffsetTension] int NULL,
-    [F_HotPlateSteam] int NULL,
-    [F_HotPlatePress] int NULL,
-    [F_ColdPlatePress] int NULL,
-    [F_Type] int NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_CruiseSpeed] int NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_AutoDelay] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_AutoDelay] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Glue] int NULL,
+    [WF_Wrap] int NULL,
+    [WF_Tension] int NULL,
+    [WF_PressRollPress] int NULL,
+    [WF_CorrugatedRollPress] int NULL,
+    [WF_Steam] int NULL,
+    [WF_Spray] int NULL,
+    [WF_LoadingSystemQty] int NULL,
+    [WF_OffsetTension] int NULL,
+    [WF_HotPlateSteam] int NULL,
+    [WF_HotPlatePress] int NULL,
+    [WF_ColdPlatePress] int NULL,
+    [WF_Type] int NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_CruiseSpeed] int NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_AutoDelay] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* BHS喷雾 */
-IF OBJECT_ID(N'dbo.TB_QDM_BHSSpray', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_BHSSpray', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_BHSSpray] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_MinPercentage] decimal(18,2) NOT NULL,
-    [F_MaxPercentage] decimal(18,2) NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_BHSSpray] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_BHSSpray] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_MinPercentage] decimal(18,2) NOT NULL,
+    [WF_MaxPercentage] decimal(18,2) NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_BHSSpray] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* BHS热喷雾车速系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_BHSSpraySpeedFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_BHSSpraySpeedFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_BHSSpraySpeedFactor] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_Factor] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_BHSSpraySpeedFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_BHSSpraySpeedFactor] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_Factor] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_BHSSpraySpeedFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 泠凝回水备压 */
-IF OBJECT_ID(N'dbo.TB_QDM_BackWaterForPress', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_BackWaterForPress', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_BackWaterForPress] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_HighPreDecompressionIV] decimal(18,2) NOT NULL,
-    [F_HighPreDecompressionEV] decimal(18,2) NOT NULL,
-    [F_LowPreDecompressionIV] decimal(18,2) NOT NULL,
-    [F_LowPreDecompressionEV] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_BackWaterForPress] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_BackWaterForPress] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_HighPreDecompressionIV] decimal(18,2) NOT NULL,
+    [WF_HighPreDecompressionEV] decimal(18,2) NOT NULL,
+    [WF_LowPreDecompressionIV] decimal(18,2) NOT NULL,
+    [WF_LowPreDecompressionEV] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_BackWaterForPress] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 天桥张力楞型系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_BridgeFluteFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_BridgeFluteFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_BridgeFluteFactor] (
-    [F_Position] nvarchar(50) NULL,
-    [F_Flute] nvarchar(50) NULL,
-    [F_FluteFactor] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_BridgeFluteFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_BridgeFluteFactor] (
+    [WF_Position] nvarchar(50) NULL,
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_FluteFactor] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_BridgeFluteFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 天桥张力克重表 */
-IF OBJECT_ID(N'dbo.TB_QDM_BridgeTension', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_BridgeTension', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_BridgeTension] (
-    [F_Position] nvarchar(50) NULL,
-    [F_MinTension] int NULL,
-    [F_MaxTension] int NULL,
-    [F_MinGram] int NULL,
-    [F_MaxGram] int NULL,
-    [F_GramFactor] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_BridgeTension] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_BridgeTension] (
+    [WF_Position] nvarchar(50) NULL,
+    [WF_MinTension] int NULL,
+    [WF_MaxTension] int NULL,
+    [WF_MinGram] int NULL,
+    [WF_MaxGram] int NULL,
+    [WF_GramFactor] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_BridgeTension] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 冷板压力 */
-IF OBJECT_ID(N'dbo.TB_QDM_ColdPlatePressure', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_ColdPlatePressure', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_ColdPlatePressure] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_AirPress] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_ColdPlatePressure] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_ColdPlatePressure] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_AirPress] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_ColdPlatePressure] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 瓦楞楞型部位系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_CorrugatedFluteFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_CorrugatedFluteFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_CorrugatedFluteFactor] (
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_CorrugatedRollPre_ID] int NOT NULL,
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_Factor] decimal(18,2) NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_CorrugatedFluteFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_CorrugatedFluteFactor] (
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_CorrugatedRollPre_ID] int NOT NULL,
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_Factor] decimal(18,2) NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_CorrugatedFluteFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 瓦楞辊压力 */
-IF OBJECT_ID(N'dbo.TB_QDM_CorrugatedRollerPress', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_CorrugatedRollerPress', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_CorrugatedRollerPress] (
-    [F_MinWidth] int NOT NULL,
-    [F_MaxWidth] int NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_WidthFactor] decimal(18,2) NOT NULL,
-    [F_MinPressure] int NOT NULL,
-    [F_MaxPressure] int NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_DSFactor] decimal(18,2) NOT NULL,
-    [F_OSFactor] decimal(18,2) NOT NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_CorrugatedRollerPress] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_CorrugatedRollerPress] (
+    [WF_MinWidth] int NOT NULL,
+    [WF_MaxWidth] int NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_WidthFactor] decimal(18,2) NOT NULL,
+    [WF_MinPressure] int NOT NULL,
+    [WF_MaxPressure] int NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_DSFactor] decimal(18,2) NOT NULL,
+    [WF_OSFactor] decimal(18,2) NOT NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_CorrugatedRollerPress] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 坑机车速巡航 */
-IF OBJECT_ID(N'dbo.TB_QDM_CruisingSFSpeed', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_CruisingSFSpeed', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_CruisingSFSpeed] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_MinSpeed] int NOT NULL,
-    [F_MaxSpeed] int NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_CruisingSFSpeed] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_CruisingSFSpeed] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_MinSpeed] int NOT NULL,
+    [WF_MaxSpeed] int NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_CruisingSFSpeed] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 车速巡航 */
-IF OBJECT_ID(N'dbo.TB_QDM_CruisingSpeed', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_CruisingSpeed', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_CruisingSpeed] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_MinSpeed] int NOT NULL,
-    [F_MaxSpeed] int NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_CruisingSpeed] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_CruisingSpeed] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_MinSpeed] int NOT NULL,
+    [WF_MaxSpeed] int NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_CruisingSpeed] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_DataBase_DF */
-IF OBJECT_ID(N'dbo.TB_QDM_DataBase_DF', N'U') IS NULL
+/* W_QDM_DataBase_DF */
+IF OBJECT_ID(N'dbo.W_QDM_DataBase_DF', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_DataBase_DF] (
-    [F_DF_MaterialQua] nvarchar(50) NULL,
-    [F_DF_Flute] nvarchar(50) NULL,
-    [F_Glue_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
-    [F_Glue_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
-    [F_Wrap_GU_0_QDM_FactorGU0] decimal(18,2) NULL,
-    [F_Wrap_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
-    [F_Wrap_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
-    [F_PreheaterSteam_GU_0_QDM_FactorGU0] decimal(18,2) NULL,
-    [F_PreheaterSteam_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
-    [F_PreheaterSteam_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
-    [F_HotPlateSteam_DF_1Part_QDM_Factor] decimal(18,2) NULL,
-    [F_HotPlateSteam_DF_2Part_QDM_Factor] decimal(18,2) NULL,
-    [F_HotPlateSteam_DF_3Part_QDM_Factor] decimal(18,2) NULL,
-    [F_HotLoadGroupQty_DF_QDM_Factor] decimal(18,2) NULL,
-    [F_HotPlatePress_DF_QDM_Factor] decimal(18,2) NULL,
-    [F_ColdPlatePress_DF_QDM_Factor] decimal(18,2) NULL,
-    [F_SplicerTension_LS0_QDM_FactorLS0] decimal(18,2) NULL,
-    [F_BridgeTension_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
-    [F_BridgeTension_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
-    [F_Spray_GU_0_QDM_FactorGU0] decimal(18,2) NULL,
-    [F_Spray_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
-    [F_CruisingSpeed_DF_QDM_Factor] decimal(18,2) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_DataBase_DF] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_DataBase_DF] (
+    [WF_DF_MaterialQua] nvarchar(50) NULL,
+    [WF_DF_Flute] nvarchar(50) NULL,
+    [WF_Glue_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
+    [WF_Glue_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
+    [WF_Wrap_GU_0_QDM_FactorGU0] decimal(18,2) NULL,
+    [WF_Wrap_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
+    [WF_Wrap_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
+    [WF_PreheaterSteam_GU_0_QDM_FactorGU0] decimal(18,2) NULL,
+    [WF_PreheaterSteam_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
+    [WF_PreheaterSteam_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
+    [WF_HotPlateSteam_DF_1Part_QDM_Factor] decimal(18,2) NULL,
+    [WF_HotPlateSteam_DF_2Part_QDM_Factor] decimal(18,2) NULL,
+    [WF_HotPlateSteam_DF_3Part_QDM_Factor] decimal(18,2) NULL,
+    [WF_HotLoadGroupQty_DF_QDM_Factor] decimal(18,2) NULL,
+    [WF_HotPlatePress_DF_QDM_Factor] decimal(18,2) NULL,
+    [WF_ColdPlatePress_DF_QDM_Factor] decimal(18,2) NULL,
+    [WF_SplicerTension_LS0_QDM_FactorLS0] decimal(18,2) NULL,
+    [WF_BridgeTension_GU_1st_QDM_FactorGU1] decimal(18,2) NULL,
+    [WF_BridgeTension_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
+    [WF_Spray_GU_0_QDM_FactorGU0] decimal(18,2) NULL,
+    [WF_Spray_GU_2nd_QDM_FactorGU2] decimal(18,2) NULL,
+    [WF_CruisingSpeed_DF_QDM_Factor] decimal(18,2) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_DataBase_DF] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_DataBase_List */
-IF OBJECT_ID(N'dbo.TB_QDM_DataBase_List', N'U') IS NULL
+/* W_QDM_DataBase_List */
+IF OBJECT_ID(N'dbo.W_QDM_DataBase_List', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_DataBase_List] (
-    [F_MaterialQua] nvarchar(50) NULL,
-    [F_Flute] nvarchar(50) NULL,
-    [F_DF_Id] int NULL,
-    [F_SF1_Id] int NULL,
-    [F_SF2_Id] int NULL,
-    [F_SF3_Id] int NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_DataBase_List] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_DataBase_List] (
+    [WF_MaterialQua] nvarchar(50) NULL,
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_DF_Id] int NULL,
+    [WF_SF1_Id] int NULL,
+    [WF_SF2_Id] int NULL,
+    [WF_SF3_Id] int NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_DataBase_List] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_DataBase_SF1 */
-IF OBJECT_ID(N'dbo.TB_QDM_DataBase_SF1', N'U') IS NULL
+/* W_QDM_DataBase_SF1 */
+IF OBJECT_ID(N'dbo.W_QDM_DataBase_SF1', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_DataBase_SF1] (
-    [F_SF1_MaterialQua] nvarchar(50) NULL,
-    [F_SF1_Flute] nvarchar(50) NULL,
-    [F_SF1_LineFlute] nvarchar(50) NULL,
-    [F_Glue_SF1_QDM_FactorSF1] decimal(18,2) NULL,
-    [F_Wrap_MS1_QDM_FactorMS1] decimal(18,2) NULL,
-    [F_Wrap_LS1_QDM_FactorLS1] decimal(18,2) NULL,
-    [F_PreheaterSteam_SF1_QDM_FactorSF1] decimal(18,2) NULL,
-    [F_PressRoll_SF1_QDM_FactorSF1] decimal(18,2) NULL,
-    [F_CorrugatedRoll_SF1_QDM_FactorSF1] decimal(18,2) NULL,
-    [F_SplicerTension_MS1_QDM_FactorMS1] decimal(18,2) NULL,
-    [F_SplicerTension_LS1_QDM_FactorLS1] decimal(18,2) NULL,
-    [F_VacuumBlower_SF1_QDM_FactorSF1] decimal(18,2) NULL,
-    [F_Spray_SF1_QDM_FactorSF1] decimal(18,2) NULL,
-    [F_CruisingSpeed_SF1_QDM_Factor] decimal(18,2) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_DataBase_SF1] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_DataBase_SF1] (
+    [WF_SF1_MaterialQua] nvarchar(50) NULL,
+    [WF_SF1_Flute] nvarchar(50) NULL,
+    [WF_SF1_LineFlute] nvarchar(50) NULL,
+    [WF_Glue_SF1_QDM_FactorSF1] decimal(18,2) NULL,
+    [WF_Wrap_MS1_QDM_FactorMS1] decimal(18,2) NULL,
+    [WF_Wrap_LS1_QDM_FactorLS1] decimal(18,2) NULL,
+    [WF_PreheaterSteam_SF1_QDM_FactorSF1] decimal(18,2) NULL,
+    [WF_PressRoll_SF1_QDM_FactorSF1] decimal(18,2) NULL,
+    [WF_CorrugatedRoll_SF1_QDM_FactorSF1] decimal(18,2) NULL,
+    [WF_SplicerTension_MS1_QDM_FactorMS1] decimal(18,2) NULL,
+    [WF_SplicerTension_LS1_QDM_FactorLS1] decimal(18,2) NULL,
+    [WF_VacuumBlower_SF1_QDM_FactorSF1] decimal(18,2) NULL,
+    [WF_Spray_SF1_QDM_FactorSF1] decimal(18,2) NULL,
+    [WF_CruisingSpeed_SF1_QDM_Factor] decimal(18,2) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_DataBase_SF1] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_DataBase_SF2 */
-IF OBJECT_ID(N'dbo.TB_QDM_DataBase_SF2', N'U') IS NULL
+/* W_QDM_DataBase_SF2 */
+IF OBJECT_ID(N'dbo.W_QDM_DataBase_SF2', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_DataBase_SF2] (
-    [F_SF2_MaterialQua] nvarchar(50) NULL,
-    [F_SF2_Flute] nvarchar(50) NULL,
-    [F_SF2_LineFlute] nvarchar(50) NULL,
-    [F_Glue_SF2_QDM_FactorSF2] decimal(18,2) NULL,
-    [F_Wrap_MS2_QDM_FactorMS2] decimal(18,2) NULL,
-    [F_Wrap_LS2_QDM_FactorLS2] decimal(18,2) NULL,
-    [F_PreheaterSteam_SF2_QDM_FactorSF2] decimal(18,2) NULL,
-    [F_PressRoll_SF2_QDM_FactorSF2] decimal(18,2) NULL,
-    [F_CorrugatedRoll_SF2_QDM_FactorSF2] decimal(18,2) NULL,
-    [F_SplicerTension_MS2_QDM_FactorMS2] decimal(18,2) NULL,
-    [F_SplicerTension_LS2_QDM_FactorLS2] decimal(18,2) NULL,
-    [F_VacuumBlower_SF2_QDM_FactorSF2] decimal(18,2) NULL,
-    [F_Spray_SF2_QDM_FactorSF2] decimal(18,2) NULL,
-    [F_CruisingSpeed_SF2_QDM_Factor] decimal(18,2) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_DataBase_SF2] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_DataBase_SF2] (
+    [WF_SF2_MaterialQua] nvarchar(50) NULL,
+    [WF_SF2_Flute] nvarchar(50) NULL,
+    [WF_SF2_LineFlute] nvarchar(50) NULL,
+    [WF_Glue_SF2_QDM_FactorSF2] decimal(18,2) NULL,
+    [WF_Wrap_MS2_QDM_FactorMS2] decimal(18,2) NULL,
+    [WF_Wrap_LS2_QDM_FactorLS2] decimal(18,2) NULL,
+    [WF_PreheaterSteam_SF2_QDM_FactorSF2] decimal(18,2) NULL,
+    [WF_PressRoll_SF2_QDM_FactorSF2] decimal(18,2) NULL,
+    [WF_CorrugatedRoll_SF2_QDM_FactorSF2] decimal(18,2) NULL,
+    [WF_SplicerTension_MS2_QDM_FactorMS2] decimal(18,2) NULL,
+    [WF_SplicerTension_LS2_QDM_FactorLS2] decimal(18,2) NULL,
+    [WF_VacuumBlower_SF2_QDM_FactorSF2] decimal(18,2) NULL,
+    [WF_Spray_SF2_QDM_FactorSF2] decimal(18,2) NULL,
+    [WF_CruisingSpeed_SF2_QDM_Factor] decimal(18,2) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_DataBase_SF2] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 当前运行参数(包含各种QMD系数和界面系数以及是否启用) */
-IF OBJECT_ID(N'dbo.TB_QDM_FormSetFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_FormSetFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_FormSetFactor] (
-    [F_Glue_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Glue_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Glue_SF3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_0_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_LS1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Wrap_LS2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Wrap_LS3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_MS1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Wrap_MS2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Wrap_MS3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_0_Form_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_SF3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF1_OS_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF1_DS_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF2_OS_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF2_DS_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF3_OS_Form_Factor] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF3_DS_Form_Factor] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF1_OS_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF1_DS_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF2_OS_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF2_DS_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF3_OS_Form_Factor] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF3_DS_Form_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam_DF_1Part_Form_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam_DF_2Part_Form_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam_DF_3Part_Form_Factor] decimal(18,2) NOT NULL,
-    [F_HotLoadGroupQty_DF_Form_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlatePress_DF_Form_Factor] decimal(18,2) NOT NULL,
-    [F_ColdPlatePress_DF_Form_Factor] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS0_Form_Factor] decimal(18,2) NOT NULL,
-    [F_SplicerTension_MS1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_SplicerTension_MS2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_SplicerTension_MS3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_BridgeTension_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
-    [F_BridgeTension_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_BridgeTension_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_VacuumBlower_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_VacuumBlower_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_VacuumBlower_SF3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Spray_GU_0_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Spray_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Spray_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Spray_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Spray_SF3_Form_Factor] decimal(18,2) NOT NULL,
-    [F_CruisingSpeed_DF_Form_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_GU_1st_Form_IsOpen] bit NOT NULL,
-    [F_Glue_GU_2nd_Form_IsOpen] bit NOT NULL,
-    [F_Glue_GU_3rd_Form_IsOpen] bit NOT NULL,
-    [F_Glue_SF1_Form_IsOpen] bit NOT NULL,
-    [F_Glue_SF2_Form_IsOpen] bit NOT NULL,
-    [F_Glue_SF3_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_GU_0_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_GU_1st_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_GU_2nd_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_GU_3rd_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_LS1_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_LS2_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_LS3_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_MS1_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_MS2_Form_IsOpen] bit NOT NULL,
-    [F_Wrap_MS3_Form_IsOpen] bit NOT NULL,
-    [F_PreheaterSteam_GU_0_Form_IsOpen] bit NOT NULL,
-    [F_PreheaterSteam_GU_1st_Form_IsOpen] bit NOT NULL,
-    [F_PreheaterSteam_GU_2nd_Form_IsOpen] bit NOT NULL,
-    [F_PreheaterSteam_GU_3rd_Form_IsOpen] bit NOT NULL,
-    [F_PreheaterSteam_SF1_Form_IsOpen] bit NOT NULL,
-    [F_PreheaterSteam_SF2_Form_IsOpen] bit NOT NULL,
-    [F_PreheaterSteam_SF3_Form_IsOpen] bit NOT NULL,
-    [F_PressRoll_SF1_Form_IsOpen] bit NOT NULL,
-    [F_PressRoll_SF2_Form_IsOpen] bit NOT NULL,
-    [F_PressRoll_SF3_Form_IsOpen] bit NOT NULL,
-    [F_CorrugatedRoll_SF1_Form_IsOpen] bit NOT NULL,
-    [F_CorrugatedRoll_SF2_Form_IsOpen] bit NOT NULL,
-    [F_CorrugatedRoll_SF3_Form_IsOpen] bit NOT NULL,
-    [F_HotPlateSteam_DF_1Part_Form_IsOpen] bit NOT NULL,
-    [F_HotPlateSteam_DF_2Part_Form_IsOpen] bit NOT NULL,
-    [F_HotPlateSteam_DF_3Part_Form_IsOpen] bit NOT NULL,
-    [F_HotLoadGroupQty_DF_Form] bit NOT NULL,
-    [F_HotPlatePress_DF_Form_IsOpen] bit NOT NULL,
-    [F_ColdPlatePress_DF_Form_IsOpen] bit NOT NULL,
-    [F_SplicerTension_LS0_Form_IsOpen] bit NOT NULL,
-    [F_SplicerTension_MS1_Form_IsOpen] bit NOT NULL,
-    [F_SplicerTension_LS1_Form_IsOpen] bit NOT NULL,
-    [F_SplicerTension_MS2_Form_IsOpen] bit NOT NULL,
-    [F_SplicerTension_LS2_Form_IsOpen] bit NOT NULL,
-    [F_SplicerTension_MS3_Form_IsOpen] bit NOT NULL,
-    [F_SplicerTension_LS3_Form_IsOpen] bit NOT NULL,
-    [F_BridgeTension_GU_1st_Form_IsOpen] bit NOT NULL,
-    [F_BridgeTension_GU_2nd_Form_IsOpen] bit NOT NULL,
-    [F_BridgeTension_GU_3rd_Form_IsOpen] bit NOT NULL,
-    [F_VacuumBlower_SF1_Form_IsOpen] bit NOT NULL,
-    [F_VacuumBlower_SF2_Form_IsOpen] bit NOT NULL,
-    [F_VacuumBlower_SF3_Form_IsOpen] bit NOT NULL,
-    [F_Spray_GU_0_Form_IsOpen] bit NOT NULL,
-    [F_Spray_GU_2nd_Form_IsOpen] bit NOT NULL,
-    [F_Spray_SF1_Form_IsOpen] bit NOT NULL,
-    [F_Spray_SF2_Form_IsOpen] bit NOT NULL,
-    [F_Spray_SF3_Form_IsOpen] bit NOT NULL,
-    [F_CruisingSpeed_ALL_Form_IsOpen] bit NOT NULL,
-    [F_CruisingSpeed_DF_Form_IsOpen] bit NOT NULL,
-    [F_CruisingSpeed_SF1_Form_IsOpen] bit NOT NULL,
-    [F_CruisingSpeed_SF2_Form_IsOpen] bit NOT NULL,
-    [F_CruisingSpeed_SF3_Form_IsOpen] bit NOT NULL,
-    [F_Glue_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Glue_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Glue_SF3_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_0_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_LS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Wrap_LS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Wrap_LS3_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Wrap_MS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Wrap_MS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Wrap_MS3_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_0_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_PreheaterSteam_SF3_Form] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF1_OS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF1_DS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF2_OS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF2_DS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF3_OS_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_PressRoll_SF3_DS_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF1_OS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF1_DS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF2_OS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF2_DS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF3_OS_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_CorrugatedRoll_SF3_DS_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam_DF_1Part_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam_DF_2Part_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlateSteam_DF_3Part_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_HotLoadGroupQty_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_HotPlatePress_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_ColdPlatePress_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS0_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_SplicerTension_MS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_SplicerTension_MS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_SplicerTension_MS3_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_SplicerTension_LS3_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_BridgeTension_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_BridgeTension_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_BridgeTension_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_VacuumBlower_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_VacuumBlower_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_VacuumBlower_SF3_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Spray_GU_0_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Spray_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Spray_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
-    [F_Spray_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
-    [F_Spray_SF3_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_CruisingSpeed_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
-    [F_Glue_GU_1st_Form_IsOn] bit NULL,
-    [F_Glue_GU_2nd_Form_IsOn] bit NULL,
-    [F_Glue_GU_3rd_Form_IsOn] bit NULL,
-    [F_Wrap_GU_1st_Form_IsOn] bit NULL,
-    [F_Wrap_GU_2nd_Form_IsOn] bit NULL,
-    [F_Wrap_GU_3rd_Form_IsOn] bit NULL,
-    [F_RidingRoll_1st_Form_Factor] decimal(18,2) NOT NULL,
-    [F_RidingRoll_2nd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_RidingRoll_3rd_Form_Factor] decimal(18,2) NOT NULL,
-    [F_RidingRoll_1st_Form_IsOpen] bit NOT NULL,
-    [F_RidingRoll_2nd_Form_IsOpen] bit NOT NULL,
-    [F_RidingRoll_3rd_Form_IsOpen] bit NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    [F_Warp_Form_IsOpen] bit NOT NULL,
-    CONSTRAINT [PK_TB_QDM_FormSetFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_FormSetFactor] (
+    [WF_Glue_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Glue_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Glue_SF3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_0_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_LS1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Wrap_LS2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Wrap_LS3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_MS1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Wrap_MS2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Wrap_MS3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_0_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_SF3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF1_OS_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF1_DS_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF2_OS_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF2_DS_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF3_OS_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF3_DS_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF1_OS_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF1_DS_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF2_OS_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF2_DS_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF3_OS_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF3_DS_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam_DF_1Part_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam_DF_2Part_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam_DF_3Part_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_HotLoadGroupQty_DF_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlatePress_DF_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_ColdPlatePress_DF_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS0_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_MS1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_MS2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_MS3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_BridgeTension_GU_1st_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_BridgeTension_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_BridgeTension_GU_3rd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_VacuumBlower_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_VacuumBlower_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_VacuumBlower_SF3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Spray_GU_0_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Spray_GU_2nd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Spray_SF1_Form_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Spray_SF2_Form_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Spray_SF3_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_CruisingSpeed_DF_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_GU_1st_Form_IsOpen] bit NOT NULL,
+    [WF_Glue_GU_2nd_Form_IsOpen] bit NOT NULL,
+    [WF_Glue_GU_3rd_Form_IsOpen] bit NOT NULL,
+    [WF_Glue_SF1_Form_IsOpen] bit NOT NULL,
+    [WF_Glue_SF2_Form_IsOpen] bit NOT NULL,
+    [WF_Glue_SF3_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_GU_0_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_GU_1st_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_GU_2nd_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_GU_3rd_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_LS1_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_LS2_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_LS3_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_MS1_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_MS2_Form_IsOpen] bit NOT NULL,
+    [WF_Wrap_MS3_Form_IsOpen] bit NOT NULL,
+    [WF_PreheaterSteam_GU_0_Form_IsOpen] bit NOT NULL,
+    [WF_PreheaterSteam_GU_1st_Form_IsOpen] bit NOT NULL,
+    [WF_PreheaterSteam_GU_2nd_Form_IsOpen] bit NOT NULL,
+    [WF_PreheaterSteam_GU_3rd_Form_IsOpen] bit NOT NULL,
+    [WF_PreheaterSteam_SF1_Form_IsOpen] bit NOT NULL,
+    [WF_PreheaterSteam_SF2_Form_IsOpen] bit NOT NULL,
+    [WF_PreheaterSteam_SF3_Form_IsOpen] bit NOT NULL,
+    [WF_PressRoll_SF1_Form_IsOpen] bit NOT NULL,
+    [WF_PressRoll_SF2_Form_IsOpen] bit NOT NULL,
+    [WF_PressRoll_SF3_Form_IsOpen] bit NOT NULL,
+    [WF_CorrugatedRoll_SF1_Form_IsOpen] bit NOT NULL,
+    [WF_CorrugatedRoll_SF2_Form_IsOpen] bit NOT NULL,
+    [WF_CorrugatedRoll_SF3_Form_IsOpen] bit NOT NULL,
+    [WF_HotPlateSteam_DF_1Part_Form_IsOpen] bit NOT NULL,
+    [WF_HotPlateSteam_DF_2Part_Form_IsOpen] bit NOT NULL,
+    [WF_HotPlateSteam_DF_3Part_Form_IsOpen] bit NOT NULL,
+    [WF_HotLoadGroupQty_DF_Form] bit NOT NULL,
+    [WF_HotPlatePress_DF_Form_IsOpen] bit NOT NULL,
+    [WF_ColdPlatePress_DF_Form_IsOpen] bit NOT NULL,
+    [WF_SplicerTension_LS0_Form_IsOpen] bit NOT NULL,
+    [WF_SplicerTension_MS1_Form_IsOpen] bit NOT NULL,
+    [WF_SplicerTension_LS1_Form_IsOpen] bit NOT NULL,
+    [WF_SplicerTension_MS2_Form_IsOpen] bit NOT NULL,
+    [WF_SplicerTension_LS2_Form_IsOpen] bit NOT NULL,
+    [WF_SplicerTension_MS3_Form_IsOpen] bit NOT NULL,
+    [WF_SplicerTension_LS3_Form_IsOpen] bit NOT NULL,
+    [WF_BridgeTension_GU_1st_Form_IsOpen] bit NOT NULL,
+    [WF_BridgeTension_GU_2nd_Form_IsOpen] bit NOT NULL,
+    [WF_BridgeTension_GU_3rd_Form_IsOpen] bit NOT NULL,
+    [WF_VacuumBlower_SF1_Form_IsOpen] bit NOT NULL,
+    [WF_VacuumBlower_SF2_Form_IsOpen] bit NOT NULL,
+    [WF_VacuumBlower_SF3_Form_IsOpen] bit NOT NULL,
+    [WF_Spray_GU_0_Form_IsOpen] bit NOT NULL,
+    [WF_Spray_GU_2nd_Form_IsOpen] bit NOT NULL,
+    [WF_Spray_SF1_Form_IsOpen] bit NOT NULL,
+    [WF_Spray_SF2_Form_IsOpen] bit NOT NULL,
+    [WF_Spray_SF3_Form_IsOpen] bit NOT NULL,
+    [WF_CruisingSpeed_ALL_Form_IsOpen] bit NOT NULL,
+    [WF_CruisingSpeed_DF_Form_IsOpen] bit NOT NULL,
+    [WF_CruisingSpeed_SF1_Form_IsOpen] bit NOT NULL,
+    [WF_CruisingSpeed_SF2_Form_IsOpen] bit NOT NULL,
+    [WF_CruisingSpeed_SF3_Form_IsOpen] bit NOT NULL,
+    [WF_Glue_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Glue_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Glue_SF3_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_0_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_LS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Wrap_LS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Wrap_LS3_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Wrap_MS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Wrap_MS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Wrap_MS3_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_0_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_PreheaterSteam_SF3_Form] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF1_OS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF1_DS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF2_OS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF2_DS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF3_OS_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_PressRoll_SF3_DS_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF1_OS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF1_DS_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF2_OS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF2_DS_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF3_OS_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_CorrugatedRoll_SF3_DS_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam_DF_1Part_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam_DF_2Part_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlateSteam_DF_3Part_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_HotLoadGroupQty_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_HotPlatePress_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_ColdPlatePress_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS0_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_MS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_MS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_MS3_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_SplicerTension_LS3_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_BridgeTension_GU_1st_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_BridgeTension_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_BridgeTension_GU_3rd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_VacuumBlower_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_VacuumBlower_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_VacuumBlower_SF3_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Spray_GU_0_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Spray_GU_2nd_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Spray_SF1_FormQdm_FactorSF1] decimal(18,2) NOT NULL,
+    [WF_Spray_SF2_FormQdm_FactorSF2] decimal(18,2) NOT NULL,
+    [WF_Spray_SF3_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_CruisingSpeed_DF_FormQdm_Factor] decimal(18,2) NOT NULL,
+    [WF_Glue_GU_1st_Form_IsOn] bit NULL,
+    [WF_Glue_GU_2nd_Form_IsOn] bit NULL,
+    [WF_Glue_GU_3rd_Form_IsOn] bit NULL,
+    [WF_Wrap_GU_1st_Form_IsOn] bit NULL,
+    [WF_Wrap_GU_2nd_Form_IsOn] bit NULL,
+    [WF_Wrap_GU_3rd_Form_IsOn] bit NULL,
+    [WF_RidingRoll_1st_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_RidingRoll_2nd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_RidingRoll_3rd_Form_Factor] decimal(18,2) NOT NULL,
+    [WF_RidingRoll_1st_Form_IsOpen] bit NOT NULL,
+    [WF_RidingRoll_2nd_Form_IsOpen] bit NOT NULL,
+    [WF_RidingRoll_3rd_Form_IsOpen] bit NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    [WF_Warp_Form_IsOpen] bit NOT NULL,
+    CONSTRAINT [PK_W_QDM_FormSetFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 糊盆液位 */
-IF OBJECT_ID(N'dbo.TB_QDM_GlueLiquidLevel', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_GlueLiquidLevel', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_GlueLiquidLevel] (
-    [F_MeasureLiquidHeight] int NULL,
-    [F_LiquidHeight] int NOT NULL,
-    [F_GlueLiquidHeight] int NOT NULL,
-    [F_AlarmLiquidHeight] int NOT NULL,
-    [F_LoadingSpeed] int NOT NULL,
-    [F_HaltLiquidHeight] int NOT NULL,
-    [F_IsActive] bit NOT NULL,
-    [F_IsAlarm] bit NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_GlueLiquidLevel] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_GlueLiquidLevel] (
+    [WF_MeasureLiquidHeight] int NULL,
+    [WF_LiquidHeight] int NOT NULL,
+    [WF_GlueLiquidHeight] int NOT NULL,
+    [WF_AlarmLiquidHeight] int NOT NULL,
+    [WF_LoadingSpeed] int NOT NULL,
+    [WF_HaltLiquidHeight] int NOT NULL,
+    [WF_IsActive] bit NOT NULL,
+    [WF_IsAlarm] bit NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_GlueLiquidLevel] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 糊间隙车速 */
-IF OBJECT_ID(N'dbo.TB_QDM_GlueSpeed', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_GlueSpeed', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_GlueSpeed] (
-    [F_Speed] int NULL,
-    [F_SpeedFactor] decimal(18,2) NULL,
-    [F_Positon] nvarchar(50) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_GlueSpeed] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_GlueSpeed] (
+    [WF_Speed] int NULL,
+    [WF_SpeedFactor] decimal(18,2) NULL,
+    [WF_Positon] nvarchar(50) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_GlueSpeed] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 压板组数 */
-IF OBJECT_ID(N'dbo.TB_QDM_HotLoadGroupQty', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_HotLoadGroupQty', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_HotLoadGroupQty] (
-    [F_Flute] nvarchar(50) NULL,
-    [F_StartLoadSpeed] int NULL,
-    [F_StartLoadGroupQty] int NULL,
-    [F_MinGram] int NULL,
-    [F_MaxGram] int NULL,
-    [F_MinGramFullLoadSpeed] int NULL,
-    [F_MaxGramFullLoadSpeed] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_SortNo] int NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_HotLoadGroupQty] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_HotLoadGroupQty] (
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_StartLoadSpeed] int NULL,
+    [WF_StartLoadGroupQty] int NULL,
+    [WF_MinGram] int NULL,
+    [WF_MaxGram] int NULL,
+    [WF_MinGramFullLoadSpeed] int NULL,
+    [WF_MaxGramFullLoadSpeed] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_SortNo] int NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_HotLoadGroupQty] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 热板克重气压 */
-IF OBJECT_ID(N'dbo.TB_QDM_HotPlateGramAirPress', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_HotPlateGramAirPress', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_HotPlateGramAirPress] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_MinPressure] decimal(18,2) NOT NULL,
-    [F_MaxPressure] decimal(18,2) NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_FluteFactor] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_HotPlateGramAirPress] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_HotPlateGramAirPress] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_MinPressure] decimal(18,2) NOT NULL,
+    [WF_MaxPressure] decimal(18,2) NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_FluteFactor] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_HotPlateGramAirPress] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 热板蒸汽压力 */
-IF OBJECT_ID(N'dbo.TB_QDM_HotPlateSteamGram', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_HotPlateSteamGram', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_HotPlateSteamGram] (
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_MinSteam] decimal(18,2) NOT NULL,
-    [F_MaxSteam] decimal(18,2) NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_PrPressIncrease] int NULL,
-    [F_Offset_1st] decimal(18,2) NULL,
-    [F_Offset_2nd] decimal(18,2) NULL,
-    [F_Offset_3rd] decimal(18,2) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_HotPlateSteamGram] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_HotPlateSteamGram] (
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_MinSteam] decimal(18,2) NOT NULL,
+    [WF_MaxSteam] decimal(18,2) NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_PrPressIncrease] int NULL,
+    [WF_Offset_1st] decimal(18,2) NULL,
+    [WF_Offset_2nd] decimal(18,2) NULL,
+    [WF_Offset_3rd] decimal(18,2) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_HotPlateSteamGram] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_HotPlateSteamGramRange */
-IF OBJECT_ID(N'dbo.TB_QDM_HotPlateSteamGramRange', N'U') IS NULL
+/* W_QDM_HotPlateSteamGramRange */
+IF OBJECT_ID(N'dbo.W_QDM_HotPlateSteamGramRange', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_HotPlateSteamGramRange] (
-    [F_MinGram] int NULL,
-    [F_MaxGram] int NULL,
-    [F_SortNo] int NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_HotPlateSteamGramRange] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_HotPlateSteamGramRange] (
+    [WF_MinGram] int NULL,
+    [WF_MaxGram] int NULL,
+    [WF_SortNo] int NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_HotPlateSteamGramRange] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_HotPlateSteamSpeed */
-IF OBJECT_ID(N'dbo.TB_QDM_HotPlateSteamSpeed', N'U') IS NULL
+/* W_QDM_HotPlateSteamSpeed */
+IF OBJECT_ID(N'dbo.W_QDM_HotPlateSteamSpeed', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_HotPlateSteamSpeed] (
-    [F_Speed] int NULL,
-    [F_SpeedFactor] decimal(18,2) NULL,
-    [F_Layer] int NULL,
-    [F_Range_Id] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_SortNo] int NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_HotPlateSteamSpeed] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_HotPlateSteamSpeed] (
+    [WF_Speed] int NULL,
+    [WF_SpeedFactor] decimal(18,2) NULL,
+    [WF_Layer] int NULL,
+    [WF_Range_Id] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_SortNo] int NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_HotPlateSteamSpeed] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* Qdm更改通知表 */
-IF OBJECT_ID(N'dbo.TB_QDM_Notice', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_Notice', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_Notice] (
-    [F_Type] nvarchar(50) NULL,
-    [F_IsModify] bit NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_Notice] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_Notice] (
+    [WF_Type] nvarchar(50) NULL,
+    [WF_IsModify] bit NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_Notice] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* PLC喷雾 */
-IF OBJECT_ID(N'dbo.TB_QDM_PLCSpray', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_PLCSpray', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_PLCSpray] (
-    [F_MinPower] decimal(18,2) NOT NULL,
-    [F_MaxPower] decimal(18,2) NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_Factor] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_PLCSpray] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_PLCSpray] (
+    [WF_MinPower] decimal(18,2) NOT NULL,
+    [WF_MaxPower] decimal(18,2) NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_Factor] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_PLCSpray] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* PLC热喷雾车速系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_PLCSpraySpeedFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_PLCSpraySpeedFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_PLCSpraySpeedFactor] (
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_Speed] int NOT NULL,
-    [F_Factor] decimal(18,2) NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_PLCSpraySpeedFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_PLCSpraySpeedFactor] (
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_Speed] int NOT NULL,
+    [WF_Factor] decimal(18,2) NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_PLCSpraySpeedFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* PLC喷雾门幅 */
-IF OBJECT_ID(N'dbo.TB_QDM_PLCSprayWidth', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_PLCSprayWidth', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_PLCSprayWidth] (
-    [F_MinWidth] int NOT NULL,
-    [F_MaxWidth] int NOT NULL,
-    [F_LeftPosition] int NOT NULL,
-    [F_RightPosition] int NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_PLCSprayWidth] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_PLCSprayWidth] (
+    [WF_MinWidth] int NOT NULL,
+    [WF_MaxWidth] int NOT NULL,
+    [WF_LeftPosition] int NOT NULL,
+    [WF_RightPosition] int NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_PLCSprayWidth] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 点位设置表 */
-IF OBJECT_ID(N'dbo.TB_QDM_Point', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_Point', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_Point] (
-    [F_PointName] nvarchar(50) NULL,
-    [F_Type] nvarchar(50) NOT NULL,
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_PositionTable] nvarchar(50) NULL,
-    [F_Parameter] int NULL,
-    [F_Parameter2] int NULL,
-    [F_ParameterRW] int NULL,
-    [F_Encoded] nvarchar(200) NOT NULL,
-    [F_SortNo] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_IsDelete] bit NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_Point] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_Point] (
+    [WF_PointName] nvarchar(50) NULL,
+    [WF_Type] nvarchar(50) NOT NULL,
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_PositionTable] nvarchar(50) NULL,
+    [WF_Parameter] int NULL,
+    [WF_Parameter2] int NULL,
+    [WF_ParameterRW] int NULL,
+    [WF_Encoded] nvarchar(200) NOT NULL,
+    [WF_SortNo] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_IsDelete] bit NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_Point] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 烘缸蒸汽设置 */
-IF OBJECT_ID(N'dbo.TB_QDM_PreheaterSteam', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_PreheaterSteam', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_PreheaterSteam] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Flute] nvarchar(50) NOT NULL,
-    [F_MinGram] decimal(18,2) NOT NULL,
-    [F_MaxGram] decimal(18,2) NOT NULL,
-    [F_MinAirPress] decimal(18,2) NOT NULL,
-    [F_MaxAirPress] decimal(18,2) NOT NULL,
-    [F_PrBoost] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_PreheaterSteam] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_PreheaterSteam] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Flute] nvarchar(50) NOT NULL,
+    [WF_MinGram] decimal(18,2) NOT NULL,
+    [WF_MaxGram] decimal(18,2) NOT NULL,
+    [WF_MinAirPress] decimal(18,2) NOT NULL,
+    [WF_MaxAirPress] decimal(18,2) NOT NULL,
+    [WF_PrBoost] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_PreheaterSteam] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_PreheaterSteamSpeed */
-IF OBJECT_ID(N'dbo.TB_QDM_PreheaterSteamSpeed', N'U') IS NULL
+/* W_QDM_PreheaterSteamSpeed */
+IF OBJECT_ID(N'dbo.W_QDM_PreheaterSteamSpeed', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_PreheaterSteamSpeed] (
-    [F_Speed] int NULL,
-    [F_SpeedFactor] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_PreheaterSteamSpeed] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_PreheaterSteamSpeed] (
+    [WF_Speed] int NULL,
+    [WF_SpeedFactor] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_PreheaterSteamSpeed] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 压力辊压力 */
-IF OBJECT_ID(N'dbo.TB_QDM_PressRollPressure', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_PressRollPressure', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_PressRollPressure] (
-    [F_MaxWidth] int NOT NULL,
-    [F_MinWidth] int NOT NULL,
-    [F_WidthFactor] decimal(18,2) NULL,
-    [F_MaxPressure] int NULL,
-    [F_MinPressure] int NULL,
-    [F_MaxGram] decimal(18,2) NULL,
-    [F_MinGram] decimal(18,2) NULL,
-    [F_DriverFactor] decimal(18,2) NULL,
-    [F_OperationFactor] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_PressRollPressure] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_QDM_PressRollPressure] (
+    [WF_MaxWidth] int NOT NULL,
+    [WF_MinWidth] int NOT NULL,
+    [WF_WidthFactor] decimal(18,2) NULL,
+    [WF_MaxPressure] int NULL,
+    [WF_MinPressure] int NULL,
+    [WF_MaxGram] decimal(18,2) NULL,
+    [WF_MinGram] decimal(18,2) NULL,
+    [WF_DriverFactor] decimal(18,2) NULL,
+    [WF_OperationFactor] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_PressRollPressure] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 压力辊部位楞型系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_PressRollPressureFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_PressRollPressureFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_PressRollPressureFactor] (
-    [F_Position] nvarchar(36) NOT NULL,
-    [F_Flute] nvarchar(100) NOT NULL,
-    [F_Factor] decimal(18,2) NOT NULL,
-    [F_PressRollPressure_ID] int NOT NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_PressRollPressureFactor] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_QDM_PressRollPressureFactor] (
+    [WF_Position] nvarchar(36) NOT NULL,
+    [WF_Flute] nvarchar(100) NOT NULL,
+    [WF_Factor] decimal(18,2) NOT NULL,
+    [WF_PressRollPressure_ID] int NOT NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_PressRollPressureFactor] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* TB_QDM_RidingRollerExtrusion */
-IF OBJECT_ID(N'dbo.TB_QDM_RidingRollerExtrusion', N'U') IS NULL
+/* W_QDM_RidingRollerExtrusion */
+IF OBJECT_ID(N'dbo.W_QDM_RidingRollerExtrusion', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_RidingRollerExtrusion] (
+CREATE TABLE dbo.[W_QDM_RidingRollerExtrusion] (
     [Wave] nvarchar(50) NOT NULL,
     [ExtrusionFactor] decimal(18,2) NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_RidingRollerExtrusion] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_QDM_RidingRollerExtrusion] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
-/* TB_QDM_RidingRollerSet */
-IF OBJECT_ID(N'dbo.TB_QDM_RidingRollerSet', N'U') IS NULL
+/* W_QDM_RidingRollerSet */
+IF OBJECT_ID(N'dbo.W_QDM_RidingRollerSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_RidingRollerSet] (
+CREATE TABLE dbo.[W_QDM_RidingRollerSet] (
     [CorrugatedRollCode] nvarchar(50) NOT NULL,
     [Deep] decimal(18,2) NOT NULL,
     [RidingDeep] decimal(18,2) NOT NULL,
     [MinValue] decimal(18,2) NOT NULL,
     [MaxValue] decimal(18,2) NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_RidingRollerSet] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_QDM_RidingRollerSet] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
 /* SF糊间隙克重表 */
-IF OBJECT_ID(N'dbo.TB_QDM_SFGlueGram', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_SFGlueGram', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_SFGlueGram] (
-    [F_Position] nvarchar(50) NULL,
-    [F_Flute] nvarchar(50) NULL,
-    [F_MinGlueGap] int NULL,
-    [F_MaxGlueGap] int NULL,
-    [F_MinGram] int NULL,
-    [F_MaxGram] int NULL,
-    [F_FluteFactor] decimal(18,2) NULL,
-    [F_SortNo] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_SFGlueGram] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_SFGlueGram] (
+    [WF_Position] nvarchar(50) NULL,
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_MinGlueGap] int NULL,
+    [WF_MaxGlueGap] int NULL,
+    [WF_MinGram] int NULL,
+    [WF_MaxGram] int NULL,
+    [WF_FluteFactor] decimal(18,2) NULL,
+    [WF_SortNo] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_SFGlueGram] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 接纸机张力克重差值表 */
-IF OBJECT_ID(N'dbo.TB_QDM_SplicerGramDiff', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_SplicerGramDiff', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_SplicerGramDiff] (
-    [F_MinDiff] int NULL,
-    [F_MaxDiff] int NULL,
-    [F_Offset] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_SplicerGramDiff] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_SplicerGramDiff] (
+    [WF_MinDiff] int NULL,
+    [WF_MaxDiff] int NULL,
+    [WF_Offset] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_SplicerGramDiff] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_SplicerTensionFactor */
-IF OBJECT_ID(N'dbo.TB_QDM_SplicerTensionFactor', N'U') IS NULL
+/* W_QDM_SplicerTensionFactor */
+IF OBJECT_ID(N'dbo.W_QDM_SplicerTensionFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_SplicerTensionFactor] (
-    [F_LS0_TensionFactor] decimal(18,2) NULL,
-    [F_MS1_TensionFactor] decimal(18,2) NULL,
-    [F_LS1_TensionFactor] decimal(18,2) NULL,
-    [F_MS2_TensionFactor] decimal(18,2) NULL,
-    [F_LS2_TensionFactor] decimal(18,2) NULL,
-    [F_MS3_TensionFactor] decimal(18,2) NULL,
-    [F_LS3_TensionFactor] decimal(18,2) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_SplicerTensionFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_SplicerTensionFactor] (
+    [WF_LS0_TensionFactor] decimal(18,2) NULL,
+    [WF_MS1_TensionFactor] decimal(18,2) NULL,
+    [WF_LS1_TensionFactor] decimal(18,2) NULL,
+    [WF_MS2_TensionFactor] decimal(18,2) NULL,
+    [WF_LS2_TensionFactor] decimal(18,2) NULL,
+    [WF_MS3_TensionFactor] decimal(18,2) NULL,
+    [WF_LS3_TensionFactor] decimal(18,2) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_SplicerTensionFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* QDM基准值 */
-IF OBJECT_ID(N'dbo.TB_QDM_StandardValue', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_StandardValue', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_StandardValue] (
-    [F_QDMId] int NULL,
-    [F_PositonTable] nvarchar(50) NULL,
-    [F_Type] nvarchar(50) NULL,
-    [F_MaterialQua] nvarchar(50) NULL,
-    [F_Flute] nvarchar(50) NULL,
-    [F_Position_Material] nvarchar(50) NULL,
-    [F_Position_Flute] nvarchar(50) NULL,
-    [F_Position] nvarchar(50) NULL,
-    [F_MinWidth] int NULL,
-    [F_MaxWidth] int NULL,
-    [F_Speed] int NULL,
-    [F_Part] int NULL,
-    [F_StandardValue] decimal(18,2) NULL,
-    [F_MinValue] decimal(18,2) NULL,
-    [F_MaxValue] decimal(18,2) NULL,
-    [F_Encoded] nvarchar(200) NULL,
-    [F_EncodedOther] nvarchar(200) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_StandardValue] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_StandardValue] (
+    [WF_QDMId] int NULL,
+    [WF_PositonTable] nvarchar(50) NULL,
+    [WF_Type] nvarchar(50) NULL,
+    [WF_MaterialQua] nvarchar(50) NULL,
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_Position_Material] nvarchar(50) NULL,
+    [WF_Position_Flute] nvarchar(50) NULL,
+    [WF_Position] nvarchar(50) NULL,
+    [WF_MinWidth] int NULL,
+    [WF_MaxWidth] int NULL,
+    [WF_Speed] int NULL,
+    [WF_Part] int NULL,
+    [WF_StandardValue] decimal(18,2) NULL,
+    [WF_MinValue] decimal(18,2) NULL,
+    [WF_MaxValue] decimal(18,2) NULL,
+    [WF_Encoded] nvarchar(200) NULL,
+    [WF_EncodedOther] nvarchar(200) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_StandardValue] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 张力车速系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_TensionSpeedFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_TensionSpeedFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_TensionSpeedFactor] (
-    [F_Speed] int NULL,
-    [F_Factor] decimal(18,2) NULL,
-    [F_Type] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_TensionSpeedFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_TensionSpeedFactor] (
+    [WF_Speed] int NULL,
+    [WF_Factor] decimal(18,2) NULL,
+    [WF_Type] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_TensionSpeedFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 张力门幅系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_TensionWidthFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_TensionWidthFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_TensionWidthFactor] (
-    [F_MinWidth] int NULL,
-    [F_MaxWidth] int NULL,
-    [F_WidthFactor] decimal(18,2) NULL,
-    [F_Type] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_TensionWidthFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_TensionWidthFactor] (
+    [WF_MinWidth] int NULL,
+    [WF_MaxWidth] int NULL,
+    [WF_WidthFactor] decimal(18,2) NULL,
+    [WF_Type] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_TensionWidthFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 真空泵参数设置 */
-IF OBJECT_ID(N'dbo.TB_QDM_VacuumBlower', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_VacuumBlower', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_VacuumBlower] (
-    [F_MaxWidth] int NOT NULL,
-    [F_MinWidth] int NOT NULL,
-    [F_WidthFactor] decimal(18,2) NULL,
-    [F_MinSpeedRatio] decimal(18,2) NULL,
-    [F_MaxSpeedRatio] decimal(18,2) NULL,
-    [F_MaxGram] decimal(18,2) NULL,
-    [F_MinGram] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_VacuumBlower] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_VacuumBlower] (
+    [WF_MaxWidth] int NOT NULL,
+    [WF_MinWidth] int NOT NULL,
+    [WF_WidthFactor] decimal(18,2) NULL,
+    [WF_MinSpeedRatio] decimal(18,2) NULL,
+    [WF_MaxSpeedRatio] decimal(18,2) NULL,
+    [WF_MaxGram] decimal(18,2) NULL,
+    [WF_MinGram] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_VacuumBlower] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 真空泵基础设置 */
-IF OBJECT_ID(N'dbo.TB_QDM_VacuumBlowerBaseSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_VacuumBlowerBaseSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_VacuumBlowerBaseSet] (
+CREATE TABLE dbo.[W_QDM_VacuumBlowerBaseSet] (
     [PaperCode] nvarchar(50) NOT NULL,
     [Wave] nvarchar(50) NOT NULL,
     [SpeedRatio] decimal(18,4) NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_VacuumBlowerBaseSet] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_QDM_VacuumBlowerBaseSet] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
 /* 真空泵部位楞型系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_VacuumBlowerFluteFactor', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_VacuumBlowerFluteFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_VacuumBlowerFluteFactor] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Flute] nvarchar(50) NULL,
-    [F_Factor] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_VacuumBlower_Id] int NOT NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_VacuumBlowerFluteFactor] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_VacuumBlowerFluteFactor] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_Factor] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_VacuumBlower_Id] int NOT NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_VacuumBlowerFluteFactor] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
-/* TB_QDM_VacuumBlowerSpeedFactor */
-IF OBJECT_ID(N'dbo.TB_QDM_VacuumBlowerSpeedFactor', N'U') IS NULL
+/* W_QDM_VacuumBlowerSpeedFactor */
+IF OBJECT_ID(N'dbo.W_QDM_VacuumBlowerSpeedFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_VacuumBlowerSpeedFactor] (
+CREATE TABLE dbo.[W_QDM_VacuumBlowerSpeedFactor] (
     [Speed] int NOT NULL,
     [Factor] decimal(18,2) NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_VacuumBlowerSpeedFactor] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_QDM_VacuumBlowerSpeedFactor] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
-/* TB_QDM_VacuumBlowerWidthFactor */
-IF OBJECT_ID(N'dbo.TB_QDM_VacuumBlowerWidthFactor', N'U') IS NULL
+/* W_QDM_VacuumBlowerWidthFactor */
+IF OBJECT_ID(N'dbo.W_QDM_VacuumBlowerWidthFactor', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_VacuumBlowerWidthFactor] (
+CREATE TABLE dbo.[W_QDM_VacuumBlowerWidthFactor] (
     [Width] nvarchar(50) NOT NULL,
     [Wave] nvarchar(50) NOT NULL,
     [Factor] decimal(18,2) NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_VacuumBlowerWidthFactor] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_QDM_VacuumBlowerWidthFactor] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
 /* 弯翘包角 */
-IF OBJECT_ID(N'dbo.TB_QDM_WarpedWrap', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_WarpedWrap', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_WarpedWrap] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_Equipment] nvarchar(50) NOT NULL,
-    [F_UpWarpLight3rd] decimal(18,2) NULL,
-    [F_UpWarpModerate3rd] decimal(18,2) NULL,
-    [F_UpWarpSevere3rd] decimal(18,2) NULL,
-    [F_DownWarpLight3rd] decimal(18,2) NULL,
-    [F_DownWarpModerate3rd] decimal(18,2) NULL,
-    [F_DownWarpSevere3rd] decimal(18,2) NULL,
-    [F_UpWarpLight5ve] decimal(18,2) NULL,
-    [F_UpWarpModerate5ve] decimal(18,2) NULL,
-    [F_UpWarpSevere5ve] decimal(18,2) NULL,
-    [F_DownWarpLight5ve] decimal(18,2) NULL,
-    [F_DownWarpModerate5ve] decimal(18,2) NULL,
-    [F_DownWarpSevere5ve] decimal(18,2) NULL,
-    [F_UpWarpLight7en] decimal(18,2) NULL,
-    [F_UpWarpModerate7en] decimal(18,2) NULL,
-    [F_UpWarpSevere7en] decimal(18,2) NULL,
-    [F_DownWarpLight7en] decimal(18,2) NULL,
-    [F_DownWarpModerate7en] decimal(18,2) NULL,
-    [F_DownWarpSevere7en] decimal(18,2) NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_WarpedWrap] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_WarpedWrap] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_Equipment] nvarchar(50) NOT NULL,
+    [WF_UpWarpLight3rd] decimal(18,2) NULL,
+    [WF_UpWarpModerate3rd] decimal(18,2) NULL,
+    [WF_UpWarpSevere3rd] decimal(18,2) NULL,
+    [WF_DownWarpLight3rd] decimal(18,2) NULL,
+    [WF_DownWarpModerate3rd] decimal(18,2) NULL,
+    [WF_DownWarpSevere3rd] decimal(18,2) NULL,
+    [WF_UpWarpLight5ve] decimal(18,2) NULL,
+    [WF_UpWarpModerate5ve] decimal(18,2) NULL,
+    [WF_UpWarpSevere5ve] decimal(18,2) NULL,
+    [WF_DownWarpLight5ve] decimal(18,2) NULL,
+    [WF_DownWarpModerate5ve] decimal(18,2) NULL,
+    [WF_DownWarpSevere5ve] decimal(18,2) NULL,
+    [WF_UpWarpLight7en] decimal(18,2) NULL,
+    [WF_UpWarpModerate7en] decimal(18,2) NULL,
+    [WF_UpWarpSevere7en] decimal(18,2) NULL,
+    [WF_DownWarpLight7en] decimal(18,2) NULL,
+    [WF_DownWarpModerate7en] decimal(18,2) NULL,
+    [WF_DownWarpSevere7en] decimal(18,2) NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_WarpedWrap] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 包角楞型系数 */
-IF OBJECT_ID(N'dbo.TB_QDM_WrapFlute', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_WrapFlute', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_WrapFlute] (
-    [F_Position] nvarchar(50) NULL,
-    [F_Flute] nvarchar(50) NULL,
-    [F_Factor] decimal(18,2) NULL,
-    [F_SortNo] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Type] int NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_WrapFlute] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_WrapFlute] (
+    [WF_Position] nvarchar(50) NULL,
+    [WF_Flute] nvarchar(50) NULL,
+    [WF_Factor] decimal(18,2) NULL,
+    [WF_SortNo] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Type] int NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_WrapFlute] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 包角百分比克重表 */
-IF OBJECT_ID(N'dbo.TB_QDM_WrapPercentGram', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_WrapPercentGram', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_WrapPercentGram] (
-    [F_Position] nvarchar(50) NULL,
-    [F_MinPercent] int NULL,
-    [F_MaxPercent] int NULL,
-    [F_MinGram] int NULL,
-    [F_MaxGram] int NULL,
-    [F_SortNo] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_WrapPercentGram] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_WrapPercentGram] (
+    [WF_Position] nvarchar(50) NULL,
+    [WF_MinPercent] int NULL,
+    [WF_MaxPercent] int NULL,
+    [WF_MinGram] int NULL,
+    [WF_MaxGram] int NULL,
+    [WF_SortNo] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_WrapPercentGram] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 包角温度克重表 */
-IF OBJECT_ID(N'dbo.TB_QDM_WrapTemperature', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_QDM_WrapTemperature', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_QDM_WrapTemperature] (
-    [F_Position] nvarchar(50) NULL,
-    [F_MinTemperature] int NULL,
-    [F_MaxTemperature] int NULL,
-    [F_MinGram] int NULL,
-    [F_MaxGram] int NULL,
-    [F_SortNo] int NULL,
-    [F_Creator] nvarchar(50) NULL,
-    [F_CreateTime] datetime2 NULL,
-    [F_Editor] nvarchar(50) NULL,
-    [F_EditTime] datetime2 NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_QDM_WrapTemperature] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_QDM_WrapTemperature] (
+    [WF_Position] nvarchar(50) NULL,
+    [WF_MinTemperature] int NULL,
+    [WF_MaxTemperature] int NULL,
+    [WF_MinGram] int NULL,
+    [WF_MaxGram] int NULL,
+    [WF_SortNo] int NULL,
+    [WF_Creator] nvarchar(50) NULL,
+    [WF_CreateTime] datetime2 NULL,
+    [WF_Editor] nvarchar(50) NULL,
+    [WF_EditTime] datetime2 NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_QDM_WrapTemperature] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* 停机原因设置表 */
-IF OBJECT_ID(N'dbo.TB_StopReasonSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_StopReasonSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_StopReasonSet] (
-    [F_StopTypeID] int NOT NULL,
-    [F_Reason] nvarchar(200) NOT NULL,
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_StopReasonSet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_StopReasonSet] (
+    [WF_StopTypeID] int NOT NULL,
+    [WF_Reason] nvarchar(200) NOT NULL,
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_StopReasonSet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 停机类型设置表 */
-IF OBJECT_ID(N'dbo.TB_StopTypeSet', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_StopTypeSet', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_StopTypeSet] (
-    [F_Code] nvarchar(100) NOT NULL,
-    [F_Name] nvarchar(200) NOT NULL,
-    [F_StatisticsStop] bit NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Position] nvarchar(100) NULL,
-    CONSTRAINT [PK_TB_StopTypeSet] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_StopTypeSet] (
+    [WF_Code] nvarchar(100) NOT NULL,
+    [WF_Name] nvarchar(200) NOT NULL,
+    [WF_StatisticsStop] bit NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Position] nvarchar(100) NULL,
+    CONSTRAINT [PK_W_StopTypeSet] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 原纸使用明细表 */
-IF OBJECT_ID(N'dbo.T_BDS_HisRollInOut', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_BDS_HisRollInOut', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_BDS_HisRollInOut] (
-    [F_MachineID] nvarchar(50) NOT NULL,
-    [F_BarCode] nvarchar(50) NOT NULL,
-    [F_PaperCode] nvarchar(50) NOT NULL,
-    [F_Brand] nvarchar(50) NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_WidthInch] int NOT NULL,
-    [F_Weight] int NOT NULL,
-    [F_RollWeight] decimal(18,2) NOT NULL,
-    [F_Dia] int NOT NULL,
-    [F_RemainDia] int NOT NULL,
-    [F_PlcRemainDia] int NOT NULL,
-    [F_Meter] int NOT NULL,
-    [F_RemainMeter] int NOT NULL,
-    [F_PlcRemainMeter] int NOT NULL,
-    [F_RemainRollWeight] decimal(18,2) NOT NULL,
-    [F_PlcRemainRollWeight] decimal(18,2) NOT NULL,
-    [F_ShelfTime] datetime2 NOT NULL,
-    [F_OffShelfTime] datetime2 NOT NULL,
-    [F_UseMeter] int NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_Supplier] nvarchar(50) NULL,
-    CONSTRAINT [PK_T_BDS_HisRollInOut] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_BDS_HisRollInOut] (
+    [WF_MachineID] nvarchar(50) NOT NULL,
+    [WF_BarCode] nvarchar(50) NOT NULL,
+    [WF_PaperCode] nvarchar(50) NOT NULL,
+    [WF_Brand] nvarchar(50) NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_WidthInch] int NOT NULL,
+    [WF_Weight] int NOT NULL,
+    [WF_RollWeight] decimal(18,2) NOT NULL,
+    [WF_Dia] int NOT NULL,
+    [WF_RemainDia] int NOT NULL,
+    [WF_PlcRemainDia] int NOT NULL,
+    [WF_Meter] int NOT NULL,
+    [WF_RemainMeter] int NOT NULL,
+    [WF_PlcRemainMeter] int NOT NULL,
+    [WF_RemainRollWeight] decimal(18,2) NOT NULL,
+    [WF_PlcRemainRollWeight] decimal(18,2) NOT NULL,
+    [WF_ShelfTime] datetime2 NOT NULL,
+    [WF_OffShelfTime] datetime2 NOT NULL,
+    [WF_UseMeter] int NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_Supplier] nvarchar(50) NULL,
+    CONSTRAINT [PK_W_BDS_HisRollInOut] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* T_Cruise_ReasonLog */
-IF OBJECT_ID(N'dbo.T_Cruise_ReasonLog', N'U') IS NULL
+/* W_Cruise_ReasonLog */
+IF OBJECT_ID(N'dbo.W_Cruise_ReasonLog', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_Cruise_ReasonLog] (
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    [F_Time] datetime2 NOT NULL,
-    [F_OrderID] int NOT NULL,
-    [F_OrderMeter] decimal(18,4) NOT NULL,
-    [F_Shift] nvarchar(255) NOT NULL,
-    [F_OrderNo] nvarchar(255) NOT NULL,
-    [F_CutLength] int NOT NULL,
-    [F_CutLengthSpeed] int NOT NULL,
-    [F_PaperCode] nvarchar(255) NOT NULL,
-    [F_PaperCodeSpeed] int NOT NULL,
-    [F_PCodeSF1Speed] int NOT NULL,
-    [F_PCodeSF2Speed] int NOT NULL,
-    [F_PCodeSF3Speed] int NOT NULL,
-    [F_LastSpeed] int NOT NULL,
-    [F_CurSPeed] int NOT NULL,
-    [F_LastCoef] decimal(18,4) NOT NULL,
-    [F_CurCoef] decimal(18,4) NOT NULL,
-    [F_Reason1] bit NOT NULL,
-    [F_Reason2] bit NOT NULL,
-    [F_Reason3] bit NOT NULL,
-    [F_Reason4] bit NOT NULL,
-    [F_Reason5] bit NOT NULL,
-    [F_Reason6] bit NOT NULL,
-    [F_Reason7] bit NOT NULL,
-    [F_Reason8] bit NOT NULL,
-    [F_Reason9] bit NOT NULL,
-    [F_Reason10] bit NOT NULL,
-    [F_Reason11] bit NOT NULL,
-    [F_Reason12] bit NOT NULL,
-    [F_Reason13] bit NOT NULL,
-    [F_Reason14] bit NOT NULL,
-    [F_Reason15] bit NOT NULL,
-    [F_Reason16] bit NOT NULL,
-    [F_Reason17] bit NOT NULL,
-    [F_Reason18] bit NOT NULL,
-    [F_Reason19] bit NOT NULL,
-    [F_Reason20] bit NOT NULL,
-    [F_Reason21] bit NOT NULL,
-    [F_Reason22] bit NOT NULL,
-    [F_Reason23] bit NOT NULL,
-    [F_Reason24] bit NOT NULL,
-    [F_Reason25] bit NOT NULL,
-    [F_MainReason] int NULL,
-    CONSTRAINT [PK_T_Cruise_ReasonLog] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Cruise_ReasonLog] (
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    [WF_Time] datetime2 NOT NULL,
+    [WF_OrderID] int NOT NULL,
+    [WF_OrderMeter] decimal(18,4) NOT NULL,
+    [WF_Shift] nvarchar(255) NOT NULL,
+    [WF_OrderNo] nvarchar(255) NOT NULL,
+    [WF_CutLength] int NOT NULL,
+    [WF_CutLengthSpeed] int NOT NULL,
+    [WF_PaperCode] nvarchar(255) NOT NULL,
+    [WF_PaperCodeSpeed] int NOT NULL,
+    [WF_PCodeSF1Speed] int NOT NULL,
+    [WF_PCodeSF2Speed] int NOT NULL,
+    [WF_PCodeSF3Speed] int NOT NULL,
+    [WF_LastSpeed] int NOT NULL,
+    [WF_CurSPeed] int NOT NULL,
+    [WF_LastCoef] decimal(18,4) NOT NULL,
+    [WF_CurCoef] decimal(18,4) NOT NULL,
+    [WF_Reason1] bit NOT NULL,
+    [WF_Reason2] bit NOT NULL,
+    [WF_Reason3] bit NOT NULL,
+    [WF_Reason4] bit NOT NULL,
+    [WF_Reason5] bit NOT NULL,
+    [WF_Reason6] bit NOT NULL,
+    [WF_Reason7] bit NOT NULL,
+    [WF_Reason8] bit NOT NULL,
+    [WF_Reason9] bit NOT NULL,
+    [WF_Reason10] bit NOT NULL,
+    [WF_Reason11] bit NOT NULL,
+    [WF_Reason12] bit NOT NULL,
+    [WF_Reason13] bit NOT NULL,
+    [WF_Reason14] bit NOT NULL,
+    [WF_Reason15] bit NOT NULL,
+    [WF_Reason16] bit NOT NULL,
+    [WF_Reason17] bit NOT NULL,
+    [WF_Reason18] bit NOT NULL,
+    [WF_Reason19] bit NOT NULL,
+    [WF_Reason20] bit NOT NULL,
+    [WF_Reason21] bit NOT NULL,
+    [WF_Reason22] bit NOT NULL,
+    [WF_Reason23] bit NOT NULL,
+    [WF_Reason24] bit NOT NULL,
+    [WF_Reason25] bit NOT NULL,
+    [WF_MainReason] int NULL,
+    CONSTRAINT [PK_W_Cruise_ReasonLog] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* T_IPS_AutoAlarmHis */
-IF OBJECT_ID(N'dbo.T_IPS_AutoAlarmHis', N'U') IS NULL
+/* W_IPS_AutoAlarmHis */
+IF OBJECT_ID(N'dbo.W_IPS_AutoAlarmHis', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_IPS_AutoAlarmHis] (
-    [F_Code] nvarchar(36) NOT NULL,
-    [F_Time] datetime2 NOT NULL,
-    [F_Pairs] nvarchar(max) NULL,
-    [F_PositionCode] nvarchar(100) NULL,
-    [F_CurValue] nvarchar(50) NULL,
-    [F_SetValue] nvarchar(50) NULL,
-    [F_OffsetValue] nvarchar(50) NULL,
-    [F_Offset] nvarchar(50) NULL,
-    [F_OrderID] nvarchar(50) NULL,
-    [F_Id] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_T_IPS_AutoAlarmHis] PRIMARY KEY CLUSTERED ([F_Id] ASC)
+CREATE TABLE dbo.[W_IPS_AutoAlarmHis] (
+    [WF_Code] nvarchar(36) NOT NULL,
+    [WF_Time] datetime2 NOT NULL,
+    [WF_Pairs] nvarchar(max) NULL,
+    [WF_PositionCode] nvarchar(100) NULL,
+    [WF_CurValue] nvarchar(50) NULL,
+    [WF_SetValue] nvarchar(50) NULL,
+    [WF_OffsetValue] nvarchar(50) NULL,
+    [WF_Offset] nvarchar(50) NULL,
+    [WF_OrderID] nvarchar(50) NULL,
+    [WF_Id] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_AutoAlarmHis] PRIMARY KEY CLUSTERED ([WF_Id] ASC)
 );
 END
 GO
 
 /* PLC加湿器 */
-IF OBJECT_ID(N'dbo.T_IPS_CurAccelerator', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CurAccelerator', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_IPS_CurAccelerator] (
-    [F_IsUse] bit NOT NULL,
-    [F_SetValue] decimal(18,2) NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_T_IPS_CurAccelerator] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CurAccelerator] (
+    [WF_IsUse] bit NOT NULL,
+    [WF_SetValue] decimal(18,2) NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_CurAccelerator] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* PLC冷喷雾 */
-IF OBJECT_ID(N'dbo.T_IPS_CurPlcSpray', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_CurPlcSpray', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_IPS_CurPlcSpray] (
-    [F_Position] nvarchar(50) NOT NULL,
-    [F_IsUse] bit NOT NULL,
-    [F_IsAuto] bit NOT NULL,
-    [F_SetValue] decimal(18,2) NOT NULL,
-    [F_Nozzle1] bit NOT NULL,
-    [F_Nozzle2] bit NOT NULL,
-    [F_Nozzle3] bit NOT NULL,
-    [F_Nozzle4] bit NOT NULL,
-    [F_Nozzle5] bit NOT NULL,
-    [F_Nozzle6] bit NOT NULL,
-    [F_Nozzle7] bit NOT NULL,
-    [F_Nozzle8] bit NOT NULL,
-    [F_Nozzle9] bit NOT NULL,
-    [F_Nozzle10] bit NOT NULL,
-    [F_Nozzle11] bit NOT NULL,
-    [F_Nozzle12] bit NOT NULL,
-    [F_Nozzle13] bit NOT NULL,
-    [F_Nozzle14] bit NOT NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_T_IPS_CurPlcSpray] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_CurPlcSpray] (
+    [WF_Position] nvarchar(50) NOT NULL,
+    [WF_IsUse] bit NOT NULL,
+    [WF_IsAuto] bit NOT NULL,
+    [WF_SetValue] decimal(18,2) NOT NULL,
+    [WF_Nozzle1] bit NOT NULL,
+    [WF_Nozzle2] bit NOT NULL,
+    [WF_Nozzle3] bit NOT NULL,
+    [WF_Nozzle4] bit NOT NULL,
+    [WF_Nozzle5] bit NOT NULL,
+    [WF_Nozzle6] bit NOT NULL,
+    [WF_Nozzle7] bit NOT NULL,
+    [WF_Nozzle8] bit NOT NULL,
+    [WF_Nozzle9] bit NOT NULL,
+    [WF_Nozzle10] bit NOT NULL,
+    [WF_Nozzle11] bit NOT NULL,
+    [WF_Nozzle12] bit NOT NULL,
+    [WF_Nozzle13] bit NOT NULL,
+    [WF_Nozzle14] bit NOT NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_CurPlcSpray] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 原纸实材表 */
-IF OBJECT_ID(N'dbo.T_IPS_ErpPaperForMachine', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_ErpPaperForMachine', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_IPS_ErpPaperForMachine] (
-    [F_MachineID] nvarchar(50) NULL,
-    [F_ErpPaper] nvarchar(50) NULL,
-    [F_ErpWidth] decimal(18,2) NULL,
-    [F_ErpWeight] decimal(18,2) NULL,
-    [F_ErpRollWeight] decimal(18,2) NULL,
-    [F_ErpRollMeter] decimal(18,2) NULL,
-    [F_GUID] nvarchar(max) NULL,
-    [F_Barcode] nvarchar(max) NULL,
-    [F_CreateTime] datetime2 NOT NULL,
-    [F_State] int NOT NULL,
-    [F_IsDel] bit NOT NULL,
-    [F_SID] int NULL,
-    [F_Brand] nvarchar(50) NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    [F_Supplier] nvarchar(50) NOT NULL,
-    CONSTRAINT [PK_T_IPS_ErpPaperForMachine] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_ErpPaperForMachine] (
+    [WF_MachineID] nvarchar(50) NULL,
+    [WF_ErpPaper] nvarchar(50) NULL,
+    [WF_ErpWidth] decimal(18,2) NULL,
+    [WF_ErpWeight] decimal(18,2) NULL,
+    [WF_ErpRollWeight] decimal(18,2) NULL,
+    [WF_ErpRollMeter] decimal(18,2) NULL,
+    [WF_GUID] nvarchar(max) NULL,
+    [WF_Barcode] nvarchar(max) NULL,
+    [WF_CreateTime] datetime2 NOT NULL,
+    [WF_State] int NOT NULL,
+    [WF_IsDel] bit NOT NULL,
+    [WF_SID] int NULL,
+    [WF_Brand] nvarchar(50) NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    [WF_Supplier] nvarchar(50) NOT NULL,
+    CONSTRAINT [PK_W_IPS_ErpPaperForMachine] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 原纸分摊基础表 */
-IF OBJECT_ID(N'dbo.T_IPS_PaperShare', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_PaperShare', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_IPS_PaperShare] (
-    [F_MachineID] nvarchar(50) NOT NULL,
-    [F_OrderID] int NOT NULL,
-    [F_BarCode] nvarchar(50) NOT NULL,
-    [F_PaperCode] nvarchar(50) NOT NULL,
-    [F_Brand] nvarchar(50) NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_WidthInch] int NOT NULL,
-    [F_Weight] int NOT NULL,
-    [F_RollWeight] decimal(18,2) NOT NULL,
-    [F_Dia] int NOT NULL,
-    [F_RemainDia] int NOT NULL,
-    [F_PlcRemainDia] int NOT NULL,
-    [F_Meter] int NOT NULL,
-    [F_RemainMeter] int NOT NULL,
-    [F_PlcRemainMeter] int NOT NULL,
-    [F_RemainRollWeight] decimal(18,2) NOT NULL,
-    [F_PlcRemainRollWeight] decimal(18,2) NOT NULL,
-    [F_ShelfTime] datetime2 NOT NULL,
-    [F_OffShelfTime] datetime2 NOT NULL,
-    [F_UseMeter] int NOT NULL,
-    [F_Percent] decimal(18,2) NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_T_IPS_PaperShare] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_PaperShare] (
+    [WF_MachineID] nvarchar(50) NOT NULL,
+    [WF_OrderID] int NOT NULL,
+    [WF_BarCode] nvarchar(50) NOT NULL,
+    [WF_PaperCode] nvarchar(50) NOT NULL,
+    [WF_Brand] nvarchar(50) NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_WidthInch] int NOT NULL,
+    [WF_Weight] int NOT NULL,
+    [WF_RollWeight] decimal(18,2) NOT NULL,
+    [WF_Dia] int NOT NULL,
+    [WF_RemainDia] int NOT NULL,
+    [WF_PlcRemainDia] int NOT NULL,
+    [WF_Meter] int NOT NULL,
+    [WF_RemainMeter] int NOT NULL,
+    [WF_PlcRemainMeter] int NOT NULL,
+    [WF_RemainRollWeight] decimal(18,2) NOT NULL,
+    [WF_PlcRemainRollWeight] decimal(18,2) NOT NULL,
+    [WF_ShelfTime] datetime2 NOT NULL,
+    [WF_OffShelfTime] datetime2 NOT NULL,
+    [WF_UseMeter] int NOT NULL,
+    [WF_Percent] decimal(18,2) NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_IPS_PaperShare] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 原纸实材表 */
-IF OBJECT_ID(N'dbo.T_IPS_SPPaper', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_IPS_SPPaper', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_IPS_SPPaper] (
-    [F_MachineID] nvarchar(50) NULL,
-    [F_Brand] nvarchar(50) NULL,
-    [F_ErpPaper] nvarchar(50) NULL,
-    [F_ErpWidth] decimal(18,2) NULL,
-    [F_ErpWeight] decimal(18,2) NULL,
-    [F_ErpRollWeight] decimal(18,2) NULL,
-    [F_ErpRollMeter] decimal(18,2) NULL,
-    [F_Barcode] nvarchar(max) NULL,
-    [F_CreateTime] datetime2 NOT NULL,
-    [F_State] int NOT NULL,
-    [F_IsDel] bit NOT NULL,
-    [F_GUID] nvarchar(max) NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    [F_Supplier] nvarchar(50) NULL,
-    CONSTRAINT [PK_T_IPS_SPPaper] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_IPS_SPPaper] (
+    [WF_MachineID] nvarchar(50) NULL,
+    [WF_Brand] nvarchar(50) NULL,
+    [WF_ErpPaper] nvarchar(50) NULL,
+    [WF_ErpWidth] decimal(18,2) NULL,
+    [WF_ErpWeight] decimal(18,2) NULL,
+    [WF_ErpRollWeight] decimal(18,2) NULL,
+    [WF_ErpRollMeter] decimal(18,2) NULL,
+    [WF_Barcode] nvarchar(max) NULL,
+    [WF_CreateTime] datetime2 NOT NULL,
+    [WF_State] int NOT NULL,
+    [WF_IsDel] bit NOT NULL,
+    [WF_GUID] nvarchar(max) NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    [WF_Supplier] nvarchar(50) NULL,
+    CONSTRAINT [PK_W_IPS_SPPaper] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
-/* T_PMS_MonitorOrder */
-IF OBJECT_ID(N'dbo.T_PMS_MonitorOrder', N'U') IS NULL
+/* W_PMS_MonitorOrder */
+IF OBJECT_ID(N'dbo.W_PMS_MonitorOrder', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_PMS_MonitorOrder] (
+CREATE TABLE dbo.[W_PMS_MonitorOrder] (
     [IsChange] bit NOT NULL,
     [ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_T_PMS_MonitorOrder] PRIMARY KEY CLUSTERED ([ID] ASC)
+    CONSTRAINT [PK_W_PMS_MonitorOrder] PRIMARY KEY CLUSTERED ([ID] ASC)
 );
 END
 GO
 
 /* 订单编辑版本表 */
-IF OBJECT_ID(N'dbo.T_PMS_OrderEditVersion', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_PMS_OrderEditVersion', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_PMS_OrderEditVersion] (
-    [F_IsLock] bit NULL,
-    [F_UID] int NULL,
-    [F_LockTime] datetime2 NULL,
-    [F_ID] bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_T_PMS_OrderEditVersion] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_PMS_OrderEditVersion] (
+    [WF_IsLock] bit NULL,
+    [WF_UID] int NULL,
+    [WF_LockTime] datetime2 NULL,
+    [WF_ID] bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_PMS_OrderEditVersion] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 订单标签打印表 */
-IF OBJECT_ID(N'dbo.T_PMS_OrderLabels', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_PMS_OrderLabels', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_PMS_OrderLabels] (
-    [F_Guid] nvarchar(50) NOT NULL,
-    [F_PaperCode] nvarchar(50) NOT NULL,
-    [F_Wave] nvarchar(50) NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_WidthInch] decimal(18,4) NULL,
-    [F_ScheduleMeter] decimal(18,4) NULL,
-    [F_OrderNo] nvarchar(50) NULL,
-    [F_CustNo] nvarchar(50) NULL,
-    [F_TaskNo] nvarchar(50) NULL,
-    [F_CustName] nvarchar(50) NULL,
-    [F_CustPaperCode] nvarchar(50) NULL,
-    [F_CutWidth] int NULL,
-    [F_CutWidthInch] decimal(18,4) NULL,
-    [F_CutLength] int NULL,
-    [F_CutLengthInch] decimal(18,4) NULL,
-    [F_CutQty] int NULL,
-    [F_OrderQty] int NULL,
-    [F_OrderMeter] decimal(18,4) NULL,
-    [F_LabelQty] int NULL,
-    [F_CN] int NULL,
-    [F_Scor] nvarchar(50) NULL,
-    [F_Remark] nvarchar(50) NULL,
-    [F_StackQty] int NULL,
-    [F_BunQty] int NULL,
-    [F_OrderDate] datetime2 NULL,
-    [F_DeliDate] datetime2 NULL,
-    [F_StockMemo] nvarchar(50) NULL,
-    [F_BoxMemo] nvarchar(50) NULL,
-    [F_DeliMemo] nvarchar(50) NULL,
-    [F_PlanMemo] nvarchar(50) NULL,
-    [F_CutPaperMemo] nvarchar(50) NULL,
-    [F_OrderNo_D] nvarchar(50) NULL,
-    [F_CustNo_D] nvarchar(50) NULL,
-    [F_TaskNo_D] nvarchar(50) NULL,
-    [F_CustName_D] nvarchar(50) NULL,
-    [F_CustPaperCode_D] nvarchar(50) NULL,
-    [F_CutWidth_D] int NULL,
-    [F_CutWidthInch_D] decimal(18,4) NULL,
-    [F_CutLength_D] int NULL,
-    [F_CutLengthInch_D] decimal(18,4) NULL,
-    [F_CutQty_D] int NULL,
-    [F_OrderQty_D] int NULL,
-    [F_OrderMeter_D] decimal(18,4) NULL,
-    [F_LabelQty_D] int NULL,
-    [F_CN_D] int NULL,
-    [F_Scor_D] nvarchar(50) NULL,
-    [F_Remark_D] nvarchar(50) NULL,
-    [F_StackQty_D] int NULL,
-    [F_BunQty_D] int NULL,
-    [F_OrderDate_D] datetime2 NULL,
-    [F_DeliDate_D] datetime2 NULL,
-    [F_StockMemo_D] nvarchar(50) NULL,
-    [F_BoxMemo_D] nvarchar(50) NULL,
-    [F_DeliMemo_D] nvarchar(50) NULL,
-    [F_PlanMemo_D] nvarchar(50) NULL,
-    [F_CutPaperMemo_D] nvarchar(50) NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_T_PMS_OrderLabels] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_PMS_OrderLabels] (
+    [WF_Guid] nvarchar(50) NOT NULL,
+    [WF_PaperCode] nvarchar(50) NOT NULL,
+    [WF_Wave] nvarchar(50) NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_WidthInch] decimal(18,4) NULL,
+    [WF_ScheduleMeter] decimal(18,4) NULL,
+    [WF_OrderNo] nvarchar(50) NULL,
+    [WF_CustNo] nvarchar(50) NULL,
+    [WF_TaskNo] nvarchar(50) NULL,
+    [WF_CustName] nvarchar(50) NULL,
+    [WF_CustPaperCode] nvarchar(50) NULL,
+    [WF_CutWidth] int NULL,
+    [WF_CutWidthInch] decimal(18,4) NULL,
+    [WF_CutLength] int NULL,
+    [WF_CutLengthInch] decimal(18,4) NULL,
+    [WF_CutQty] int NULL,
+    [WF_OrderQty] int NULL,
+    [WF_OrderMeter] decimal(18,4) NULL,
+    [WF_LabelQty] int NULL,
+    [WF_CN] int NULL,
+    [WF_Scor] nvarchar(50) NULL,
+    [WF_Remark] nvarchar(50) NULL,
+    [WF_StackQty] int NULL,
+    [WF_BunQty] int NULL,
+    [WF_OrderDate] datetime2 NULL,
+    [WF_DeliDate] datetime2 NULL,
+    [WF_StockMemo] nvarchar(50) NULL,
+    [WF_BoxMemo] nvarchar(50) NULL,
+    [WF_DeliMemo] nvarchar(50) NULL,
+    [WF_PlanMemo] nvarchar(50) NULL,
+    [WF_CutPaperMemo] nvarchar(50) NULL,
+    [WF_OrderNo_D] nvarchar(50) NULL,
+    [WF_CustNo_D] nvarchar(50) NULL,
+    [WF_TaskNo_D] nvarchar(50) NULL,
+    [WF_CustName_D] nvarchar(50) NULL,
+    [WF_CustPaperCode_D] nvarchar(50) NULL,
+    [WF_CutWidth_D] int NULL,
+    [WF_CutWidthInch_D] decimal(18,4) NULL,
+    [WF_CutLength_D] int NULL,
+    [WF_CutLengthInch_D] decimal(18,4) NULL,
+    [WF_CutQty_D] int NULL,
+    [WF_OrderQty_D] int NULL,
+    [WF_OrderMeter_D] decimal(18,4) NULL,
+    [WF_LabelQty_D] int NULL,
+    [WF_CN_D] int NULL,
+    [WF_Scor_D] nvarchar(50) NULL,
+    [WF_Remark_D] nvarchar(50) NULL,
+    [WF_StackQty_D] int NULL,
+    [WF_BunQty_D] int NULL,
+    [WF_OrderDate_D] datetime2 NULL,
+    [WF_DeliDate_D] datetime2 NULL,
+    [WF_StockMemo_D] nvarchar(50) NULL,
+    [WF_BoxMemo_D] nvarchar(50) NULL,
+    [WF_DeliMemo_D] nvarchar(50) NULL,
+    [WF_PlanMemo_D] nvarchar(50) NULL,
+    [WF_CutPaperMemo_D] nvarchar(50) NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_PMS_OrderLabels] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
 
 /* 原纸使用明细表 */
-IF OBJECT_ID(N'dbo.T_PR_HisRollInOut', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_PR_HisRollInOut', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[T_PR_HisRollInOut] (
-    [F_MachineID] nvarchar(50) NOT NULL,
-    [F_BarCode] nvarchar(50) NOT NULL,
-    [F_PaperCode] nvarchar(50) NOT NULL,
-    [F_Brand] nvarchar(50) NOT NULL,
-    [F_Width] int NOT NULL,
-    [F_WidthInch] int NOT NULL,
-    [F_Weight] int NOT NULL,
-    [F_RollWeight] decimal(18,2) NOT NULL,
-    [F_Dia] int NOT NULL,
-    [F_RemainDia] int NOT NULL,
-    [F_PlcRemainDia] int NOT NULL,
-    [F_Meter] int NOT NULL,
-    [F_RemainMeter] int NOT NULL,
-    [F_PlcRemainMeter] int NOT NULL,
-    [F_RemainRollWeight] decimal(18,2) NOT NULL,
-    [F_PlcRemainRollWeight] decimal(18,2) NOT NULL,
-    [F_ShelfTime] datetime2 NOT NULL,
-    [F_OffShelfTime] datetime2 NULL,
-    [F_UseMeter] int NOT NULL,
-    [F_ID] int IDENTITY(1,1) NOT NULL,
-    [F_State] int NOT NULL,
-    [F_ShiftName] nvarchar(50) NULL,
-    [F_Supplier] nvarchar(50) NULL,
-    CONSTRAINT [PK_T_PR_HisRollInOut] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_PR_HisRollInOut] (
+    [WF_MachineID] nvarchar(50) NOT NULL,
+    [WF_BarCode] nvarchar(50) NOT NULL,
+    [WF_PaperCode] nvarchar(50) NOT NULL,
+    [WF_Brand] nvarchar(50) NOT NULL,
+    [WF_Width] int NOT NULL,
+    [WF_WidthInch] int NOT NULL,
+    [WF_Weight] int NOT NULL,
+    [WF_RollWeight] decimal(18,2) NOT NULL,
+    [WF_Dia] int NOT NULL,
+    [WF_RemainDia] int NOT NULL,
+    [WF_PlcRemainDia] int NOT NULL,
+    [WF_Meter] int NOT NULL,
+    [WF_RemainMeter] int NOT NULL,
+    [WF_PlcRemainMeter] int NOT NULL,
+    [WF_RemainRollWeight] decimal(18,2) NOT NULL,
+    [WF_PlcRemainRollWeight] decimal(18,2) NOT NULL,
+    [WF_ShelfTime] datetime2 NOT NULL,
+    [WF_OffShelfTime] datetime2 NULL,
+    [WF_UseMeter] int NOT NULL,
+    [WF_ID] int IDENTITY(1,1) NOT NULL,
+    [WF_State] int NOT NULL,
+    [WF_ShiftName] nvarchar(50) NULL,
+    [WF_Supplier] nvarchar(50) NULL,
+    CONSTRAINT [PK_W_PR_HisRollInOut] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
 END
 GO
@@ -3546,7 +3546,7 @@ CREATE TABLE dbo.[W_PaperReadys] (
     [WO_IDS] nvarchar(2000) NULL,
     [WP_P04TID] int NULL,
     [WPR_WorkNo] int NOT NULL,
-    [Pro_PaperCode] int NULL,
+    [WPro_PaperCode] int NULL,
     [WPR_Wave] nvarchar(50) NOT NULL,
     [WPR_PaperCode] nvarchar(50) NOT NULL,
     [WPR_Width] int NOT NULL,

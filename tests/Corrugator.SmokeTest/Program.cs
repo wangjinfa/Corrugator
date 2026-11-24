@@ -43,7 +43,7 @@ var logger = provider.GetRequiredService<ILoggerFactory>().CreateLogger("smoke")
 // 只建冒烟测试涉及的表
 db.CodeFirst.InitTables(
     typeof(Sys_User), typeof(W_Orders), typeof(W_OrderFinishs), typeof(W_Alarms),
-    typeof(S_ProductWaves), typeof(TB_QDM_FormSetFactor));
+    typeof(W_ProductWaves), typeof(W_QDM_FormSetFactor));
 
 Console.WriteLine("建表完成");
 
@@ -107,11 +107,11 @@ var factors = await process.GetFactorsAsync();
 Console.WriteLine($"6) 工艺参数项数={factors.Count}，示例={factors.FirstOrDefault()?.Key}={factors.FirstOrDefault()?.Value}");
 await process.UpdateFactorAsync(new Corrugator.Shared.Contracts.Process.ProcessFactorUpdateDto
 {
-    Key = "F_Glue_GU_1st_Form_Factor",
+    Key = "WF_Glue_GU_1st_Form_Factor",
     Value = 3.5m,
 });
-var after = await process.GetFactorsAsync("F_Glue_GU_1st_Form_Factor");
-Console.WriteLine($"6) 修改后 F_Glue_GU_1st_Form_Factor={after.FirstOrDefault()?.Value}");
+var after = await process.GetFactorsAsync("WF_Glue_GU_1st_Form_Factor");
+Console.WriteLine($"6) 修改后 WF_Glue_GU_1st_Form_Factor={after.FirstOrDefault()?.Value}");
 
 // 7) 告警确认
 var alarmRepo = sp.GetRequiredService<IRepository<W_Alarms>>();

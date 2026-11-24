@@ -3,21 +3,21 @@ using SqlSugar;
 namespace Corrugator.Domain.Entities.Plc;
 
 /// <summary>
-/// TB_Plc_AcceleratorSet
+/// W_Plc_AcceleratorSet
 /// </summary>
-[SugarTable("TB_Plc_AcceleratorSet", TableDescription = "TB_Plc_AcceleratorSet")]
-public class TB_Plc_AcceleratorSet
+[SugarTable("W_Plc_AcceleratorSet", TableDescription = "W_Plc_AcceleratorSet")]
+public class W_Plc_AcceleratorSet
 {
-    /// <summary>F_Speed</summary>
-    [SugarColumn(ColumnName = "F_Speed", ColumnDescription = "F_Speed")]
-    public int F_Speed { get; set; }
+    /// <summary>WF_Speed</summary>
+    [SugarColumn(ColumnName = "WF_Speed", ColumnDescription = "WF_Speed")]
+    public int WF_Speed { get; set; }
 
-    /// <summary>F_Coef</summary>
-    [SugarColumn(ColumnName = "F_Coef", Length = 18, DecimalDigits = 2, ColumnDescription = "F_Coef")]
-    public decimal F_Coef { get; set; }
+    /// <summary>WF_Coef</summary>
+    [SugarColumn(ColumnName = "WF_Coef", Length = 18, DecimalDigits = 2, ColumnDescription = "WF_Coef")]
+    public decimal WF_Coef { get; set; }
 
-    /// <summary>F_ID</summary>
-    [SugarColumn(ColumnName = "F_ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "F_ID")]
-    public long F_ID { get; set; }
+    /// <summary>WF_ID</summary>
+    [SugarColumn(ColumnName = "WF_ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "WF_ID")]
+    public long WF_ID { get; set; }
 
 }

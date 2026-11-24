@@ -185,11 +185,11 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="" Binding="{Binding RowNo}" Width="46" />
-                        <DataGridTextColumn Header="值" Binding="{Binding PD_Value}" Width="90" />
-                        <DataGridTextColumn Header="英文名" Binding="{Binding PD_EnglishName}" Width="110" />
-                        <DataGridTextColumn Header="中文名" Binding="{Binding PD_ChineseName}" Width="110" />
-                        <DataGridTextColumn Header="属性" Binding="{Binding PD_Property}" Width="*" />
-                        <DataGridTextColumn Header="排序号" Binding="{Binding PD_SortNo}" Width="80" />
+                        <DataGridTextColumn Header="值" Binding="{Binding WPD_Value}" Width="90" />
+                        <DataGridTextColumn Header="英文名" Binding="{Binding WPD_EnglishName}" Width="110" />
+                        <DataGridTextColumn Header="中文名" Binding="{Binding WPD_ChineseName}" Width="110" />
+                        <DataGridTextColumn Header="属性" Binding="{Binding WPD_Property}" Width="*" />
+                        <DataGridTextColumn Header="排序号" Binding="{Binding WPD_SortNo}" Width="80" />
                     </DataGrid.Columns>
                 </DataGrid>
             </Border>

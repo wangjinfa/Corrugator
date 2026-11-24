@@ -22,7 +22,7 @@ public class DatabaseOptions
     /// </summary>
     public string BaseConnectionString { get; set; } = string.Empty;
 
-    /// <summary>默认线路编码（TB_Line.F_Code）；留空取第一条</summary>
+    /// <summary>默认线路编码（TB_Line.WF_Code）；留空取第一条</summary>
     public string DefaultLine { get; set; } = string.Empty;
 
     /// <summary>是否启用多瓦线多库路由；关闭时全部请求都走 ConnectionString</summary>

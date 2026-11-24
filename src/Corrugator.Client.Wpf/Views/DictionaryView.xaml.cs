@@ -42,9 +42,9 @@ public partial class DictionaryView : UserControl
         {
             await ViewModel.SaveNodeAsync(null, new DictTypeSaveRequest
             {
-                PD_PID = parentId,
-                PD_Name = dialog.ResultName,
-                PD_Code = dialog.ResultCode,
+                WPD_PID = parentId,
+                WPD_Name = dialog.ResultName,
+                WPD_Code = dialog.ResultCode,
             });
         }
     }
@@ -66,9 +66,9 @@ public partial class DictionaryView : UserControl
         {
             await ViewModel.SaveNodeAsync(node.Id, new DictTypeSaveRequest
             {
-                PD_PID = node.ParentId is null or 0 ? null : node.ParentId,
-                PD_Name = dialog.ResultName,
-                PD_Code = dialog.ResultCode,
+                WPD_PID = node.ParentId is null or 0 ? null : node.ParentId,
+                WPD_Name = dialog.ResultName,
+                WPD_Code = dialog.ResultCode,
             });
         }
     }
@@ -133,7 +133,7 @@ public partial class DictionaryView : UserControl
 
         if (dialog.ShowDialog() == true && dialog.Result is not null)
         {
-            await ViewModel.SaveDetailAsync(row.PD_ID, dialog.Result);
+            await ViewModel.SaveDetailAsync(row.WPD_ID, dialog.Result);
         }
     }
 
@@ -144,11 +144,11 @@ public partial class DictionaryView : UserControl
             return;
         }
 
-        var confirm = MessageBox.Show($"确定删除字典明细「{row.PD_ChineseName ?? row.PD_Value}」？", "删除确认",
+        var confirm = MessageBox.Show($"确定删除字典明细「{row.WPD_ChineseName ?? row.WPD_Value}」？", "删除确认",
             MessageBoxButton.OKCancel, MessageBoxImage.Warning);
         if (confirm == MessageBoxResult.OK)
         {
-            await ViewModel.DeleteDetailAsync(row.PD_ID);
+            await ViewModel.DeleteDetailAsync(row.WPD_ID);
         }
     }
 }

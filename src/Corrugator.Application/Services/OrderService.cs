@@ -99,7 +99,7 @@ public class OrderService : IOrderService
             WO_TuneInStatue = 0,
             WO_IsSmallCN_D = false,
             WO_IsDel = false,
-            IndexNo = 0,
+            WIndexNo = 0,
         };
 
         await _orders.InsertAsync(entity);
@@ -247,7 +247,7 @@ public class OrderService : IOrderService
         WO_CutLength_D = e.WO_CutLength_D,
         WO_CutQty_D = e.WO_CutQty_D,
         WO_SortSN = e.WO_SortSN ?? 0,
-        IndexNo = e.IndexNo ?? 0,
+        IndexNo = e.WIndexNo ?? 0,
         WO_Remark = e.WO_Remark,
         Status = e.WO_StartTime is null ? "待生产" : (e.WO_Stop ? "暂停" : "生产中"),
     };

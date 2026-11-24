@@ -24,9 +24,9 @@ public class W_PaperReadys
     [SugarColumn(ColumnName = "WPR_WorkNo", ColumnDescription = "工号")]
     public int WPR_WorkNo { get; set; }
 
-    /// <summary>Pro_PaperCode</summary>
-    [SugarColumn(ColumnName = "Pro_PaperCode", IsNullable = true, ColumnDescription = "Pro_PaperCode")]
-    public int? Pro_PaperCode { get; set; }
+    /// <summary>WPro_PaperCode</summary>
+    [SugarColumn(ColumnName = "WPro_PaperCode", IsNullable = true, ColumnDescription = "WPro_PaperCode")]
+    public int? WPro_PaperCode { get; set; }
 
     /// <summary>楞型</summary>
     [SugarColumn(ColumnName = "WPR_Wave", Length = 50, ColumnDescription = "楞型")]

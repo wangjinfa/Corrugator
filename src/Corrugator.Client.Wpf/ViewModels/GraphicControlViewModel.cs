@@ -346,7 +346,7 @@ public class GraphicControlViewModel : BindableBase
         var factors = await _api.GetAsync<List<ProcessFactorItemDto>>("api/process-params/factors");
         if (factors.Success && factors.Data is not null)
         {
-            var glue1 = factors.Data.FirstOrDefault(f => f.Key == "F_Glue_GU_1st_Form_Factor");
+            var glue1 = factors.Data.FirstOrDefault(f => f.Key == "WF_Glue_GU_1st_Form_Factor");
             var glue0 = factors.Data.FirstOrDefault(f => f.Key == "F_Glue_GU_0_Form_Factor");
             Glue1stText = $"胶量 {glue1?.Value?.ToString("0.##") ?? "--"}";
             Glue0Text = $"糊量 {glue0?.Value?.ToString("0.##") ?? "--"}";

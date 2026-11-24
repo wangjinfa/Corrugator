@@ -37,12 +37,12 @@ public class DictionaryController : ControllerBase
         _service = service;
     }
 
-    /// <summary>字典类型列表（P_DictTypes）</summary>
+    /// <summary>字典类型列表（W_DictTypes）</summary>
     [HttpGet("types")]
     public async Task<ApiResult<List<DictTypeDto>>> Types()
         => ApiResult<List<DictTypeDto>>.Ok(await _service.GetTypesAsync());
 
-    /// <summary>指定类型的字典明细（P_DictDatas）</summary>
+    /// <summary>指定类型的字典明细（W_DictDatas）</summary>
     [HttpGet("types/{typeId:int}/data")]
     public async Task<ApiResult<List<DictDataDto>>> Data(int typeId)
         => ApiResult<List<DictDataDto>>.Ok(await _service.GetDatasAsync(typeId));
@@ -56,7 +56,7 @@ public class DictionaryController : ControllerBase
             return ApiResult<DictTypeDto>.Fail("仅管理员可维护数据字典", 403);
         }
 
-        if (string.IsNullOrWhiteSpace(request.PD_Name))
+        if (string.IsNullOrWhiteSpace(request.WPD_Name))
         {
             return ApiResult<DictTypeDto>.Fail("中文名不能为空");
         }
@@ -74,7 +74,7 @@ public class DictionaryController : ControllerBase
             return ApiResult<DictTypeDto>.Fail("仅管理员可维护数据字典", 403);
         }
 
-        if (string.IsNullOrWhiteSpace(request.PD_Name))
+        if (string.IsNullOrWhiteSpace(request.WPD_Name))
         {
             return ApiResult<DictTypeDto>.Fail("中文名不能为空");
         }
@@ -109,7 +109,7 @@ public class DictionaryController : ControllerBase
             return ApiResult<DictDataDto>.Fail("仅管理员可维护数据字典", 403);
         }
 
-        if (request.PD_TypeID <= 0)
+        if (request.WPD_TypeID <= 0)
         {
             return ApiResult<DictDataDto>.Fail("请先选择字典分类");
         }

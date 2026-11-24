@@ -16,11 +16,11 @@ public partial class DictDataEditWindow : Window
 
         if (editing is not null)
         {
-            ValueInput.Text = editing.PD_Value ?? string.Empty;
-            EnglishInput.Text = editing.PD_EnglishName ?? string.Empty;
-            ChineseInput.Text = editing.PD_ChineseName ?? string.Empty;
-            PropertyInput.Text = editing.PD_Property ?? string.Empty;
-            SortInput.Text = editing.PD_SortNo?.ToString() ?? string.Empty;
+            ValueInput.Text = editing.WPD_Value ?? string.Empty;
+            EnglishInput.Text = editing.WPD_EnglishName ?? string.Empty;
+            ChineseInput.Text = editing.WPD_ChineseName ?? string.Empty;
+            PropertyInput.Text = editing.WPD_Property ?? string.Empty;
+            SortInput.Text = editing.WPD_SortNo?.ToString() ?? string.Empty;
         }
 
         Loaded += (_, _) => ValueInput.Focus();
@@ -49,12 +49,12 @@ public partial class DictDataEditWindow : Window
 
         Result = new DictDataSaveRequest
         {
-            PD_TypeID = TypeId,
-            PD_Value = ValueInput.Text?.Trim(),
-            PD_EnglishName = EnglishInput.Text?.Trim(),
-            PD_ChineseName = ChineseInput.Text?.Trim(),
-            PD_Property = PropertyInput.Text?.Trim(),
-            PD_SortNo = sortNo,
+            WPD_TypeID = TypeId,
+            WPD_Value = ValueInput.Text?.Trim(),
+            WPD_EnglishName = EnglishInput.Text?.Trim(),
+            WPD_ChineseName = ChineseInput.Text?.Trim(),
+            WPD_Property = PropertyInput.Text?.Trim(),
+            WPD_SortNo = sortNo,
         };
 
         DialogResult = true;

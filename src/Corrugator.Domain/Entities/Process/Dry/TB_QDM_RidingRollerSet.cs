@@ -3,33 +3,33 @@ using SqlSugar;
 namespace Corrugator.Domain.Entities.Process.Dry;
 
 /// <summary>
-/// TB_QDM_RidingRollerSet
+/// W_QDM_RidingRollerSet
 /// </summary>
-[SugarTable("TB_QDM_RidingRollerSet", TableDescription = "TB_QDM_RidingRollerSet")]
-public class TB_QDM_RidingRollerSet
+[SugarTable("W_QDM_RidingRollerSet", TableDescription = "W_QDM_RidingRollerSet")]
+public class W_QDM_RidingRollerSet
 {
     /// <summary>CorrugatedRollCode</summary>
-    [SugarColumn(ColumnName = "CorrugatedRollCode", Length = 50, ColumnDescription = "CorrugatedRollCode")]
-    public string CorrugatedRollCode { get; set; } = default!;
+    [SugarColumn(ColumnName = "WCorrugatedRollCode", Length = 50, ColumnDescription = "CorrugatedRollCode")]
+    public string WCorrugatedRollCode { get; set; } = default!;
 
     /// <summary>Deep</summary>
-    [SugarColumn(ColumnName = "Deep", Length = 18, DecimalDigits = 2, ColumnDescription = "Deep")]
-    public decimal Deep { get; set; }
+    [SugarColumn(ColumnName = "WDeep", Length = 18, DecimalDigits = 2, ColumnDescription = "Deep")]
+    public decimal WDeep { get; set; }
 
     /// <summary>RidingDeep</summary>
-    [SugarColumn(ColumnName = "RidingDeep", Length = 18, DecimalDigits = 2, ColumnDescription = "RidingDeep")]
-    public decimal RidingDeep { get; set; }
+    [SugarColumn(ColumnName = "WRidingDeep", Length = 18, DecimalDigits = 2, ColumnDescription = "RidingDeep")]
+    public decimal WRidingDeep { get; set; }
 
     /// <summary>MinValue</summary>
-    [SugarColumn(ColumnName = "MinValue", Length = 18, DecimalDigits = 2, ColumnDescription = "MinValue")]
-    public decimal MinValue { get; set; }
+    [SugarColumn(ColumnName = "WMinValue", Length = 18, DecimalDigits = 2, ColumnDescription = "MinValue")]
+    public decimal WMinValue { get; set; }
 
     /// <summary>MaxValue</summary>
-    [SugarColumn(ColumnName = "MaxValue", Length = 18, DecimalDigits = 2, ColumnDescription = "MaxValue")]
-    public decimal MaxValue { get; set; }
+    [SugarColumn(ColumnName = "WMaxValue", Length = 18, DecimalDigits = 2, ColumnDescription = "MaxValue")]
+    public decimal WMaxValue { get; set; }
 
     /// <summary>ID</summary>
-    [SugarColumn(ColumnName = "ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "ID")]
-    public int ID { get; set; }
+    [SugarColumn(ColumnName = "WID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "ID")]
+    public int WID { get; set; }
 
 }

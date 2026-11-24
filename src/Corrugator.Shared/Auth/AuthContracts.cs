@@ -15,13 +15,13 @@ public class LoginResponse
     public string DisplayName { get; set; } = string.Empty;
     public string Role { get; set; } = "operator";
 
-    /// <summary>全部角色编码（S_Roles.SR_Name）</summary>
+    /// <summary>全部角色编码（W_Roles.WSR_Name）</summary>
     public List<string> Roles { get; set; } = new();
 
-    /// <summary>功能权限编码（S_Permissions.SP_Name）</summary>
+    /// <summary>功能权限编码（W_Permissions.WSP_Name）</summary>
     public List<string> Permissions { get; set; } = new();
 
-    /// <summary>是否开通多瓦线切换（S_Users.SU_IsMulti）</summary>
+    /// <summary>是否开通多瓦线切换（W_Users.WSU_IsMulti）</summary>
     public bool IsMultiLine { get; set; }
 }
 

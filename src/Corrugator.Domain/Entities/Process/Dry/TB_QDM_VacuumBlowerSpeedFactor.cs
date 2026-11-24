@@ -3,21 +3,21 @@ using SqlSugar;
 namespace Corrugator.Domain.Entities.Process.Dry;
 
 /// <summary>
-/// TB_QDM_VacuumBlowerSpeedFactor
+/// W_QDM_VacuumBlowerSpeedFactor
 /// </summary>
-[SugarTable("TB_QDM_VacuumBlowerSpeedFactor", TableDescription = "TB_QDM_VacuumBlowerSpeedFactor")]
-public class TB_QDM_VacuumBlowerSpeedFactor
+[SugarTable("W_QDM_VacuumBlowerSpeedFactor", TableDescription = "W_QDM_VacuumBlowerSpeedFactor")]
+public class W_QDM_VacuumBlowerSpeedFactor
 {
     /// <summary>速度</summary>
-    [SugarColumn(ColumnName = "Speed", ColumnDescription = "速度")]
-    public int Speed { get; set; }
+    [SugarColumn(ColumnName = "WSpeed", ColumnDescription = "速度")]
+    public int WSpeed { get; set; }
 
     /// <summary>系数</summary>
-    [SugarColumn(ColumnName = "Factor", Length = 18, DecimalDigits = 2, ColumnDescription = "系数")]
-    public decimal Factor { get; set; }
+    [SugarColumn(ColumnName = "WFactor", Length = 18, DecimalDigits = 2, ColumnDescription = "系数")]
+    public decimal WFactor { get; set; }
 
     /// <summary>ID</summary>
-    [SugarColumn(ColumnName = "ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "ID")]
-    public int ID { get; set; }
+    [SugarColumn(ColumnName = "WID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "ID")]
+    public int WID { get; set; }
 
 }

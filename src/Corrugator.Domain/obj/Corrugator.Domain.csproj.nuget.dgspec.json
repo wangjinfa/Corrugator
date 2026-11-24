@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Domain\\Corrugator.Domain.csproj": {}
+    "D:\\Corrugator\\Corrugator\\src\\Corrugator.Domain\\Corrugator.Domain.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Domain\\Corrugator.Domain.csproj": {
+    "D:\\Corrugator\\Corrugator\\src\\Corrugator.Domain\\Corrugator.Domain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Domain\\Corrugator.Domain.csproj",
+        "projectUniqueName": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Domain\\Corrugator.Domain.csproj",
         "projectName": "Corrugator.Domain",
-        "projectPath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Domain\\Corrugator.Domain.csproj",
+        "projectPath": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Domain\\Corrugator.Domain.csproj",
         "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\src\\Corrugator.Domain\\obj\\",
+        "outputPath": "D:\\Corrugator\\Corrugator\\src\\Corrugator.Domain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

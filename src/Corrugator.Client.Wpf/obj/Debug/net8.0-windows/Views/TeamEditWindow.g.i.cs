@@ -60,7 +60,7 @@ namespace Corrugator.Client.Wpf.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Corrugator.Client;component/views/teameditwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Corrugator.Client;V1.0.0.0;component/views/teameditwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\TeamEditWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

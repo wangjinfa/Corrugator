@@ -3,21 +3,21 @@ using SqlSugar;
 namespace Corrugator.Domain.Entities.Process.Dry;
 
 /// <summary>
-/// TB_QDM_RidingRollerExtrusion
+/// W_QDM_RidingRollerExtrusion
 /// </summary>
-[SugarTable("TB_QDM_RidingRollerExtrusion", TableDescription = "TB_QDM_RidingRollerExtrusion")]
-public class TB_QDM_RidingRollerExtrusion
+[SugarTable("W_QDM_RidingRollerExtrusion", TableDescription = "W_QDM_RidingRollerExtrusion")]
+public class W_QDM_RidingRollerExtrusion
 {
     /// <summary>Wave</summary>
-    [SugarColumn(ColumnName = "Wave", Length = 50, ColumnDescription = "Wave")]
-    public string Wave { get; set; } = default!;
+    [SugarColumn(ColumnName = "WWave", Length = 50, ColumnDescription = "Wave")]
+    public string WWave { get; set; } = default!;
 
     /// <summary>ExtrusionFactor</summary>
-    [SugarColumn(ColumnName = "ExtrusionFactor", Length = 18, DecimalDigits = 2, ColumnDescription = "ExtrusionFactor")]
-    public decimal ExtrusionFactor { get; set; }
+    [SugarColumn(ColumnName = "WExtrusionFactor", Length = 18, DecimalDigits = 2, ColumnDescription = "ExtrusionFactor")]
+    public decimal WExtrusionFactor { get; set; }
 
     /// <summary>ID</summary>
-    [SugarColumn(ColumnName = "ID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "ID")]
-    public int ID { get; set; }
+    [SugarColumn(ColumnName = "WID", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "ID")]
+    public int WID { get; set; }
 
 }

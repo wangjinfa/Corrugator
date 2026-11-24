@@ -1,6 +1,6 @@
 namespace Corrugator.Shared.Contracts.Base;
 
-/// <summary>产线楞型一行（字段与 TB_Line_Flute 一一对应）</summary>
+/// <summary>产线楞型一行（字段与 W_Line_Flute 一一对应）</summary>
 public class LineFluteDto
 {
     public long Id { get; set; }

@@ -3,17 +3,17 @@ using SqlSugar;
 namespace Corrugator.Domain.Entities.Pms;
 
 /// <summary>
-/// TB_PMS_LineMsg
+/// W_PMS_LineMsg
 /// </summary>
-[SugarTable("TB_PMS_LineMsg", TableDescription = "TB_PMS_LineMsg")]
-public class TB_PMS_LineMsg
+[SugarTable("W_PMS_LineMsg", TableDescription = "W_PMS_LineMsg")]
+public class W_PMS_LineMsg
 {
     /// <summary>是否运行</summary>
-    [SugarColumn(ColumnName = "F_IsRun", IsNullable = true, ColumnDescription = "是否运行")]
-    public bool? F_IsRun { get; set; }
+    [SugarColumn(ColumnName = "WF_IsRun", IsNullable = true, ColumnDescription = "是否运行")]
+    public bool? WF_IsRun { get; set; }
 
-    /// <summary>F_Id</summary>
-    [SugarColumn(ColumnName = "F_Id", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "F_Id")]
-    public int F_Id { get; set; }
+    /// <summary>WF_Id</summary>
+    [SugarColumn(ColumnName = "WF_Id", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "WF_Id")]
+    public int WF_Id { get; set; }
 
 }

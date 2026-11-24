@@ -7,7 +7,7 @@ namespace Corrugator.Domain.Entities.System;
 /// 系统用户表（新增表，不来自 IPS 数据字典）
 /// 演示软删除 + 审计字段 + 仓储层的统一填充
 /// </summary>
-[SugarTable("Sys_Users", TableDescription = "系统用户")]
+[SugarTable("W_Sys_Users", TableDescription = "系统用户")]
 public class Sys_User : ISoftDelete, IAuditable
 {
     [SugarColumn(IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "主键")]
@@ -46,7 +46,7 @@ public class Sys_User : ISoftDelete, IAuditable
 }
 
 /// <summary>接口操作日志（新增表），用于记录前端调用轨迹</summary>
-[SugarTable("Sys_OperationLogs", TableDescription = "接口操作日志")]
+[SugarTable("W_Sys_OperationLogs", TableDescription = "接口操作日志")]
 public class Sys_OperationLog
 {
     [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]

@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Client.Wpf\obj\Debug\net8.0-windows\
+D:\Corrugator\Corrugator\src\Corrugator.Client.Wpf\obj\Debug\net8.0-windows\
 Corrugator.Client.Wpf
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Client.Wpf\App.xaml
+D:\Corrugator\Corrugator\src\Corrugator.Client.Wpf\App.xaml
 321271787474
 
 61199512113
-209-80993544
+209-1960620903
 Views\AlarmsView.xaml;Views\ApiAuthView.xaml;Views\BasicInfoView.xaml;Views\CommConfigEditWindow.xaml;Views\CommDeviceEditWindow.xaml;Views\CommPointEditWindow.xaml;Views\CommView.xaml;Views\DashboardView.xaml;Views\DictDataEditWindow.xaml;Views\DictionaryView.xaml;Views\DictTypeEditWindow.xaml;Views\GraphicControlView.xaml;Views\IpsPartView.xaml;Views\LineFluteEditWindow.xaml;Views\LineFluteView.xaml;Views\LoginWindow.xaml;Views\MainWindow.xaml;Views\OrderColorPickWindow.xaml;Views\OrderColorView.xaml;Views\OrderExtFieldView.xaml;Views\OrdersView.xaml;Views\PaperBrandWindow.xaml;Views\PaperEditWindow.xaml;Views\PaperInfoView.xaml;Views\PermissionEditWindow.xaml;Views\ProcessParamsView.xaml;Views\ReportView.xaml;Views\RoleEditWindow.xaml;Views\SystemSettingView.xaml;Views\TeamEditWindow.xaml;Views\TeamInfoView.xaml;Views\UserEditWindow.xaml;
 
-True
+False
 

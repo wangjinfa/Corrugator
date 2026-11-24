@@ -1,33 +1,33 @@
-/* 班组资料 TB_Team_Info —— 基础信息 → 班组资料
+/* 班组资料 W_Team_Info —— 基础信息 → 班组资料
    班次号唯一（软删后可重录），开始/结束时间为 HH:mm:ss 文本。 */
 
-IF OBJECT_ID(N'dbo.TB_Team_Info', N'U') IS NULL
+IF OBJECT_ID(N'dbo.W_Team_Info', N'U') IS NULL
 BEGIN
-CREATE TABLE dbo.[TB_Team_Info] (
-    [F_ShiftNo]    nvarchar(10) NOT NULL,
-    [F_TeamName]   nvarchar(60) NOT NULL,
-    [F_StartTime]  nvarchar(20) NULL,
-    [F_EndTime]    nvarchar(20) NULL,
-    [F_Leader]     nvarchar(50) NULL,
-    [F_Forklift1]  nvarchar(50) NULL,
-    [F_Forklift2]  nvarchar(50) NULL,
-    [F_IsDelete]   bit          NULL,
-    [F_Creator]    nvarchar(50) NULL,
-    [F_CreateTime] datetime2    NULL,
-    [F_Editor]     nvarchar(50) NULL,
-    [F_EditTime]   datetime2    NULL,
-    [F_ID]         bigint IDENTITY(1,1) NOT NULL,
-    CONSTRAINT [PK_TB_Team_Info] PRIMARY KEY CLUSTERED ([F_ID] ASC)
+CREATE TABLE dbo.[W_Team_Info] (
+    [WF_ShiftNo]    nvarchar(10) NOT NULL,
+    [WF_TeamName]   nvarchar(60) NOT NULL,
+    [WF_StartTime]  nvarchar(20) NULL,
+    [WF_EndTime]    nvarchar(20) NULL,
+    [WF_Leader]     nvarchar(50) NULL,
+    [WF_Forklift1]  nvarchar(50) NULL,
+    [WF_Forklift2]  nvarchar(50) NULL,
+    [WF_IsDelete]   bit          NULL,
+    [WF_Creator]    nvarchar(50) NULL,
+    [WF_CreateTime] datetime2    NULL,
+    [WF_Editor]     nvarchar(50) NULL,
+    [WF_EditTime]   datetime2    NULL,
+    [WF_ID]         bigint IDENTITY(1,1) NOT NULL,
+    CONSTRAINT [PK_W_Team_Info] PRIMARY KEY CLUSTERED ([WF_ID] ASC)
 );
-CREATE UNIQUE INDEX [UX_TB_Team_Info_ShiftNo] ON dbo.[TB_Team_Info] ([F_ShiftNo]) WHERE [F_IsDelete] = 0;
+CREATE UNIQUE INDEX [UX_W_Team_Info_ShiftNo] ON dbo.[W_Team_Info] ([WF_ShiftNo]) WHERE [WF_IsDelete] = 0;
 END
 GO
 
-IF NOT EXISTS (SELECT 1 FROM dbo.[TB_Team_Info])
+IF NOT EXISTS (SELECT 1 FROM dbo.[W_Team_Info])
 BEGIN
-INSERT INTO dbo.[TB_Team_Info]
-([F_ShiftNo],[F_TeamName],[F_StartTime],[F_EndTime],[F_Leader],[F_Forklift1],[F_Forklift2],
- [F_IsDelete],[F_Creator],[F_CreateTime],[F_Editor],[F_EditTime]) VALUES
+INSERT INTO dbo.[W_Team_Info]
+([WF_ShiftNo],[WF_TeamName],[WF_StartTime],[WF_EndTime],[WF_Leader],[WF_Forklift1],[WF_Forklift2],
+ [WF_IsDelete],[WF_Creator],[WF_CreateTime],[WF_Editor],[WF_EditTime]) VALUES
  (N'01', N'A',     NULL,                 NULL,                 NULL, NULL, NULL, 0, N'超级管理员', '2022-03-25 14:46:16', N'超级管理员', '2025-05-28 13:07:21'),
  (N'02', N'B',     NULL,                 NULL,                 NULL, NULL, NULL, 0, N'超级管理员', '2022-03-25 14:46:21', NULL, '2025-04-22 11:22:41'),
  (N'03', N'C',     NULL,                 NULL,                 NULL, NULL, NULL, 0, N'超级管理员', '2023-03-13 13:43:52', NULL, NULL),

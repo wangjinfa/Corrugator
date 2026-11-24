@@ -96,7 +96,7 @@ public class DictionaryViewModel : BindableBase
         var flat = result.Data;
         var root = new DictTypeNode { Id = 0, IsRoot = true };
 
-        foreach (var item in flat.Where(t => t.PD_PID is null or 0))
+        foreach (var item in flat.Where(t => t.WPD_PID is null or 0))
         {
             root.Children.Add(ToNode(item));
         }
@@ -106,7 +106,7 @@ public class DictionaryViewModel : BindableBase
         {
             foreach (var child in parent.Children)
             {
-                child.Children.AddRange(flat.Where(t => t.PD_PID == child.Id).Select(ToNode));
+                child.Children.AddRange(flat.Where(t => t.WPD_PID == child.Id).Select(ToNode));
                 Attach(child);
             }
         }
@@ -122,10 +122,10 @@ public class DictionaryViewModel : BindableBase
 
     private static DictTypeNode ToNode(DictTypeDto dto) => new()
     {
-        Id = dto.PD_ID,
-        ParentId = dto.PD_PID,
-        Name = dto.PD_Name,
-        Code = dto.PD_Code,
+        Id = dto.WPD_ID,
+        ParentId = dto.WPD_PID,
+        Name = dto.WPD_Name,
+        Code = dto.WPD_Code,
     };
 
     public async Task LoadDetailsAsync()

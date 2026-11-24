@@ -7,7 +7,7 @@ public class AppSession
 {
     public string? Token { get; private set; }
 
-    /// <summary>当前瓦线编码（对应 BaseDB.TB_Line.F_Code），请求头 X-Line-Code 用</summary>
+    /// <summary>当前瓦线编码（对应 BaseDB.TB_Line.WF_Code），请求头 X-Line-Code 用</summary>
     public string? LineCode { get; set; }
     public LoginResponse? User { get; private set; }
 

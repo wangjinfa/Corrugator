@@ -1,14 +1,35 @@
 using Corrugator.Client.Wpf.Services;
 using Corrugator.Client.Wpf.ViewModels;
 using Prism.Ioc;
+using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Interop;
 using System.Windows.Threading;
 
 namespace Corrugator.Client.Wpf.Views;
 
 public partial class MainWindow : Window
 {
+    [DllImport("dwmapi.dll")]
+    private static extern int DwmSetWindowAttribute(IntPtr hwnd, int attribute, ref int value, int size);
+
+    /// <summary>强制标题栏深色模式，使系统把标题文字与按钮绘成白色</summary>
+    private void ApplyDarkTitleBar()
+    {
+        try
+        {
+            var hwnd = new WindowInteropHelper(this).Handle;
+            int dark = 1;
+            // 20 = DWMWA_USE_IMMERSIVE_DARK_MODE
+            DwmSetWindowAttribute(hwnd, 20, ref dark, sizeof(int));
+        }
+        catch
+        {
+            // 旧版系统不支持时保留默认标题栏
+        }
+    }
+
     private readonly MainViewModel _viewModel;
     private readonly DispatcherTimer _clock;
     private readonly BasicInfoViewModel _settingsViewModel;
@@ -48,6 +69,7 @@ public partial class MainWindow : Window
         InitializeComponent();
         _viewModel = viewModel;
         DataContext = _viewModel;
+        SourceInitialized += (_, _) => ApplyDarkTitleBar();
         Loaded += async (_, _) => await _viewModel.InitializeAsync();
 
         // 系统设置：内嵌在主界面内容区，左上角圆环进入，不弹独立窗口

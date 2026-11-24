@@ -31,15 +31,15 @@ public class BaseInfoController : ControllerBase
     [HttpGet("line-flutes")]
     public async Task<ApiResult<List<LineFluteDto>>> LineFlutes(string? fluteType = null, bool showAll = false)
     {
-        var rows = await _base.Db.Queryable<TB_Line_Flute>()
-            .WhereIF(!showAll, r => r.F_IsDelete != true)
-            .WhereIF(!string.IsNullOrWhiteSpace(fluteType), r => r.F_FluteType.Contains(fluteType!))
-            .OrderBy(r => r.F_DoorWidth)
+        var rows = await _base.Db.Queryable<W_Line_Flute>()
+            .WhereIF(!showAll, r => r.WF_IsDelete != true)
+            .WhereIF(!string.IsNullOrWhiteSpace(fluteType), r => r.WF_FluteType.Contains(fluteType!))
+            .OrderBy(r => r.WF_DoorWidth)
             .ToListAsync();
 
         var ordered = rows
-            .OrderBy(r => r.F_DoorWidth)
-            .ThenBy(r => r.F_FluteType)
+            .OrderBy(r => r.WF_DoorWidth)
+            .ThenBy(r => r.WF_FluteType)
             .ToList();
 
         return ApiResult<List<LineFluteDto>>.Ok(ordered.Select(ToDto).ToList());
@@ -59,8 +59,8 @@ public class BaseInfoController : ControllerBase
             return ApiResult<LineFluteDto>.Fail("门幅与楞型不能为空");
         }
 
-        var exists = await _base.Db.Queryable<TB_Line_Flute>()
-            .Where(r => r.F_IsDelete != true && r.F_DoorWidth == dto.DoorWidth && r.F_FluteType == dto.FluteType)
+        var exists = await _base.Db.Queryable<W_Line_Flute>()
+            .Where(r => r.WF_IsDelete != true && r.WF_DoorWidth == dto.DoorWidth && r.WF_FluteType == dto.FluteType)
             .AnyAsync();
 
         if (exists)
@@ -69,8 +69,8 @@ public class BaseInfoController : ControllerBase
         }
 
         var entity = FromDto(dto);
-        entity.F_Creator = User.Identity?.Name;
-        entity.F_CreateTime = DateTime.Now;
+        entity.WF_Creator = User.Identity?.Name;
+        entity.WF_CreateTime = DateTime.Now;
 
         var inserted = await _base.Db.Insertable(entity).ExecuteReturnEntityAsync();
         return ApiResult<LineFluteDto>.Ok(ToDto(inserted), "已新增产线楞型");
@@ -85,7 +85,7 @@ public class BaseInfoController : ControllerBase
             return ApiResult<LineFluteDto>.Fail("仅管理员可维护产线楞型", 403);
         }
 
-        var row = await _base.Db.Queryable<TB_Line_Flute>().Where(r => r.F_ID == id).FirstAsync();
+        var row = await _base.Db.Queryable<W_Line_Flute>().Where(r => r.WF_ID == id).FirstAsync();
         if (row is null)
         {
             return ApiResult<LineFluteDto>.Fail("产线楞型不存在");
@@ -96,8 +96,8 @@ public class BaseInfoController : ControllerBase
             return ApiResult<LineFluteDto>.Fail("门幅与楞型不能为空");
         }
 
-        var duplicated = await _base.Db.Queryable<TB_Line_Flute>()
-            .Where(r => r.F_IsDelete != true && r.F_ID != id && r.F_DoorWidth == dto.DoorWidth && r.F_FluteType == dto.FluteType)
+        var duplicated = await _base.Db.Queryable<W_Line_Flute>()
+            .Where(r => r.WF_IsDelete != true && r.WF_ID != id && r.WF_DoorWidth == dto.DoorWidth && r.WF_FluteType == dto.FluteType)
             .AnyAsync();
 
         if (duplicated)
@@ -106,11 +106,11 @@ public class BaseInfoController : ControllerBase
         }
 
         var updated = FromDto(dto);
-        updated.F_ID = id;
-        updated.F_Creator = row.F_Creator;
-        updated.F_CreateTime = row.F_CreateTime;
-        updated.F_Editor = User.Identity?.Name;
-        updated.F_EditTime = DateTime.Now;
+        updated.WF_ID = id;
+        updated.WF_Creator = row.WF_Creator;
+        updated.WF_CreateTime = row.WF_CreateTime;
+        updated.WF_Editor = User.Identity?.Name;
+        updated.WF_EditTime = DateTime.Now;
 
         await _base.Db.Updateable(updated).ExecuteCommandAsync();
         return ApiResult<LineFluteDto>.Ok(ToDto(updated), "已保存产线楞型");
@@ -125,15 +125,15 @@ public class BaseInfoController : ControllerBase
             return ApiResult<ApiEmpty>.Fail("仅管理员可维护产线楞型", 403);
         }
 
-        var row = await _base.Db.Queryable<TB_Line_Flute>().Where(r => r.F_ID == id).FirstAsync();
+        var row = await _base.Db.Queryable<W_Line_Flute>().Where(r => r.WF_ID == id).FirstAsync();
         if (row is null)
         {
             return ApiResult<ApiEmpty>.Fail("产线楞型不存在");
         }
 
-        row.F_IsDelete = true;
-        row.F_Editor = User.Identity?.Name;
-        row.F_EditTime = DateTime.Now;
+        row.WF_IsDelete = true;
+        row.WF_Editor = User.Identity?.Name;
+        row.WF_EditTime = DateTime.Now;
         await _base.Db.Updateable(row).ExecuteCommandAsync();
 
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), "已删除产线楞型");
@@ -143,7 +143,7 @@ public class BaseInfoController : ControllerBase
     [HttpPost("line-flutes/refresh-orders")]
     public async Task<ApiResult<ApiEmpty>> RefreshOrders()
     {
-        var count = await _base.Db.Queryable<TB_Line_Flute>().Where(r => r.F_IsDelete != true).CountAsync();
+        var count = await _base.Db.Queryable<W_Line_Flute>().Where(r => r.WF_IsDelete != true).CountAsync();
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), $"已重新加载 {count} 条产线楞型（订单侧刷新将在订单接口联调后生效）");
     }
 
@@ -153,22 +153,22 @@ public class BaseInfoController : ControllerBase
     [HttpGet("papers")]
     public async Task<ApiResult<List<PaperInfoDto>>> Papers(string? code = null, bool showAll = false)
     {
-        var rows = await _base.Db.Queryable<TB_Paper_Info>()
-            .WhereIF(!showAll, r => r.F_IsDelete != true)
-            .WhereIF(!string.IsNullOrWhiteSpace(code), r => r.F_Code.Contains(code!))
-            .OrderBy(r => r.F_Code)
+        var rows = await _base.Db.Queryable<W_Paper_Info>()
+            .WhereIF(!showAll, r => r.WF_IsDelete != true)
+            .WhereIF(!string.IsNullOrWhiteSpace(code), r => r.WF_Code.Contains(code!))
+            .OrderBy(r => r.WF_Code)
             .ToListAsync();
 
         return ApiResult<List<PaperInfoDto>>.Ok(rows.Select(r => new PaperInfoDto
         {
-            Id = r.F_ID,
-            Code = r.F_Code,
-            GramWeight = r.F_GramWeight,
-            PaperWidth = r.F_PaperWidth,
-            Brand = r.F_Brand,
-            RemainLS2 = r.F_RemainLS2,
-            RemainMS3 = r.F_RemainMS3,
-            RemainLS3 = r.F_RemainLS3,
+            Id = r.WF_ID,
+            Code = r.WF_Code,
+            GramWeight = r.WF_GramWeight,
+            PaperWidth = r.WF_PaperWidth,
+            Brand = r.WF_Brand,
+            RemainLS2 = r.WF_RemainLS2,
+            RemainMS3 = r.WF_RemainMS3,
+            RemainLS3 = r.WF_RemainLS3,
         }).ToList());
     }
 
@@ -186,8 +186,8 @@ public class BaseInfoController : ControllerBase
             return ApiResult<PaperInfoDto>.Fail("原纸代号不能为空");
         }
 
-        var exists = await _base.Db.Queryable<TB_Paper_Info>()
-            .Where(r => r.F_IsDelete != true && r.F_Code == dto.Code)
+        var exists = await _base.Db.Queryable<W_Paper_Info>()
+            .Where(r => r.WF_IsDelete != true && r.WF_Code == dto.Code)
             .AnyAsync();
 
         if (exists)
@@ -195,31 +195,31 @@ public class BaseInfoController : ControllerBase
             return ApiResult<PaperInfoDto>.Fail($"原纸代号 {dto.Code} 已存在（区分大小写）");
         }
 
-        var entity = new TB_Paper_Info
+        var entity = new W_Paper_Info
         {
-            F_Code = dto.Code,
-            F_GramWeight = dto.GramWeight,
-            F_PaperWidth = dto.PaperWidth,
-            F_Brand = dto.Brand,
-            F_RemainLS2 = dto.RemainLS2,
-            F_RemainMS3 = dto.RemainMS3,
-            F_RemainLS3 = dto.RemainLS3,
-            F_IsDelete = false,
-            F_Creator = User.Identity?.Name,
-            F_CreateTime = DateTime.Now,
+            WF_Code = dto.Code,
+            WF_GramWeight = dto.GramWeight,
+            WF_PaperWidth = dto.PaperWidth,
+            WF_Brand = dto.Brand,
+            WF_RemainLS2 = dto.RemainLS2,
+            WF_RemainMS3 = dto.RemainMS3,
+            WF_RemainLS3 = dto.RemainLS3,
+            WF_IsDelete = false,
+            WF_Creator = User.Identity?.Name,
+            WF_CreateTime = DateTime.Now,
         };
 
         var inserted = await _base.Db.Insertable(entity).ExecuteReturnEntityAsync();
         return ApiResult<PaperInfoDto>.Ok(new PaperInfoDto
         {
-            Id = inserted.F_ID,
-            Code = inserted.F_Code,
-            GramWeight = inserted.F_GramWeight,
-            PaperWidth = inserted.F_PaperWidth,
-            Brand = inserted.F_Brand,
-            RemainLS2 = inserted.F_RemainLS2,
-            RemainMS3 = inserted.F_RemainMS3,
-            RemainLS3 = inserted.F_RemainLS3,
+            Id = inserted.WF_ID,
+            Code = inserted.WF_Code,
+            GramWeight = inserted.WF_GramWeight,
+            PaperWidth = inserted.WF_PaperWidth,
+            Brand = inserted.WF_Brand,
+            RemainLS2 = inserted.WF_RemainLS2,
+            RemainMS3 = inserted.WF_RemainMS3,
+            RemainLS3 = inserted.WF_RemainLS3,
         }, "已新增原纸");
     }
 
@@ -232,7 +232,7 @@ public class BaseInfoController : ControllerBase
             return ApiResult<PaperInfoDto>.Fail("仅管理员可维护原纸资料", 403);
         }
 
-        var row = await _base.Db.Queryable<TB_Paper_Info>().Where(r => r.F_ID == id).FirstAsync();
+        var row = await _base.Db.Queryable<W_Paper_Info>().Where(r => r.WF_ID == id).FirstAsync();
         if (row is null)
         {
             return ApiResult<PaperInfoDto>.Fail("原纸不存在");
@@ -243,8 +243,8 @@ public class BaseInfoController : ControllerBase
             return ApiResult<PaperInfoDto>.Fail("原纸代号不能为空");
         }
 
-        var duplicated = await _base.Db.Queryable<TB_Paper_Info>()
-            .Where(r => r.F_IsDelete != true && r.F_ID != id && r.F_Code == dto.Code)
+        var duplicated = await _base.Db.Queryable<W_Paper_Info>()
+            .Where(r => r.WF_IsDelete != true && r.WF_ID != id && r.WF_Code == dto.Code)
             .AnyAsync();
 
         if (duplicated)
@@ -252,30 +252,30 @@ public class BaseInfoController : ControllerBase
             return ApiResult<PaperInfoDto>.Fail($"原纸代号 {dto.Code} 已存在（区分大小写）");
         }
 
-        var oldCode = row.F_Code;
+        var oldCode = row.WF_Code;
 
-        row.F_Code = dto.Code;
-        row.F_GramWeight = dto.GramWeight;
-        row.F_PaperWidth = dto.PaperWidth;
-        row.F_Brand = dto.Brand;
-        row.F_RemainLS2 = dto.RemainLS2;
-        row.F_RemainMS3 = dto.RemainMS3;
-        row.F_RemainLS3 = dto.RemainLS3;
-        row.F_Editor = User.Identity?.Name;
-        row.F_EditTime = DateTime.Now;
+        row.WF_Code = dto.Code;
+        row.WF_GramWeight = dto.GramWeight;
+        row.WF_PaperWidth = dto.PaperWidth;
+        row.WF_Brand = dto.Brand;
+        row.WF_RemainLS2 = dto.RemainLS2;
+        row.WF_RemainMS3 = dto.RemainMS3;
+        row.WF_RemainLS3 = dto.RemainLS3;
+        row.WF_Editor = User.Identity?.Name;
+        row.WF_EditTime = DateTime.Now;
         await _base.Db.Updateable(row).ExecuteCommandAsync();
 
         // 代号改了，品牌参数与胶水值跟着改
-        if (oldCode != row.F_Code)
+        if (oldCode != row.WF_Code)
         {
-            await _base.Db.Updateable<TB_Paper_BrandParam>()
-                .SetColumns(b => b.F_PaperCode == row.F_Code)
-                .Where(b => b.F_PaperCode == oldCode)
+            await _base.Db.Updateable<W_Paper_BrandParam>()
+                .SetColumns(b => b.WF_PaperCode == row.WF_Code)
+                .Where(b => b.WF_PaperCode == oldCode)
                 .ExecuteCommandAsync();
 
-            await _base.Db.Updateable<TB_Paper_GlueValue>()
-                .SetColumns(g => g.F_PaperCode == row.F_Code)
-                .Where(g => g.F_PaperCode == oldCode)
+            await _base.Db.Updateable<W_Paper_GlueValue>()
+                .SetColumns(g => g.WF_PaperCode == row.WF_Code)
+                .Where(g => g.WF_PaperCode == oldCode)
                 .ExecuteCommandAsync();
         }
 
@@ -291,15 +291,15 @@ public class BaseInfoController : ControllerBase
             return ApiResult<ApiEmpty>.Fail("仅管理员可维护原纸资料", 403);
         }
 
-        var row = await _base.Db.Queryable<TB_Paper_Info>().Where(r => r.F_ID == id).FirstAsync();
+        var row = await _base.Db.Queryable<W_Paper_Info>().Where(r => r.WF_ID == id).FirstAsync();
         if (row is null)
         {
             return ApiResult<ApiEmpty>.Fail("原纸不存在");
         }
 
-        row.F_IsDelete = true;
-        row.F_Editor = User.Identity?.Name;
-        row.F_EditTime = DateTime.Now;
+        row.WF_IsDelete = true;
+        row.WF_Editor = User.Identity?.Name;
+        row.WF_EditTime = DateTime.Now;
         await _base.Db.Updateable(row).ExecuteCommandAsync();
 
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), "已删除原纸");
@@ -309,42 +309,42 @@ public class BaseInfoController : ControllerBase
     [HttpGet("papers/{code}/brand-info")]
     public async Task<ApiResult<PaperBrandSaveRequest>> PaperBrandInfo(string code)
     {
-        var suppliers = await _base.Db.Queryable<TB_Paper_BrandParam>()
-            .Where(r => r.F_PaperCode == code)
-            .OrderBy(r => r.F_ID)
+        var suppliers = await _base.Db.Queryable<W_Paper_BrandParam>()
+            .Where(r => r.WF_PaperCode == code)
+            .OrderBy(r => r.WF_ID)
             .ToListAsync();
 
-        var glues = await _base.Db.Queryable<TB_Paper_GlueValue>()
-            .Where(r => r.F_PaperCode == code)
-            .OrderBy(r => r.F_MachineType)
-            .OrderBy(r => r.F_ID)
+        var glues = await _base.Db.Queryable<W_Paper_GlueValue>()
+            .Where(r => r.WF_PaperCode == code)
+            .OrderBy(r => r.WF_MachineType)
+            .OrderBy(r => r.WF_ID)
             .ToListAsync();
 
         return ApiResult<PaperBrandSaveRequest>.Ok(new PaperBrandSaveRequest
         {
             Suppliers = suppliers.Select(b => new PaperBrandParamDto
             {
-                Id = b.F_ID,
-                Supplier = b.F_Supplier,
-                RatedTension = b.F_RatedTension,
-                SteamGsm = b.F_SteamGsm,
-                GlueGsm = b.F_GlueGsm,
-                WrapGsm = b.F_WrapGsm,
-                TensionLS0 = b.F_TensionLS0,
-                TensionMS1 = b.F_TensionMS1,
-                TensionLS1 = b.F_TensionLS1,
-                TensionMS2 = b.F_TensionMS2,
-                TensionLS2 = b.F_TensionLS2,
-                TensionMS3 = b.F_TensionMS3,
-                TensionLS3 = b.F_TensionLS3,
+                Id = b.WF_ID,
+                Supplier = b.WF_Supplier,
+                RatedTension = b.WF_RatedTension,
+                SteamGsm = b.WF_SteamGsm,
+                GlueGsm = b.WF_GlueGsm,
+                WrapGsm = b.WF_WrapGsm,
+                TensionLS0 = b.WF_TensionLS0,
+                TensionMS1 = b.WF_TensionMS1,
+                TensionLS1 = b.WF_TensionLS1,
+                TensionMS2 = b.WF_TensionMS2,
+                TensionLS2 = b.WF_TensionLS2,
+                TensionMS3 = b.WF_TensionMS3,
+                TensionLS3 = b.WF_TensionLS3,
             }).ToList(),
             GlueValues = glues.Select(g => new PaperGlueValueDto
             {
-                Id = g.F_ID,
-                MachineType = g.F_MachineType,
-                FluteType = g.F_FluteType,
-                Layer = g.F_Layer,
-                GlueValue = g.F_GlueValue,
+                Id = g.WF_ID,
+                MachineType = g.WF_MachineType,
+                FluteType = g.WF_FluteType,
+                Layer = g.WF_Layer,
+                GlueValue = g.WF_GlueValue,
             }).ToList(),
         });
     }
@@ -358,51 +358,51 @@ public class BaseInfoController : ControllerBase
             return ApiResult<ApiEmpty>.Fail("仅管理员可维护原纸品牌信息", 403);
         }
 
-        var paper = await _base.Db.Queryable<TB_Paper_Info>().Where(r => r.F_Code == code).FirstAsync();
+        var paper = await _base.Db.Queryable<W_Paper_Info>().Where(r => r.WF_Code == code).FirstAsync();
         if (paper is null)
         {
             return ApiResult<ApiEmpty>.Fail($"原纸 {code} 不存在");
         }
 
-        await _base.Db.Deleteable<TB_Paper_BrandParam>().Where(r => r.F_PaperCode == code).ExecuteCommandAsync();
-        await _base.Db.Deleteable<TB_Paper_GlueValue>().Where(r => r.F_PaperCode == code).ExecuteCommandAsync();
+        await _base.Db.Deleteable<W_Paper_BrandParam>().Where(r => r.WF_PaperCode == code).ExecuteCommandAsync();
+        await _base.Db.Deleteable<W_Paper_GlueValue>().Where(r => r.WF_PaperCode == code).ExecuteCommandAsync();
 
         var editor = User.Identity?.Name;
         var now = DateTime.Now;
 
         foreach (var item in request.Suppliers.Where(s => !string.IsNullOrWhiteSpace(s.Supplier)))
         {
-            await _base.Db.Insertable(new TB_Paper_BrandParam
+            await _base.Db.Insertable(new W_Paper_BrandParam
             {
-                F_PaperCode = code,
-                F_Supplier = item.Supplier.Trim(),
-                F_RatedTension = item.RatedTension,
-                F_SteamGsm = item.SteamGsm,
-                F_GlueGsm = item.GlueGsm,
-                F_WrapGsm = item.WrapGsm,
-                F_TensionLS0 = item.TensionLS0,
-                F_TensionMS1 = item.TensionMS1,
-                F_TensionLS1 = item.TensionLS1,
-                F_TensionMS2 = item.TensionMS2,
-                F_TensionLS2 = item.TensionLS2,
-                F_TensionMS3 = item.TensionMS3,
-                F_TensionLS3 = item.TensionLS3,
-                F_Editor = editor,
-                F_EditTime = now,
+                WF_PaperCode = code,
+                WF_Supplier = item.Supplier.Trim(),
+                WF_RatedTension = item.RatedTension,
+                WF_SteamGsm = item.SteamGsm,
+                WF_GlueGsm = item.GlueGsm,
+                WF_WrapGsm = item.WrapGsm,
+                WF_TensionLS0 = item.TensionLS0,
+                WF_TensionMS1 = item.TensionMS1,
+                WF_TensionLS1 = item.TensionLS1,
+                WF_TensionMS2 = item.TensionMS2,
+                WF_TensionLS2 = item.TensionLS2,
+                WF_TensionMS3 = item.TensionMS3,
+                WF_TensionLS3 = item.TensionLS3,
+                WF_Editor = editor,
+                WF_EditTime = now,
             }).ExecuteCommandAsync();
         }
 
         foreach (var item in request.GlueValues.Where(g => !string.IsNullOrWhiteSpace(g.MachineType) && !string.IsNullOrWhiteSpace(g.FluteType)))
         {
-            await _base.Db.Insertable(new TB_Paper_GlueValue
+            await _base.Db.Insertable(new W_Paper_GlueValue
             {
-                F_PaperCode = code,
-                F_MachineType = item.MachineType,
-                F_FluteType = item.FluteType,
-                F_Layer = item.Layer,
-                F_GlueValue = item.GlueValue,
-                F_Editor = editor,
-                F_EditTime = now,
+                WF_PaperCode = code,
+                WF_MachineType = item.MachineType,
+                WF_FluteType = item.FluteType,
+                WF_Layer = item.Layer,
+                WF_GlueValue = item.GlueValue,
+                WF_Editor = editor,
+                WF_EditTime = now,
             }).ExecuteCommandAsync();
         }
 
@@ -416,10 +416,10 @@ public class BaseInfoController : ControllerBase
     [HttpGet("teams")]
     public async Task<ApiResult<List<TeamInfoDto>>> Teams(string? name = null, bool showAll = false)
     {
-        var rows = await _base.Db.Queryable<TB_Team_Info>()
-            .WhereIF(!showAll, r => r.F_IsDelete != true)
-            .WhereIF(!string.IsNullOrWhiteSpace(name), r => r.F_TeamName.Contains(name!) || r.F_ShiftNo.Contains(name!))
-            .OrderBy(r => r.F_ShiftNo)
+        var rows = await _base.Db.Queryable<W_Team_Info>()
+            .WhereIF(!showAll, r => r.WF_IsDelete != true)
+            .WhereIF(!string.IsNullOrWhiteSpace(name), r => r.WF_TeamName.Contains(name!) || r.WF_ShiftNo.Contains(name!))
+            .OrderBy(r => r.WF_ShiftNo)
             .ToListAsync();
 
         return ApiResult<List<TeamInfoDto>>.Ok(rows.Select(ToTeamDto).ToList());
@@ -444,8 +444,8 @@ public class BaseInfoController : ControllerBase
             return ApiResult<TeamInfoDto>.Fail("班组名称不能为空");
         }
 
-        var exists = await _base.Db.Queryable<TB_Team_Info>()
-            .Where(r => r.F_IsDelete != true && r.F_ShiftNo == dto.ShiftNo)
+        var exists = await _base.Db.Queryable<W_Team_Info>()
+            .Where(r => r.WF_IsDelete != true && r.WF_ShiftNo == dto.ShiftNo)
             .AnyAsync();
 
         if (exists)
@@ -453,18 +453,18 @@ public class BaseInfoController : ControllerBase
             return ApiResult<TeamInfoDto>.Fail($"班次号 {dto.ShiftNo} 已存在");
         }
 
-        var entity = new TB_Team_Info
+        var entity = new W_Team_Info
         {
-            F_ShiftNo = dto.ShiftNo.Trim(),
-            F_TeamName = dto.TeamName.Trim(),
-            F_StartTime = NormalizeTime(dto.StartTime),
-            F_EndTime = NormalizeTime(dto.EndTime),
-            F_Leader = dto.Leader,
-            F_Forklift1 = dto.Forklift1,
-            F_Forklift2 = dto.Forklift2,
-            F_IsDelete = false,
-            F_Creator = User.Identity?.Name,
-            F_CreateTime = DateTime.Now,
+            WF_ShiftNo = dto.ShiftNo.Trim(),
+            WF_TeamName = dto.TeamName.Trim(),
+            WF_StartTime = NormalizeTime(dto.StartTime),
+            WF_EndTime = NormalizeTime(dto.EndTime),
+            WF_Leader = dto.Leader,
+            WF_Forklift1 = dto.Forklift1,
+            WF_Forklift2 = dto.Forklift2,
+            WF_IsDelete = false,
+            WF_Creator = User.Identity?.Name,
+            WF_CreateTime = DateTime.Now,
         };
 
         var inserted = await _base.Db.Insertable(entity).ExecuteReturnEntityAsync();
@@ -480,7 +480,7 @@ public class BaseInfoController : ControllerBase
             return ApiResult<TeamInfoDto>.Fail("仅管理员可维护班组资料", 403);
         }
 
-        var row = await _base.Db.Queryable<TB_Team_Info>().Where(r => r.F_ID == id).FirstAsync();
+        var row = await _base.Db.Queryable<W_Team_Info>().Where(r => r.WF_ID == id).FirstAsync();
         if (row is null)
         {
             return ApiResult<TeamInfoDto>.Fail("班组不存在");
@@ -496,8 +496,8 @@ public class BaseInfoController : ControllerBase
             return ApiResult<TeamInfoDto>.Fail("班组名称不能为空");
         }
 
-        var duplicated = await _base.Db.Queryable<TB_Team_Info>()
-            .Where(r => r.F_IsDelete != true && r.F_ID != id && r.F_ShiftNo == dto.ShiftNo)
+        var duplicated = await _base.Db.Queryable<W_Team_Info>()
+            .Where(r => r.WF_IsDelete != true && r.WF_ID != id && r.WF_ShiftNo == dto.ShiftNo)
             .AnyAsync();
 
         if (duplicated)
@@ -505,15 +505,15 @@ public class BaseInfoController : ControllerBase
             return ApiResult<TeamInfoDto>.Fail($"班次号 {dto.ShiftNo} 已存在");
         }
 
-        row.F_ShiftNo = dto.ShiftNo.Trim();
-        row.F_TeamName = dto.TeamName.Trim();
-        row.F_StartTime = NormalizeTime(dto.StartTime);
-        row.F_EndTime = NormalizeTime(dto.EndTime);
-        row.F_Leader = dto.Leader;
-        row.F_Forklift1 = dto.Forklift1;
-        row.F_Forklift2 = dto.Forklift2;
-        row.F_Editor = User.Identity?.Name;
-        row.F_EditTime = DateTime.Now;
+        row.WF_ShiftNo = dto.ShiftNo.Trim();
+        row.WF_TeamName = dto.TeamName.Trim();
+        row.WF_StartTime = NormalizeTime(dto.StartTime);
+        row.WF_EndTime = NormalizeTime(dto.EndTime);
+        row.WF_Leader = dto.Leader;
+        row.WF_Forklift1 = dto.Forklift1;
+        row.WF_Forklift2 = dto.Forklift2;
+        row.WF_Editor = User.Identity?.Name;
+        row.WF_EditTime = DateTime.Now;
         await _base.Db.Updateable(row).ExecuteCommandAsync();
 
         return ApiResult<TeamInfoDto>.Ok(ToTeamDto(row), "已保存班组");
@@ -528,34 +528,34 @@ public class BaseInfoController : ControllerBase
             return ApiResult<ApiEmpty>.Fail("仅管理员可维护班组资料", 403);
         }
 
-        var row = await _base.Db.Queryable<TB_Team_Info>().Where(r => r.F_ID == id).FirstAsync();
+        var row = await _base.Db.Queryable<W_Team_Info>().Where(r => r.WF_ID == id).FirstAsync();
         if (row is null)
         {
             return ApiResult<ApiEmpty>.Fail("班组不存在");
         }
 
-        row.F_IsDelete = true;
-        row.F_Editor = User.Identity?.Name;
-        row.F_EditTime = DateTime.Now;
+        row.WF_IsDelete = true;
+        row.WF_Editor = User.Identity?.Name;
+        row.WF_EditTime = DateTime.Now;
         await _base.Db.Updateable(row).ExecuteCommandAsync();
 
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), "已删除班组");
     }
 
-    private static TeamInfoDto ToTeamDto(TB_Team_Info r) => new()
+    private static TeamInfoDto ToTeamDto(W_Team_Info r) => new()
     {
-        Id = r.F_ID,
-        ShiftNo = r.F_ShiftNo,
-        TeamName = r.F_TeamName,
-        StartTime = r.F_StartTime,
-        EndTime = r.F_EndTime,
-        Leader = r.F_Leader,
-        Forklift1 = r.F_Forklift1,
-        Forklift2 = r.F_Forklift2,
-        Creator = r.F_Creator,
-        CreateTime = r.F_CreateTime?.ToString("yyyy-MM-dd HH:mm:ss"),
-        Editor = r.F_Editor,
-        EditTime = r.F_EditTime?.ToString("yyyy-MM-dd HH:mm:ss"),
+        Id = r.WF_ID,
+        ShiftNo = r.WF_ShiftNo,
+        TeamName = r.WF_TeamName,
+        StartTime = r.WF_StartTime,
+        EndTime = r.WF_EndTime,
+        Leader = r.WF_Leader,
+        Forklift1 = r.WF_Forklift1,
+        Forklift2 = r.WF_Forklift2,
+        Creator = r.WF_Creator,
+        CreateTime = r.WF_CreateTime?.ToString("yyyy-MM-dd HH:mm:ss"),
+        Editor = r.WF_Editor,
+        EditTime = r.WF_EditTime?.ToString("yyyy-MM-dd HH:mm:ss"),
     };
 
     /// <summary>时间串统一成 HH:mm:ss，空串转 null</summary>
@@ -581,7 +581,7 @@ public class BaseInfoController : ControllerBase
     [HttpGet("line-flute-rules")]
     public async Task<ApiResult<LineFluteRuleDto>> LineFluteRules()
     {
-        var row = await _base.Db.Queryable<TB_Line_FluteRule>().OrderBy(r => r.F_ID).FirstAsync();
+        var row = await _base.Db.Queryable<W_Line_FluteRule>().OrderBy(r => r.WF_ID).FirstAsync();
         if (row is null)
         {
             return ApiResult<LineFluteRuleDto>.Ok(new LineFluteRuleDto
@@ -598,13 +598,13 @@ public class BaseInfoController : ControllerBase
 
         return ApiResult<LineFluteRuleDto>.Ok(new LineFluteRuleDto
         {
-            AutoTrimEnabled = row.F_AutoTrimEnabled ?? false,
-            AutoTrimThreshold = row.F_AutoTrimThreshold,
-            AutoTrimType = row.F_AutoTrimType,
-            ThicknessCompressRate = row.F_ThicknessCompressRate,
-            StackCountBasis = row.F_StackCountBasis,
-            StackDirection = row.F_StackDirection,
-            ThicknessCalcMode = row.F_ThicknessCalcMode,
+            AutoTrimEnabled = row.WF_AutoTrimEnabled ?? false,
+            AutoTrimThreshold = row.WF_AutoTrimThreshold,
+            AutoTrimType = row.WF_AutoTrimType,
+            ThicknessCompressRate = row.WF_ThicknessCompressRate,
+            StackCountBasis = row.WF_StackCountBasis,
+            StackDirection = row.WF_StackDirection,
+            ThicknessCalcMode = row.WF_ThicknessCalcMode,
         });
     }
 
@@ -617,34 +617,34 @@ public class BaseInfoController : ControllerBase
             return ApiResult<ApiEmpty>.Fail("仅管理员可保存产线楞型规则设置", 403);
         }
 
-        var row = await _base.Db.Queryable<TB_Line_FluteRule>().OrderBy(r => r.F_ID).FirstAsync();
+        var row = await _base.Db.Queryable<W_Line_FluteRule>().OrderBy(r => r.WF_ID).FirstAsync();
         if (row is null)
         {
-            await _base.Db.Insertable(new TB_Line_FluteRule
+            await _base.Db.Insertable(new W_Line_FluteRule
             {
-                F_AutoTrimEnabled = dto.AutoTrimEnabled,
-                F_AutoTrimThreshold = dto.AutoTrimThreshold,
-                F_AutoTrimType = dto.AutoTrimType,
-                F_ThicknessCompressRate = dto.ThicknessCompressRate,
-                F_StackCountBasis = dto.StackCountBasis,
-                F_StackDirection = dto.StackDirection,
-                F_ThicknessCalcMode = dto.ThicknessCalcMode,
-                F_Editor = User.Identity?.Name,
-                F_EditTime = DateTime.Now,
+                WF_AutoTrimEnabled = dto.AutoTrimEnabled,
+                WF_AutoTrimThreshold = dto.AutoTrimThreshold,
+                WF_AutoTrimType = dto.AutoTrimType,
+                WF_ThicknessCompressRate = dto.ThicknessCompressRate,
+                WF_StackCountBasis = dto.StackCountBasis,
+                WF_StackDirection = dto.StackDirection,
+                WF_ThicknessCalcMode = dto.ThicknessCalcMode,
+                WF_Editor = User.Identity?.Name,
+                WF_EditTime = DateTime.Now,
             }).ExecuteCommandAsync();
 
             return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), "已保存产线楞型规则设置");
         }
 
-        row.F_AutoTrimEnabled = dto.AutoTrimEnabled;
-        row.F_AutoTrimThreshold = dto.AutoTrimThreshold;
-        row.F_AutoTrimType = dto.AutoTrimType;
-        row.F_ThicknessCompressRate = dto.ThicknessCompressRate;
-        row.F_StackCountBasis = dto.StackCountBasis;
-        row.F_StackDirection = dto.StackDirection;
-        row.F_ThicknessCalcMode = dto.ThicknessCalcMode;
-        row.F_Editor = User.Identity?.Name;
-        row.F_EditTime = DateTime.Now;
+        row.WF_AutoTrimEnabled = dto.AutoTrimEnabled;
+        row.WF_AutoTrimThreshold = dto.AutoTrimThreshold;
+        row.WF_AutoTrimType = dto.AutoTrimType;
+        row.WF_ThicknessCompressRate = dto.ThicknessCompressRate;
+        row.WF_StackCountBasis = dto.StackCountBasis;
+        row.WF_StackDirection = dto.StackDirection;
+        row.WF_ThicknessCalcMode = dto.ThicknessCalcMode;
+        row.WF_Editor = User.Identity?.Name;
+        row.WF_EditTime = DateTime.Now;
         await _base.Db.Updateable(row).ExecuteCommandAsync();
 
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), "已保存产线楞型规则设置");
@@ -652,83 +652,83 @@ public class BaseInfoController : ControllerBase
 
     // ============================ 映射 ============================
 
-    private static LineFluteDto ToDto(TB_Line_Flute r) => new()
+    private static LineFluteDto ToDto(W_Line_Flute r) => new()
     {
-        Id = r.F_ID,
-        DoorWidth = r.F_DoorWidth,
-        FluteType = r.F_FluteType,
-        Thickness = r.F_Thickness,
-        Thickness1 = r.F_Thickness1,
-        Thickness2 = r.F_Thickness2,
-        Thickness3 = r.F_Thickness3,
-        WeightThreshold1 = r.F_WeightThreshold1,
-        WeightThreshold2 = r.F_WeightThreshold2,
-        WeightThreshold3 = r.F_WeightThreshold3,
-        MaxSlit = r.F_MaxSlit,
-        MinCutLength = r.F_MinCutLength,
-        MaxCutLength = r.F_MaxCutLength,
-        MinTrim = r.F_MinTrim,
-        MaxTrim = r.F_MaxTrim,
-        UpperStackLimit = r.F_UpperStackLimit,
-        LowerStackLimit = r.F_LowerStackLimit,
-        StackOpenThreshold1 = r.F_StackOpenThreshold1,
-        StackOpenThreshold2 = r.F_StackOpenThreshold2,
-        StackOpenThreshold3 = r.F_StackOpenThreshold3,
-        UpperStackCount1 = r.F_UpperStackCount1,
-        UpperStackCount2 = r.F_UpperStackCount2,
-        UpperStackCount3 = r.F_UpperStackCount3,
-        LowerStackCount1 = r.F_LowerStackCount1,
-        LowerStackCount2 = r.F_LowerStackCount2,
-        LowerStackCount3 = r.F_LowerStackCount3,
-        SmallLine = r.F_SmallLine,
-        SmallLineDeepen = r.F_SmallLineDeepen,
-        PlainLineDepth = r.F_PlainLineDepth,
-        NormalLineDepth = r.F_NormalLineDepth,
-        DeepLineDepth = r.F_DeepLineDepth,
-        MaxSpeed = r.F_MaxSpeed,
-        RollerCount = r.F_RollerCount,
-        Trim = r.F_Trim,
-        Creator = r.F_Creator,
-        CreateTime = r.F_CreateTime,
-        Editor = r.F_Editor,
-        EditTime = r.F_EditTime,
+        Id = r.WF_ID,
+        DoorWidth = r.WF_DoorWidth,
+        FluteType = r.WF_FluteType,
+        Thickness = r.WF_Thickness,
+        Thickness1 = r.WF_Thickness1,
+        Thickness2 = r.WF_Thickness2,
+        Thickness3 = r.WF_Thickness3,
+        WeightThreshold1 = r.WF_WeightThreshold1,
+        WeightThreshold2 = r.WF_WeightThreshold2,
+        WeightThreshold3 = r.WF_WeightThreshold3,
+        MaxSlit = r.WF_MaxSlit,
+        MinCutLength = r.WF_MinCutLength,
+        MaxCutLength = r.WF_MaxCutLength,
+        MinTrim = r.WF_MinTrim,
+        MaxTrim = r.WF_MaxTrim,
+        UpperStackLimit = r.WF_UpperStackLimit,
+        LowerStackLimit = r.WF_LowerStackLimit,
+        StackOpenThreshold1 = r.WF_StackOpenThreshold1,
+        StackOpenThreshold2 = r.WF_StackOpenThreshold2,
+        StackOpenThreshold3 = r.WF_StackOpenThreshold3,
+        UpperStackCount1 = r.WF_UpperStackCount1,
+        UpperStackCount2 = r.WF_UpperStackCount2,
+        UpperStackCount3 = r.WF_UpperStackCount3,
+        LowerStackCount1 = r.WF_LowerStackCount1,
+        LowerStackCount2 = r.WF_LowerStackCount2,
+        LowerStackCount3 = r.WF_LowerStackCount3,
+        SmallLine = r.WF_SmallLine,
+        SmallLineDeepen = r.WF_SmallLineDeepen,
+        PlainLineDepth = r.WF_PlainLineDepth,
+        NormalLineDepth = r.WF_NormalLineDepth,
+        DeepLineDepth = r.WF_DeepLineDepth,
+        MaxSpeed = r.WF_MaxSpeed,
+        RollerCount = r.WF_RollerCount,
+        Trim = r.WF_Trim,
+        Creator = r.WF_Creator,
+        CreateTime = r.WF_CreateTime,
+        Editor = r.WF_Editor,
+        EditTime = r.WF_EditTime,
     };
 
-    private static TB_Line_Flute FromDto(LineFluteDto d) => new()
+    private static W_Line_Flute FromDto(LineFluteDto d) => new()
     {
-        F_DoorWidth = d.DoorWidth,
-        F_FluteType = d.FluteType.Trim(),
-        F_Thickness = d.Thickness,
-        F_Thickness1 = d.Thickness1,
-        F_Thickness2 = d.Thickness2,
-        F_Thickness3 = d.Thickness3,
-        F_WeightThreshold1 = d.WeightThreshold1,
-        F_WeightThreshold2 = d.WeightThreshold2,
-        F_WeightThreshold3 = d.WeightThreshold3,
-        F_MaxSlit = d.MaxSlit,
-        F_MinCutLength = d.MinCutLength,
-        F_MaxCutLength = d.MaxCutLength,
-        F_MinTrim = d.MinTrim,
-        F_MaxTrim = d.MaxTrim,
-        F_UpperStackLimit = d.UpperStackLimit,
-        F_LowerStackLimit = d.LowerStackLimit,
-        F_StackOpenThreshold1 = d.StackOpenThreshold1,
-        F_StackOpenThreshold2 = d.StackOpenThreshold2,
-        F_StackOpenThreshold3 = d.StackOpenThreshold3,
-        F_UpperStackCount1 = d.UpperStackCount1,
-        F_UpperStackCount2 = d.UpperStackCount2,
-        F_UpperStackCount3 = d.UpperStackCount3,
-        F_LowerStackCount1 = d.LowerStackCount1,
-        F_LowerStackCount2 = d.LowerStackCount2,
-        F_LowerStackCount3 = d.LowerStackCount3,
-        F_SmallLine = d.SmallLine,
-        F_SmallLineDeepen = d.SmallLineDeepen,
-        F_PlainLineDepth = d.PlainLineDepth,
-        F_NormalLineDepth = d.NormalLineDepth,
-        F_DeepLineDepth = d.DeepLineDepth,
-        F_MaxSpeed = d.MaxSpeed,
-        F_RollerCount = d.RollerCount,
-        F_Trim = d.Trim,
-        F_IsDelete = false,
+        WF_DoorWidth = d.DoorWidth,
+        WF_FluteType = d.FluteType.Trim(),
+        WF_Thickness = d.Thickness,
+        WF_Thickness1 = d.Thickness1,
+        WF_Thickness2 = d.Thickness2,
+        WF_Thickness3 = d.Thickness3,
+        WF_WeightThreshold1 = d.WeightThreshold1,
+        WF_WeightThreshold2 = d.WeightThreshold2,
+        WF_WeightThreshold3 = d.WeightThreshold3,
+        WF_MaxSlit = d.MaxSlit,
+        WF_MinCutLength = d.MinCutLength,
+        WF_MaxCutLength = d.MaxCutLength,
+        WF_MinTrim = d.MinTrim,
+        WF_MaxTrim = d.MaxTrim,
+        WF_UpperStackLimit = d.UpperStackLimit,
+        WF_LowerStackLimit = d.LowerStackLimit,
+        WF_StackOpenThreshold1 = d.StackOpenThreshold1,
+        WF_StackOpenThreshold2 = d.StackOpenThreshold2,
+        WF_StackOpenThreshold3 = d.StackOpenThreshold3,
+        WF_UpperStackCount1 = d.UpperStackCount1,
+        WF_UpperStackCount2 = d.UpperStackCount2,
+        WF_UpperStackCount3 = d.UpperStackCount3,
+        WF_LowerStackCount1 = d.LowerStackCount1,
+        WF_LowerStackCount2 = d.LowerStackCount2,
+        WF_LowerStackCount3 = d.LowerStackCount3,
+        WF_SmallLine = d.SmallLine,
+        WF_SmallLineDeepen = d.SmallLineDeepen,
+        WF_PlainLineDepth = d.PlainLineDepth,
+        WF_NormalLineDepth = d.NormalLineDepth,
+        WF_DeepLineDepth = d.DeepLineDepth,
+        WF_MaxSpeed = d.MaxSpeed,
+        WF_RollerCount = d.RollerCount,
+        WF_Trim = d.Trim,
+        WF_IsDelete = false,
     };
 }

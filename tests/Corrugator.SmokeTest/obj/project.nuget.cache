@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Be8tKXPH/3g=",
+  "dgSpecHash": "DN3mfIzGfQw=",
   "success": true,
-  "projectFilePath": "C:\\Users\\Administrator\\Downloads\\Corrugator-Solution\\tests\\Corrugator.SmokeTest\\Corrugator.SmokeTest.csproj",
+  "projectFilePath": "D:\\Corrugator\\Corrugator\\tests\\Corrugator.SmokeTest\\Corrugator.SmokeTest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Administrator\\.nuget\\packages\\azure.core\\1.38.0\\azure.core.1.38.0.nupkg.sha512",
     "C:\\Users\\Administrator\\.nuget\\packages\\azure.identity\\1.11.4\\azure.identity.1.11.4.nupkg.sha512",

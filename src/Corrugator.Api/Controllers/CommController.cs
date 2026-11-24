@@ -9,7 +9,7 @@ namespace Corrugator.Api.Controllers;
 
 /// <summary>
 /// 通讯设置（基础信息 → 通讯设置）：配置设置 / 设备 / 点位变量三个页签。
-/// 数据落在 TB_Plc_DriverConfig、TB_Plc_PointVar（IPS 线库）。
+/// 数据落在 W_Plc_DriverConfig、W_Plc_PointVar（IPS 线库）。
 /// </summary>
 [ApiController]
 [Route("api/comm")]
@@ -42,14 +42,14 @@ public class CommController : ControllerBase
     /// <summary>点位可读可写下拉</summary>
     private static readonly string[] PointRw = { "ReadOnly", "ReadWrite", "WriteOnly" };
 
-    private readonly IRepository<TB_Plc_DriverConfig> _configs;
-    private readonly IRepository<TB_Plc_PointVar> _points;
-    private readonly IRepository<TB_Plc_Device> _devices;
+    private readonly IRepository<W_Plc_DriverConfig> _configs;
+    private readonly IRepository<W_Plc_PointVar> _points;
+    private readonly IRepository<W_Plc_Device> _devices;
 
     public CommController(
-        IRepository<TB_Plc_DriverConfig> configs,
-        IRepository<TB_Plc_PointVar> points,
-        IRepository<TB_Plc_Device> devices)
+        IRepository<W_Plc_DriverConfig> configs,
+        IRepository<W_Plc_PointVar> points,
+        IRepository<W_Plc_Device> devices)
     {
         _configs = configs;
         _points = points;
@@ -61,25 +61,25 @@ public class CommController : ControllerBase
     public async Task<ApiResult<List<CommConfigDto>>> Configs(
         string? name = null, string? parCode = null, string? code = null, bool showAll = false)
     {
-        var list = await _configs.ListAsync(showAll ? null : c => !c.F_IsDelete, "F_ID ASC");
+        var list = await _configs.ListAsync(showAll ? null : c => !c.WF_IsDelete, "WF_ID ASC");
 
         var query = list.AsEnumerable();
         if (!string.IsNullOrWhiteSpace(name))
         {
             var keyword = name.Trim();
-            query = query.Where(c => c.F_Name?.Contains(keyword, StringComparison.OrdinalIgnoreCase) == true);
+            query = query.Where(c => c.WF_Name?.Contains(keyword, StringComparison.OrdinalIgnoreCase) == true);
         }
 
         if (!string.IsNullOrWhiteSpace(code))
         {
             var keyword = code.Trim();
-            query = query.Where(c => c.F_Code.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(c => c.WF_Code.Contains(keyword, StringComparison.OrdinalIgnoreCase));
         }
 
         if (!string.IsNullOrWhiteSpace(parCode))
         {
             var keyword = parCode.Trim();
-            query = query.Where(c => c.F_ParCode?.Contains(keyword, StringComparison.OrdinalIgnoreCase) == true);
+            query = query.Where(c => c.WF_ParCode?.Contains(keyword, StringComparison.OrdinalIgnoreCase) == true);
         }
 
         return ApiResult<List<CommConfigDto>>.Ok(query.Select(ToDto).ToList());
@@ -89,8 +89,8 @@ public class CommController : ControllerBase
     [HttpGet("par-codes")]
     public async Task<ApiResult<List<string>>> ParCodes()
     {
-        var list = await _configs.ListAsync(c => !c.F_IsDelete, "F_ID ASC");
-        var codes = list.Select(c => c.F_ParCode).Where(c => !string.IsNullOrWhiteSpace(c)).Distinct().ToList();
+        var list = await _configs.ListAsync(c => !c.WF_IsDelete, "WF_ID ASC");
+        var codes = list.Select(c => c.WF_ParCode).Where(c => !string.IsNullOrWhiteSpace(c)).Distinct().ToList();
         return ApiResult<List<string>>.Ok(codes!);
     }
 
@@ -100,29 +100,29 @@ public class CommController : ControllerBase
         string? name = null, string? commType = null, string? config = null, bool showAll = false,
         string? code = null)
     {
-        var list = await _devices.ListAsync(showAll ? null : d => !d.F_IsDelete, "F_ID ASC");
+        var list = await _devices.ListAsync(showAll ? null : d => !d.WF_IsDelete, "WF_ID ASC");
 
         var query = list.AsEnumerable();
         if (!string.IsNullOrWhiteSpace(name))
         {
             var keyword = name.Trim();
-            query = query.Where(d => d.F_Name?.Contains(keyword, StringComparison.OrdinalIgnoreCase) == true);
+            query = query.Where(d => d.WF_Name?.Contains(keyword, StringComparison.OrdinalIgnoreCase) == true);
         }
 
         if (!string.IsNullOrWhiteSpace(code))
         {
             var keyword = code.Trim();
-            query = query.Where(d => d.F_Code.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(d => d.WF_Code.Contains(keyword, StringComparison.OrdinalIgnoreCase));
         }
 
         if (!string.IsNullOrWhiteSpace(commType))
         {
-            query = query.Where(d => string.Equals(d.F_CommType, commType.Trim(), StringComparison.OrdinalIgnoreCase));
+            query = query.Where(d => string.Equals(d.WF_CommType, commType.Trim(), StringComparison.OrdinalIgnoreCase));
         }
 
         if (!string.IsNullOrWhiteSpace(config))
         {
-            query = query.Where(d => string.Equals(d.F_ConfigName, config.Trim(), StringComparison.OrdinalIgnoreCase));
+            query = query.Where(d => string.Equals(d.WF_ConfigName, config.Trim(), StringComparison.OrdinalIgnoreCase));
         }
 
         return ApiResult<List<CommDeviceDto>>.Ok(query.Select(ToDeviceDto).ToList());
@@ -137,10 +137,10 @@ public class CommController : ControllerBase
     [HttpGet("config-options")]
     public async Task<ApiResult<List<CommConfigOption>>> ConfigOptions()
     {
-        var list = await _configs.ListAsync(c => !c.F_IsDelete, "F_ID ASC");
+        var list = await _configs.ListAsync(c => !c.WF_IsDelete, "WF_ID ASC");
         var options = list
-            .Where(c => !string.IsNullOrWhiteSpace(c.F_Name))
-            .Select(c => new CommConfigOption { Code = c.F_Code, Name = c.F_Name })
+            .Where(c => !string.IsNullOrWhiteSpace(c.WF_Name))
+            .Select(c => new CommConfigOption { Code = c.WF_Code, Name = c.WF_Name })
             .GroupBy(o => o.Name)
             .Select(g => g.First())
             .ToList();
@@ -162,22 +162,22 @@ public class CommController : ControllerBase
             return ApiResult<CommDeviceDto>.Fail("设备编码不能为空");
         }
 
-        var exists = await _devices.ExistsAsync(d => d.F_Code == request.Code.Trim() && !d.F_IsDelete);
+        var exists = await _devices.ExistsAsync(d => d.WF_Code == request.Code.Trim() && !d.WF_IsDelete);
         if (exists)
         {
             return ApiResult<CommDeviceDto>.Fail("设备编码已存在");
         }
 
-        var entity = new TB_Plc_Device
+        var entity = new W_Plc_Device
         {
-            F_Code = request.Code.Trim(),
-            F_Name = request.Name?.Trim(),
-            F_CommType = request.CommType?.Trim(),
-            F_ConfigName = request.ConfigName?.Trim(),
-            F_IsUse = request.IsUse,
-            F_IsDelete = request.IsDelete,
-            F_Creator = User.Identity?.Name,
-            F_CreateTime = DateTime.Now,
+            WF_Code = request.Code.Trim(),
+            WF_Name = request.Name?.Trim(),
+            WF_CommType = request.CommType?.Trim(),
+            WF_ConfigName = request.ConfigName?.Trim(),
+            WF_IsUse = request.IsUse,
+            WF_IsDelete = request.IsDelete,
+            WF_Creator = User.Identity?.Name,
+            WF_CreateTime = DateTime.Now,
         };
 
         await _devices.InsertAsync(entity);
@@ -205,23 +205,23 @@ public class CommController : ControllerBase
         }
 
         var code = request.Code.Trim();
-        if (!string.Equals(code, entity.F_Code, StringComparison.Ordinal))
+        if (!string.Equals(code, entity.WF_Code, StringComparison.Ordinal))
         {
-            var exists = await _devices.ExistsAsync(d => d.F_ID != id && d.F_Code == code && !d.F_IsDelete);
+            var exists = await _devices.ExistsAsync(d => d.WF_ID != id && d.WF_Code == code && !d.WF_IsDelete);
             if (exists)
             {
                 return ApiResult<CommDeviceDto>.Fail("设备编码已存在");
             }
         }
 
-        entity.F_Code = code;
-        entity.F_Name = request.Name?.Trim();
-        entity.F_CommType = request.CommType?.Trim();
-        entity.F_ConfigName = request.ConfigName?.Trim();
-        entity.F_IsUse = request.IsUse;
-        entity.F_IsDelete = request.IsDelete;
-        entity.F_Editor = User.Identity?.Name;
-        entity.F_EditTime = DateTime.Now;
+        entity.WF_Code = code;
+        entity.WF_Name = request.Name?.Trim();
+        entity.WF_CommType = request.CommType?.Trim();
+        entity.WF_ConfigName = request.ConfigName?.Trim();
+        entity.WF_IsUse = request.IsUse;
+        entity.WF_IsDelete = request.IsDelete;
+        entity.WF_Editor = User.Identity?.Name;
+        entity.WF_EditTime = DateTime.Now;
 
         await _devices.UpdateAsync(entity);
         return ApiResult<CommDeviceDto>.Ok(ToDeviceDto(entity), "已保存");
@@ -250,28 +250,28 @@ public class CommController : ControllerBase
                 continue;
             }
 
-            entity.F_IsDelete = true;
-            entity.F_Editor = User.Identity?.Name;
-            entity.F_EditTime = DateTime.Now;
+            entity.WF_IsDelete = true;
+            entity.WF_Editor = User.Identity?.Name;
+            entity.WF_EditTime = DateTime.Now;
             await _devices.UpdateAsync(entity);
         }
 
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), $"已删除 {ids.Count} 条");
     }
 
-    private static CommDeviceDto ToDeviceDto(TB_Plc_Device d) => new()
+    private static CommDeviceDto ToDeviceDto(W_Plc_Device d) => new()
     {
-        Id = d.F_ID,
-        Code = d.F_Code,
-        Name = d.F_Name,
-        CommType = d.F_CommType,
-        ConfigName = d.F_ConfigName,
-        IsUse = d.F_IsUse ?? false,
-        IsDelete = d.F_IsDelete,
-        Creator = d.F_Creator,
-        CreateTime = d.F_CreateTime,
-        Editor = d.F_Editor,
-        EditTime = d.F_EditTime,
+        Id = d.WF_ID,
+        Code = d.WF_Code,
+        Name = d.WF_Name,
+        CommType = d.WF_CommType,
+        ConfigName = d.WF_ConfigName,
+        IsUse = d.WF_IsUse ?? false,
+        IsDelete = d.WF_IsDelete,
+        Creator = d.WF_Creator,
+        CreateTime = d.WF_CreateTime,
+        Editor = d.WF_Editor,
+        EditTime = d.WF_EditTime,
     };
 
     /// <summary>通讯点位变量列表</summary>
@@ -279,25 +279,25 @@ public class CommController : ControllerBase
     public async Task<ApiResult<List<CommPointDto>>> Points(
         string? position = null, string? device = null, string? code = null, bool showAll = false)
     {
-        var list = await _points.ListAsync(showAll ? null : p => !p.F_IsDelete, "F_ID ASC");
+        var list = await _points.ListAsync(showAll ? null : p => !p.WF_IsDelete, "WF_ID ASC");
 
         var query = list.AsEnumerable();
         if (!string.IsNullOrWhiteSpace(position))
         {
             var keyword = position.Trim();
-            query = query.Where(p => string.Equals(p.F_Position, keyword, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(p => string.Equals(p.WF_Position, keyword, StringComparison.OrdinalIgnoreCase));
         }
 
         if (!string.IsNullOrWhiteSpace(device))
         {
             var keyword = device.Trim();
-            query = query.Where(p => string.Equals(p.F_DriverCode, keyword, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(p => string.Equals(p.WF_DriverCode, keyword, StringComparison.OrdinalIgnoreCase));
         }
 
         if (!string.IsNullOrWhiteSpace(code))
         {
             var keyword = code.Trim();
-            query = query.Where(p => p.F_Code.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+            query = query.Where(p => p.WF_Code.Contains(keyword, StringComparison.OrdinalIgnoreCase));
         }
 
         return ApiResult<List<CommPointDto>>.Ok(query.Select(ToPointDto).ToList());
@@ -307,11 +307,11 @@ public class CommController : ControllerBase
     [HttpGet("point-options")]
     public async Task<ApiResult<CommPointOptions>> PointOptions()
     {
-        var points = await _points.ListAsync(null, "F_ID ASC");
-        var devices = await _devices.ListAsync(d => !d.F_IsDelete, "F_ID ASC");
+        var points = await _points.ListAsync(null, "WF_ID ASC");
+        var devices = await _devices.ListAsync(d => !d.WF_IsDelete, "WF_ID ASC");
 
-        var positions = points.Select(p => p.F_Position).Where(p => !string.IsNullOrWhiteSpace(p)).Distinct().ToList()!;
-        var deviceNames = devices.Select(d => d.F_Name).Where(d => !string.IsNullOrWhiteSpace(d)).Distinct().ToList()!;
+        var positions = points.Select(p => p.WF_Position).Where(p => !string.IsNullOrWhiteSpace(p)).Distinct().ToList()!;
+        var deviceNames = devices.Select(d => d.WF_Name).Where(d => !string.IsNullOrWhiteSpace(d)).Distinct().ToList()!;
 
         return ApiResult<CommPointOptions>.Ok(new CommPointOptions
         {
@@ -336,26 +336,26 @@ public class CommController : ControllerBase
             return ApiResult<CommPointDto>.Fail("变量编码不能为空");
         }
 
-        var entity = new TB_Plc_PointVar
+        var entity = new W_Plc_PointVar
         {
-            F_Code = request.Code.Trim(),
-            F_Name = request.Name?.Trim(),
-            F_Desc = request.Desc?.Trim(),
-            F_Position = request.Position?.Trim(),
-            F_DriverCode = request.DriverCode?.Trim(),
-            F_VarAddress = request.VarAddress?.Trim(),
-            F_DataType = request.DataType?.Trim(),
-            F_RW = RwToInt(request.RW),
-            F_Interval = request.Interval,
-            F_Priority = request.Priority,
-            F_IsUse = request.IsUse,
-            F_CurValue = request.CurValue,
-            F_IsAlarm = request.IsAlarm,
-            F_AlarmInterval = request.AlarmInterval,
-            F_AlarmOffset = request.AlarmOffset,
-            F_IsDelete = request.IsDelete,
-            F_Creator = User.Identity?.Name,
-            F_CreateTime = DateTime.Now,
+            WF_Code = request.Code.Trim(),
+            WF_Name = request.Name?.Trim(),
+            WF_Desc = request.Desc?.Trim(),
+            WF_Position = request.Position?.Trim(),
+            WF_DriverCode = request.DriverCode?.Trim(),
+            WF_VarAddress = request.VarAddress?.Trim(),
+            WF_DataType = request.DataType?.Trim(),
+            WF_RW = RwToInt(request.RW),
+            WF_Interval = request.Interval,
+            WF_Priority = request.Priority,
+            WF_IsUse = request.IsUse,
+            WF_CurValue = request.CurValue,
+            WF_IsAlarm = request.IsAlarm,
+            WF_AlarmInterval = request.AlarmInterval,
+            WF_AlarmOffset = request.AlarmOffset,
+            WF_IsDelete = request.IsDelete,
+            WF_Creator = User.Identity?.Name,
+            WF_CreateTime = DateTime.Now,
         };
 
         await _points.InsertAsync(entity);
@@ -382,24 +382,24 @@ public class CommController : ControllerBase
             return ApiResult<CommPointDto>.Fail("变量编码不能为空");
         }
 
-        entity.F_Code = request.Code.Trim();
-        entity.F_Name = request.Name?.Trim();
-        entity.F_Desc = request.Desc?.Trim();
-        entity.F_Position = request.Position?.Trim();
-        entity.F_DriverCode = request.DriverCode?.Trim();
-        entity.F_VarAddress = request.VarAddress?.Trim();
-        entity.F_DataType = request.DataType?.Trim();
-        entity.F_RW = RwToInt(request.RW);
-        entity.F_Interval = request.Interval;
-        entity.F_Priority = request.Priority;
-        entity.F_IsUse = request.IsUse;
-        entity.F_CurValue = request.CurValue;
-        entity.F_IsAlarm = request.IsAlarm;
-        entity.F_AlarmInterval = request.AlarmInterval;
-        entity.F_AlarmOffset = request.AlarmOffset;
-        entity.F_IsDelete = request.IsDelete;
-        entity.F_Editor = User.Identity?.Name;
-        entity.F_EditTime = DateTime.Now;
+        entity.WF_Code = request.Code.Trim();
+        entity.WF_Name = request.Name?.Trim();
+        entity.WF_Desc = request.Desc?.Trim();
+        entity.WF_Position = request.Position?.Trim();
+        entity.WF_DriverCode = request.DriverCode?.Trim();
+        entity.WF_VarAddress = request.VarAddress?.Trim();
+        entity.WF_DataType = request.DataType?.Trim();
+        entity.WF_RW = RwToInt(request.RW);
+        entity.WF_Interval = request.Interval;
+        entity.WF_Priority = request.Priority;
+        entity.WF_IsUse = request.IsUse;
+        entity.WF_CurValue = request.CurValue;
+        entity.WF_IsAlarm = request.IsAlarm;
+        entity.WF_AlarmInterval = request.AlarmInterval;
+        entity.WF_AlarmOffset = request.AlarmOffset;
+        entity.WF_IsDelete = request.IsDelete;
+        entity.WF_Editor = User.Identity?.Name;
+        entity.WF_EditTime = DateTime.Now;
 
         await _points.UpdateAsync(entity);
         return ApiResult<CommPointDto>.Ok(ToPointDto(entity), "已保存");
@@ -428,9 +428,9 @@ public class CommController : ControllerBase
                 continue;
             }
 
-            entity.F_IsDelete = true;
-            entity.F_Editor = User.Identity?.Name;
-            entity.F_EditTime = DateTime.Now;
+            entity.WF_IsDelete = true;
+            entity.WF_Editor = User.Identity?.Name;
+            entity.WF_EditTime = DateTime.Now;
             await _points.UpdateAsync(entity);
         }
 
@@ -451,33 +451,33 @@ public class CommController : ControllerBase
         _ => 2,
     };
 
-    private static CommPointDto ToPointDto(TB_Plc_PointVar p) => new()
+    private static CommPointDto ToPointDto(W_Plc_PointVar p) => new()
     {
-        Id = p.F_ID,
-        Code = p.F_Code,
-        Name = p.F_Name,
-        Desc = p.F_Desc,
-        Position = p.F_Position,
-        DriverCode = p.F_DriverCode,
-        VarAddress = p.F_VarAddress,
-        DataType = p.F_DataType,
-        RW = RwToText(p.F_RW),
-        Interval = p.F_Interval,
-        Priority = p.F_Priority,
-        IsUse = p.F_IsUse ?? false,
-        CurValue = p.F_CurValue,
-        IsAlarm = p.F_IsAlarm,
-        AlarmInterval = p.F_AlarmInterval,
-        AlarmOffset = p.F_AlarmOffset,
-        DataOkAddress = p.F_DataOKAddress,
-        DataOkDataType = p.F_DataOKDataType,
-        TransferKeyAddress = p.F_TransferKeyAddress,
-        TransferKeyDataType = p.F_TransferKeyDataType,
-        Creator = p.F_Creator,
-        CreateTime = p.F_CreateTime,
-        Editor = p.F_Editor,
-        EditTime = p.F_EditTime,
-        IsDelete = p.F_IsDelete,
+        Id = p.WF_ID,
+        Code = p.WF_Code,
+        Name = p.WF_Name,
+        Desc = p.WF_Desc,
+        Position = p.WF_Position,
+        DriverCode = p.WF_DriverCode,
+        VarAddress = p.WF_VarAddress,
+        DataType = p.WF_DataType,
+        RW = RwToText(p.WF_RW),
+        Interval = p.WF_Interval,
+        Priority = p.WF_Priority,
+        IsUse = p.WF_IsUse ?? false,
+        CurValue = p.WF_CurValue,
+        IsAlarm = p.WF_IsAlarm,
+        AlarmInterval = p.WF_AlarmInterval,
+        AlarmOffset = p.WF_AlarmOffset,
+        DataOkAddress = p.WF_DataOKAddress,
+        DataOkDataType = p.WF_DataOKDataType,
+        TransferKeyAddress = p.WF_TransferKeyAddress,
+        TransferKeyDataType = p.WF_TransferKeyDataType,
+        Creator = p.WF_Creator,
+        CreateTime = p.WF_CreateTime,
+        Editor = p.WF_Editor,
+        EditTime = p.WF_EditTime,
+        IsDelete = p.WF_IsDelete,
     };
 
     /// <summary>新增通讯配置</summary>
@@ -494,16 +494,16 @@ public class CommController : ControllerBase
             return ApiResult<CommConfigDto>.Fail("配置编码不能为空");
         }
 
-        var entity = new TB_Plc_DriverConfig
+        var entity = new W_Plc_DriverConfig
         {
-            F_Code = request.Code.Trim(),
-            F_Name = request.Name?.Trim(),
-            F_Desc = request.Desc?.Trim(),
-            F_ParCode = request.ParCode?.Trim(),
-            F_ParValue = request.ParValue?.Trim(),
-            F_IsDelete = request.IsDelete,
-            F_Creator = User.Identity?.Name,
-            F_CreateTime = DateTime.Now,
+            WF_Code = request.Code.Trim(),
+            WF_Name = request.Name?.Trim(),
+            WF_Desc = request.Desc?.Trim(),
+            WF_ParCode = request.ParCode?.Trim(),
+            WF_ParValue = request.ParValue?.Trim(),
+            WF_IsDelete = request.IsDelete,
+            WF_Creator = User.Identity?.Name,
+            WF_CreateTime = DateTime.Now,
         };
 
         await _configs.InsertAsync(entity);
@@ -530,20 +530,20 @@ public class CommController : ControllerBase
             return ApiResult<CommConfigDto>.Fail("配置编码不能为空");
         }
 
-        entity.F_Code = request.Code.Trim();
-        entity.F_Name = request.Name?.Trim();
-        entity.F_Desc = request.Desc?.Trim();
-        entity.F_ParCode = request.ParCode?.Trim();
-        entity.F_ParValue = request.ParValue?.Trim();
-        entity.F_IsDelete = request.IsDelete;
-        entity.F_Editor = User.Identity?.Name;
-        entity.F_EditTime = DateTime.Now;
+        entity.WF_Code = request.Code.Trim();
+        entity.WF_Name = request.Name?.Trim();
+        entity.WF_Desc = request.Desc?.Trim();
+        entity.WF_ParCode = request.ParCode?.Trim();
+        entity.WF_ParValue = request.ParValue?.Trim();
+        entity.WF_IsDelete = request.IsDelete;
+        entity.WF_Editor = User.Identity?.Name;
+        entity.WF_EditTime = DateTime.Now;
 
         await _configs.UpdateAsync(entity);
         return ApiResult<CommConfigDto>.Ok(ToDto(entity), "已保存");
     }
 
-    /// <summary>删除通讯配置（置 F_IsDelete）</summary>
+    /// <summary>删除通讯配置（置 WF_IsDelete）</summary>
     [HttpDelete("configs/{id:long}")]
     public async Task<ApiResult<ApiEmpty>> Delete(long id)
     {
@@ -558,9 +558,9 @@ public class CommController : ControllerBase
             return ApiResult<ApiEmpty>.Fail("记录不存在", 404);
         }
 
-        entity.F_IsDelete = true;
-        entity.F_Editor = User.Identity?.Name;
-        entity.F_EditTime = DateTime.Now;
+        entity.WF_IsDelete = true;
+        entity.WF_Editor = User.Identity?.Name;
+        entity.WF_EditTime = DateTime.Now;
         await _configs.UpdateAsync(entity);
 
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(), "已删除");
@@ -589,9 +589,9 @@ public class CommController : ControllerBase
                 continue;
             }
 
-            entity.F_IsDelete = true;
-            entity.F_Editor = User.Identity?.Name;
-            entity.F_EditTime = DateTime.Now;
+            entity.WF_IsDelete = true;
+            entity.WF_Editor = User.Identity?.Name;
+            entity.WF_EditTime = DateTime.Now;
             await _configs.UpdateAsync(entity);
         }
 
@@ -607,26 +607,26 @@ public class CommController : ControllerBase
             return ApiResult<ApiEmpty>.Fail("仅管理员可执行生效操作", 403);
         }
 
-        var count = await _configs.CountAsync(c => !c.F_IsDelete);
-        var deviceCount = await _devices.CountAsync(d => !d.F_IsDelete);
-        var pointCount = await _points.CountAsync(p => !p.F_IsDelete);
+        var count = await _configs.CountAsync(c => !c.WF_IsDelete);
+        var deviceCount = await _devices.CountAsync(d => !d.WF_IsDelete);
+        var pointCount = await _points.CountAsync(p => !p.WF_IsDelete);
         return ApiResult<ApiEmpty>.Ok(new ApiEmpty(),
             $"已重新加载 {count} 条通讯配置、{deviceCount} 个通讯设备、{pointCount} 个点位变量（PLC 网关未接入，本次仅刷新服务端缓存）");
     }
 
-    private static CommConfigDto ToDto(TB_Plc_DriverConfig c) => new()
+    private static CommConfigDto ToDto(W_Plc_DriverConfig c) => new()
     {
-        Id = c.F_ID,
-        Code = c.F_Code,
-        Name = c.F_Name,
-        Desc = c.F_Desc,
-        ParCode = c.F_ParCode,
-        ParValue = c.F_ParValue,
-        IsDelete = c.F_IsDelete,
-        Creator = c.F_Creator,
-        CreateTime = c.F_CreateTime,
-        Editor = c.F_Editor,
-        EditTime = c.F_EditTime,
+        Id = c.WF_ID,
+        Code = c.WF_Code,
+        Name = c.WF_Name,
+        Desc = c.WF_Desc,
+        ParCode = c.WF_ParCode,
+        ParValue = c.WF_ParValue,
+        IsDelete = c.WF_IsDelete,
+        Creator = c.WF_Creator,
+        CreateTime = c.WF_CreateTime,
+        Editor = c.WF_Editor,
+        EditTime = c.WF_EditTime,
     };
 
     private bool IsAdmin
