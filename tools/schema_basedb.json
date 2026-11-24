@@ -1,0 +1,609 @@
+{
+ "database": "BaseDB",
+ "tables": [
+  {
+   "name": "S_ApiUserMaps",
+   "comment": "",
+   "columns": [
+    {
+     "name": "SAA_ApiID",
+     "comment": "接口ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SAA_ApiUserID",
+     "comment": "接口授权账号",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SA_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_ApiUsers",
+   "comment": "",
+   "columns": [
+    {
+     "name": "SA_Account",
+     "comment": "账号",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SA_Password",
+     "comment": "密码",
+     "type": "varchar(100)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SA_SystemName",
+     "comment": "系统名称",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SA_IsEnable",
+     "comment": "是否启用",
+     "type": "bool",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SA_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_Apis",
+   "comment": "",
+   "columns": [
+    {
+     "name": "SA_Desc",
+     "comment": "",
+     "type": "text",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SA_Path",
+     "comment": "接口地址Url",
+     "type": "varchar(100)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SA_IsEnable",
+     "comment": "是否启用",
+     "type": "bool",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SA_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_Permissions",
+   "comment": "菜单功能权限表",
+   "columns": [
+    {
+     "name": "SP_PID",
+     "comment": "父ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SP_Name",
+     "comment": "名称",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SP_Type",
+     "comment": "类型(菜单，功能)",
+     "type": "varchar(10)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SP_NameSpace",
+     "comment": "命名空间",
+     "type": "varchar(100)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_IsDel",
+     "comment": "是否删除",
+     "type": "bool",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_SortNo",
+     "comment": "排序号",
+     "type": "int4(32)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_Creator",
+     "comment": "创建者",
+     "type": "varchar(20)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_CreateTime",
+     "comment": "创建时间",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_Editor",
+     "comment": "修改人",
+     "type": "varchar(20)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_EditTime",
+     "comment": "修改时间",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_Remark",
+     "comment": "",
+     "type": "varchar(500)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SP_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_Role_Permissions",
+   "comment": "角色权限关联表",
+   "columns": [
+    {
+     "name": "SR_ID",
+     "comment": "角色ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SP_ID",
+     "comment": "权限ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SRP_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_Roles",
+   "comment": "角色表",
+   "columns": [
+    {
+     "name": "SR_Name",
+     "comment": "角色名",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SR_SortNo",
+     "comment": "排序号",
+     "type": "int4(32)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SR_IsDel",
+     "comment": "是否删除",
+     "type": "bool",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SR_Creator",
+     "comment": "创建者",
+     "type": "varchar(20)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SR_CreateTime",
+     "comment": "创建时间",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SR_Editor",
+     "comment": "修改人",
+     "type": "varchar(20)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SR_EditTime",
+     "comment": "修改时间",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SR_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_User_Permissions",
+   "comment": "用户权限关联表",
+   "columns": [
+    {
+     "name": "SU_ID",
+     "comment": "用户ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SP_ID",
+     "comment": "权限ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SUP_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_User_Roles",
+   "comment": "用户角色关联表",
+   "columns": [
+    {
+     "name": "SU_ID",
+     "comment": "用户ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SR_ID",
+     "comment": "角色ID",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SUR_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "S_Users",
+   "comment": "用户表",
+   "columns": [
+    {
+     "name": "SU_Account",
+     "comment": "账号",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "SU_Password",
+     "comment": "密码",
+     "type": "varchar(50)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_UserName",
+     "comment": "姓名",
+     "type": "varchar(50)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_Gender",
+     "comment": "性别",
+     "type": "varchar(10)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_PhoneNo",
+     "comment": "手机号码",
+     "type": "varchar(50)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_IsMulti",
+     "comment": "",
+     "type": "bool",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_IsDel",
+     "comment": "是否删除",
+     "type": "bool",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_Creator",
+     "comment": "创建者",
+     "type": "varchar(20)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_CreateTime",
+     "comment": "创建时间",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_Editor",
+     "comment": "修改人",
+     "type": "varchar(20)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_EditTime",
+     "comment": "修改时间",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_StopPosition",
+     "comment": "",
+     "type": "varchar(50)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "SU_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  },
+  {
+   "name": "TB_Line",
+   "comment": "",
+   "columns": [
+    {
+     "name": "F_Code",
+     "comment": "瓦线编码",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "F_Name",
+     "comment": "瓦线名称",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "F_ConfigID",
+     "comment": "数据库标识",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "F_ConnectionString",
+     "comment": "数据库连接字符串",
+     "type": "varchar(200)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "F_ServerIP",
+     "comment": "服务端IP",
+     "type": "varchar(50)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "F_ServerPort",
+     "comment": "服务单端口号",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": false
+    },
+    {
+     "name": "F_Gateway",
+     "comment": "",
+     "type": "varchar(50)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "F_WaveLineLayer",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "F_DoorWidth",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "F_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    },
+    {
+     "name": "F_ApiUrl",
+     "comment": "WebApi接口地址",
+     "type": "varchar(255)",
+     "notnull": false,
+     "identity": false
+    }
+   ]
+  },
+  {
+   "name": "T_Log",
+   "comment": "日志表",
+   "columns": [
+    {
+     "name": "Id",
+     "comment": "",
+     "type": "int8(64)",
+     "notnull": true,
+     "identity": true
+    },
+    {
+     "name": "Date",
+     "comment": "",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "Thread",
+     "comment": "",
+     "type": "varchar(10)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "Level",
+     "comment": "",
+     "type": "varchar(10)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "Logger",
+     "comment": "",
+     "type": "varchar(255)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "Message",
+     "comment": "",
+     "type": "text",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "Exception",
+     "comment": "",
+     "type": "text",
+     "notnull": false,
+     "identity": false
+    }
+   ]
+  },
+  {
+   "name": "T_UserLoginCache",
+   "comment": "",
+   "columns": [
+    {
+     "name": "F_Account",
+     "comment": "",
+     "type": "varchar(50)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "F_Time",
+     "comment": "",
+     "type": "timestamp(6)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "F_IP",
+     "comment": "",
+     "type": "varchar(50)",
+     "notnull": false,
+     "identity": false
+    },
+    {
+     "name": "F_ID",
+     "comment": "",
+     "type": "int4(32)",
+     "notnull": true,
+     "identity": true
+    }
+   ]
+  }
+ ]
+}

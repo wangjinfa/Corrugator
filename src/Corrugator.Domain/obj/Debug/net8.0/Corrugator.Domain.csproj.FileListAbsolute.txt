@@ -1,0 +1,12 @@
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\bin\Debug\net8.0\Corrugator.Domain.deps.json
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\bin\Debug\net8.0\Corrugator.Domain.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\bin\Debug\net8.0\Corrugator.Domain.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\Corrugator.Domain.csproj.AssemblyReference.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\Corrugator.Domain.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\Corrugator.Domain.AssemblyInfoInputs.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\Corrugator.Domain.AssemblyInfo.cs
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\Corrugator.Domain.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\Corrugator.Domain.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\refint\Corrugator.Domain.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\Corrugator.Domain.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Domain\obj\Debug\net8.0\ref\Corrugator.Domain.dll

@@ -1,0 +1,89 @@
+﻿<Window x:Class="Corrugator.Client.Wpf.Views.DictTypeEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="字典分类" Width="460" Height="300"
+        WindowStyle="None" ResizeMode="NoResize" ShowInTaskbar="False"
+        WindowStartupLocation="CenterOwner" Background="White">
+    <Window.Resources>
+        <Style x:Key="DlgButton" TargetType="Button">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="86" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" Background="#1A6FD0" CornerRadius="2">
+                            <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#3582D8" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="DlgLabel" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Foreground" Value="#3A4653" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+        <Style x:Key="DlgBox" TargetType="TextBox">
+            <Setter Property="Height" Value="26" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Padding" Value="5,2" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,4" />
+        </Style>
+    </Window.Resources>
+
+    <Border BorderBrush="#C9D2DC" BorderThickness="1" Background="White">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="38" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="54" />
+            </Grid.RowDefinitions>
+
+            <Border Grid.Row="0" BorderBrush="#E3E8EF" BorderThickness="0,0,0,1">
+                <Grid>
+                    <TextBlock x:Name="TitleText" Text="字典分类-新增" FontSize="13" FontWeight="SemiBold"
+                               Foreground="#2F3B48" VerticalAlignment="Center" Margin="14,0,0,0" />
+                    <Button HorizontalAlignment="Right" Width="38" Height="36" Content="✕" FontSize="14"
+                            Foreground="#8A96A3" Background="Transparent" BorderThickness="0" Cursor="Hand"
+                            Click="OnCancelClick" />
+                </Grid>
+            </Border>
+
+            <Grid Grid.Row="1" Margin="16,12,16,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="80" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="父节点：" Style="{StaticResource DlgLabel}" />
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="ParentInput" Style="{StaticResource DlgBox}"
+                         IsReadOnly="True" Background="#F5F7FA" />
+
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="中文名：*" Style="{StaticResource DlgLabel}" />
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="NameInput" Style="{StaticResource DlgBox}" MaxLength="50" />
+
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="英文名：*" Style="{StaticResource DlgLabel}" />
+                <TextBox Grid.Row="2" Grid.Column="1" x:Name="CodeInput" Style="{StaticResource DlgBox}" MaxLength="50" />
+            </Grid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,16,0">
+                <Button Content="取消" Style="{StaticResource DlgButton}" Click="OnCancelClick" />
+                <Button Content="确定" Style="{StaticResource DlgButton}" Margin="10,0,0,0" Click="OnConfirmClick" IsDefault="True" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8" />
+<title>瓦楞纸板生产线生管系统 · 图形化控制（设计预览）</title>
+<style>
+  * { box-sizing:border-box; }
+  html { width:1920px; height:1040px; overflow:hidden; }
+  body { margin:0; padding:0; width:1920px; height:1040px; overflow:hidden; display:flex; flex-direction:column;
+    font-family:"Microsoft YaHei UI","Noto Sans CJK SC","WenQuanYi Micro Hei",sans-serif;
+    background:#DCE1E7; color:#1E2A38; }
+  /* ---------- 顶栏 ---------- */
+  .topbar { height:64px; flex:none; background:#132136; display:flex; align-items:center; padding:0 14px; }
+  .logo { width:46px; height:46px; border-radius:50%; border:1px solid #46586F; display:flex;
+          align-items:center; justify-content:center; margin-right:8px; flex:none; }
+  .nav { display:flex; }
+  .nav-item { width:104px; height:64px; display:flex; flex-direction:column; align-items:center;
+              justify-content:center; gap:4px; color:#C8D3E0; }
+  .nav-item.active { background:#21375A; color:#FFF; box-shadow:inset 0 -2px 0 #4A90D9; }
+  .nav-item svg { width:26px; height:26px; }
+  .nav-item span { font-size:13px; letter-spacing:.4px; }
+  .top-right { margin-left:auto; display:flex; align-items:center; gap:16px; color:#E8EEF5; }
+  .reset-btn { border:1px solid #3C5473; border-radius:3px; padding:5px 12px; font-size:13px; background:#1B2C46; }
+  .shift { font-size:14px; }
+  .line-box { background:#FFF; color:#132136; font-weight:600; padding:4px 12px; border-radius:2px; font-size:14px; }
+  .stat { display:flex; align-items:center; gap:6px; font-size:13px; color:#C8D3E0; }
+  .dot { width:11px; height:11px; border-radius:50%; background:#E74C3C; }
+  .ver { text-align:right; font-size:11px; color:#A9B8C9; line-height:1.45; }
+  .ver b { color:#E8EEF5; font-size:12px; }
+  /* ---------- 主体 ---------- */
+  .content { flex:none; height:976px; display:grid; grid-template-columns:1fr 660px; grid-template-rows:minmax(0,1fr); gap:8px; padding:8px; }
+  .left, .right { display:flex; flex-direction:column; gap:8px; height:100%; min-height:0; }
+  .card { background:#FFF; border:1px solid #C6CDD6; border-radius:2px; }
+  .machine { flex:1 1 0; min-height:0; display:flex; flex-direction:column; padding:6px 10px 8px; }
+  .m-head { display:flex; align-items:center; gap:10px; height:34px; flex:none; }
+  .pill { background:#1F5C99; color:#FFF; font-size:12px; padding:3px 10px; border-radius:2px; }
+  .muted { color:#7A8796; font-size:12px; }
+  .bend { margin-left:auto; display:flex; align-items:center; gap:8px; font-size:13px; color:#4A5A6B; }
+  .switch { width:40px; height:18px; border-radius:9px; background:#E7EBF0; border:1px solid #C9D2DB; position:relative; }
+  .switch::after { content:""; position:absolute; width:14px; height:14px; border-radius:50%;
+                   background:#FFF; border:1px solid #D5DCE4; top:1px; left:1px; }
+  .switch.on { background:#E67E22; border-color:#D35400; }
+  .switch.on::after { left:auto; right:1px; border-color:#D35400; }
+  .m-body { position:relative; flex:1; min-height:0; overflow:hidden; }
+  .m-body svg { position:absolute; inset:0; width:100%; height:100%; }
+  .chip { position:absolute; transform:translate(-50%,0); background:#1F5C99; color:#FFF; font-size:12px;
+          padding:4px 8px; border-radius:3px; min-width:44px; text-align:center; box-shadow:0 1px 2px rgba(0,0,0,.25); }
+  .chip.light { background:#FFF; color:#1E2A38; border:1px solid #9FB0C2; box-shadow:none; }
+  .tag { position:absolute; font-size:11px; color:#5A6A7B; background:rgba(255,255,255,.9); padding:1px 4px; }
+  .unit-label { position:absolute; right:8px; top:45%; font-size:23px; font-weight:700; color:#243447; }
+  .gauge-card { height:322px; flex:none; padding:8px 12px 6px; display:flex; flex-direction:column; }
+  .gauge { position:relative; height:214px; flex:none; }
+  .gauge svg { width:100%; height:214px; }
+  .gauge-val { position:absolute; left:50%; top:56%; transform:translateX(-50%); font-size:28px; font-weight:700; }
+  .trend { height:56px; flex:none; border-top:1px dashed #E3E8EE; margin-top:4px; }
+  .trend svg { width:100%; height:44px; }
+  .legend { display:flex; justify-content:space-between; font-size:11px; color:#7A8796; }
+  .lg { display:flex; gap:12px; }
+  .lg i { width:14px; height:2px; display:inline-block; margin-right:4px; vertical-align:middle; }
+  .order-panel { flex:1; min-height:0; padding:8px 12px 10px; display:flex; flex-direction:column; gap:5px; overflow:hidden; }
+  .op-title { font-size:15px; font-weight:700; flex:none; }
+  .metrics { width:100%; border-collapse:collapse; table-layout:fixed; flex:none; }
+  .metrics th { color:#3A4A5B; font-weight:600; padding:5px 2px; border-bottom:1px solid #D8DEE6;
+                text-align:right; font-size:11px; line-height:1.25; }
+  .metrics th:first-child { width:46px; text-align:left; }
+  .metrics td { padding:6px 2px; border-bottom:1px solid #E6EBF1; text-align:right; font-size:13px; }
+  .metrics td:first-child { text-align:left; font-size:12.5px; }
+  .metrics tbody tr:last-child td { background:#F6F8FA; }
+  .summary { font-size:12px; color:#2B3A4A; line-height:1.7; flex:none; }
+  .summary b { color:#1F5C99; }
+  .order-table { width:100%; border-collapse:collapse; font-size:12.5px; table-layout:fixed; }
+  .order-table th { background:#12395E; color:#FFF; font-weight:600; padding:7px 4px; font-size:12px; line-height:1.25; }
+  .order-table td { padding:6px 4px; text-align:center; border-bottom:1px solid #D9DFE6; overflow:hidden; }
+  .row-white td { background:#FFF; }
+  .row-orange td { background:#F2811E; color:#FFF; }
+  .row-yellow td { background:#FFDD7B; }
+  .row-navy td { background:#1B4E7E; color:#FFF; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="logo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#C9D6E5" stroke-width="1.4">
+      <circle cx="12" cy="12" r="8.6"/><circle cx="12" cy="12" r="3.2"/>
+      <path d="M12 3.4v3M12 17.6v3M3.4 12h3M17.6 12h3M6 6l2.1 2.1M15.9 15.9L18 18M18 6l-2.1 2.1M8.1 15.9L6 18"/>
+    </svg>
+  </div>
+  <div class="nav">
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C8D3E0" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>
+      <span>生管控制</span>
+    </div>
+    <div class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="1.5"><rect x="3" y="5" width="18" height="12" rx="1.5"/><path d="M3 9h18M7 17v2h10v-2"/><path d="M7 12.5l3-3 3 3 4-4"/></svg>
+      <span>图形化控制</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C8D3E0" stroke-width="1.5"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8.5 12.5l2.4 2.4 4.6-5"/></svg>
+      <span>工单管理</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C8D3E0" stroke-width="1.5"><path d="M12 4a4 4 0 00-4 4v4l-2 3h12l-2-3V8a4 4 0 00-4-4z"/><path d="M9.5 18a2.5 2.5 0 005 0"/><circle cx="17.5" cy="6" r="2.6" fill="#E74C3C" stroke="none"/></svg>
+      <span>预警管理</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C8D3E0" stroke-width="1.5"><path d="M4 19h16"/><rect x="6" y="10" width="3" height="7"/><rect x="11" y="6" width="3" height="11"/><rect x="16" y="13" width="3" height="4"/></svg>
+      <span>报表管理</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C8D3E0" stroke-width="1.5"><path d="M12 4l8 4-8 4-8-4 8-4z"/><path d="M4 12l8 4 8-4M4 16l8 4 8-4"/></svg>
+      <span>基础信息</span>
+    </div>
+    <div class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#C8D3E0" stroke-width="1.5"><rect x="5" y="3.5" width="14" height="17" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+      <span>QDM基础表</span>
+    </div>
+  </div>
+  <div class="top-right">
+    <div class="reset-btn">复位</div>
+    <div class="shift">本班：<b>B</b></div>
+    <div class="line-box">Line1</div>
+    <div class="stat"><i class="dot"></i>CCC</div>
+    <div class="stat"><i class="dot"></i>服务端</div>
+    <div class="ver"><b>V 1.0.0.0</b><br/>超级管理员<br/>2026-11-13 15:52:08</div>
+  </div>
+</div>
+
+<div class="content">
+  <div class="left">
+
+    <section class="card machine">
+      <div class="m-head">
+        <div class="pill">湿部·单面机</div>
+        <div class="muted">原纸架 · 预热缸 · 瓦楞辊 · 天桥</div>
+        <div class="bend">
+          <span>上弯轻</span><div class="switch on"></div>
+          <span>上弯中</span><div class="switch"></div>
+          <span>上弯重</span><div class="switch"></div>
+        </div>
+      </div>
+      <div class="m-body">
+        <svg viewBox="0 0 1450 260" preserveAspectRatio="none">
+          <defs>
+            <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#E8CE96"/><stop offset=".45" stop-color="#D9B677"/><stop offset="1" stop-color="#B98F4F"/>
+            </linearGradient>
+            <linearGradient id="deck" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0" stop-color="#F4F6F9"/><stop offset="1" stop-color="#D6DCE4"/>
+            </linearGradient>
+          </defs>
+          <rect x="16" y="196" width="1420" height="13" fill="#C6CDD6"/>
+          <rect x="16" y="209" width="1420" height="8" fill="#B2BAC4"/>
+
+          <g>
+            <rect x="34" y="86" width="84" height="104" fill="#EDF0F4" stroke="#C2CAD5"/>
+            <circle cx="76" cy="138" r="33" fill="url(#paper)" stroke="#B08A4C"/><circle cx="76" cy="138" r="9" fill="#9AA7B6"/>
+            <rect x="124" y="86" width="84" height="104" fill="#EDF0F4" stroke="#C2CAD5"/>
+            <circle cx="166" cy="138" r="33" fill="url(#paper)" stroke="#B08A4C"/><circle cx="166" cy="138" r="9" fill="#9AA7B6"/>
+            <rect x="214" y="70" width="84" height="120" fill="#EDF0F4" stroke="#C2CAD5"/>
+            <circle cx="256" cy="130" r="37" fill="url(#paper)" stroke="#B08A4C"/><circle cx="256" cy="130" r="10" fill="#9AA7B6"/>
+          </g>
+          <path d="M256 93 L520 93 L520 132 L690 132" stroke="url(#paper)" stroke-width="14" fill="none" stroke-linecap="round"/>
+          <path d="M166 105 L520 105 L520 158 L690 158" stroke="url(#paper)" stroke-width="9" fill="none" opacity=".8"/>
+
+          <circle cx="556" cy="158" r="44" fill="#E7EBF0" stroke="#BFC7D1"/>
+          <circle cx="556" cy="158" r="30" fill="none" stroke="#9AA7B6" stroke-dasharray="4 6"/>
+
+          <rect x="690" y="106" width="200" height="118" fill="url(#deck)" stroke="#B7C0CC"/>
+          <circle cx="738" cy="166" r="30" fill="#DFE4EA" stroke="#A6B2C0"/>
+          <circle cx="812" cy="166" r="30" fill="#DFE4EA" stroke="#A6B2C0"/>
+          <path d="M768 132 l15 -19 l15 19 z" fill="#CBD4DE"/>
+
+          <path d="M890 106 L1120 48 L1120 84 L890 142 Z" fill="#EAEEF3" stroke="#B7C0CC"/>
+          <path d="M904 108 L1108 58" stroke="#CBD4DE" stroke-width="2"/>
+
+          <path d="M1120 66 L1240 66 L1240 168 L1446 168" stroke="url(#paper)" stroke-width="13" fill="none"/>
+          <text x="1226" y="216" font-size="12" fill="#8A97A6">→ 双面机组</text>
+        </svg>
+
+        <div class="chip" style="left:6.4%;top:8%">1.00</div>
+        <div class="chip light" style="left:21%;top:10%;width:88px">1.00 1.00</div>
+        <div class="chip" style="left:35%;top:72%">0.95</div>
+        <div class="chip" style="left:45%;top:26%">1.00 1.30</div>
+        <div class="chip light" style="left:50%;top:6%;width:106px">胶量 2.75</div>
+        <div class="chip" style="left:67%;top:46%">1.10</div>
+        <div class="chip" style="left:79%;top:8%">1.00</div>
+        <div class="tag" style="left:2.4%;top:2%">原纸架 A/B/C</div>
+        <div class="tag" style="left:46%;top:84%">瓦楞辊间隙</div>
+        <div class="unit-label">SF1</div>
+      </div>
+    </section>
+
+    <section class="card machine">
+      <div class="m-head">
+        <div class="pill">双面机组</div>
+        <div class="muted">糊机 · 热板 · 冷却 · 纵切 · 横切 · 堆码</div>
+        <div class="bend">
+          <span>下弯轻</span><div class="switch"></div>
+          <span>下弯中</span><div class="switch on"></div>
+          <span>下弯重</span><div class="switch"></div>
+        </div>
+      </div>
+      <div class="m-body">
+        <svg viewBox="0 0 1450 260" preserveAspectRatio="none">
+          <rect x="16" y="196" width="1420" height="13" fill="#C6CDD6"/>
+          <rect x="16" y="209" width="1420" height="8" fill="#B2BAC4"/>
+
+          <path d="M16 128 L300 128 L300 106 L520 106" stroke="url(#paper)" stroke-width="17" fill="none" stroke-linecap="round"/>
+          <circle cx="566" cy="106" r="42" fill="#E7EBF0" stroke="#BFC7D1"/>
+          <circle cx="566" cy="106" r="29" fill="none" stroke="#9AA7B6" stroke-dasharray="4 6"/>
+
+          <rect x="650" y="58" width="160" height="126" fill="url(#deck)" stroke="#B7C0CC"/>
+          <circle cx="692" cy="120" r="19" fill="#DFE4EA" stroke="#A6B2C0"/>
+          <circle cx="756" cy="120" r="19" fill="#DFE4EA" stroke="#A6B2C0"/>
+          <rect x="682" y="150" width="96" height="18" fill="#2E86AB" opacity=".75"/>
+
+          <rect x="828" y="82" width="330" height="98" fill="#EBEFF4" stroke="#B7C0CC"/>
+          <g stroke="#9AA7B6"><path d="M828 104h330M828 127h330M828 150h330"/></g>
+          <path d="M840 104 L1150 104" stroke="url(#paper)" stroke-width="13"/>
+
+          <rect x="1176" y="88" width="112" height="84" fill="#F0F4F8" stroke="#C2CAD5"/>
+          <path d="M1186 104 L1278 104" stroke="url(#paper)" stroke-width="11"/>
+
+          <rect x="1312" y="72" width="30" height="112" fill="#D9E0E8" stroke="#A6B2C0"/>
+          <rect x="1352" y="72" width="30" height="112" fill="#D9E0E8" stroke="#A6B2C0"/>
+          <rect x="1396" y="112" width="46" height="72" fill="#E3E8EE" stroke="#B7C0CC"/>
+          <text x="1302" y="220" font-size="11.5" fill="#8A97A6">纵切</text>
+          <text x="1346" y="220" font-size="11.5" fill="#8A97A6">横切</text>
+          <text x="1388" y="220" font-size="11.5" fill="#8A97A6">堆码</text>
+          <circle cx="795" cy="196" r="6" fill="#27AE60"/>
+          <circle cx="1268" cy="70" r="6" fill="#E67E22"/>
+        </svg>
+
+        <div class="chip" style="left:17%;top:10%">1.00 1.00</div>
+        <div class="chip light" style="left:33%;top:6%;width:104px">糊量 1.00</div>
+        <div class="chip" style="left:44%;top:72%">1.15</div>
+        <div class="chip" style="left:60%;top:8%">1.00 1.40</div>
+        <div class="chip" style="left:73%;top:70%">0.00</div>
+        <div class="chip light" style="left:84%;top:8%;width:112px">热板温度 OK</div>
+        <div class="chip" style="left:93%;top:44%">1.00</div>
+        <div class="unit-label">SF2</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="right">
+    <section class="card gauge-card">
+      <div class="gauge">
+        <svg viewBox="0 0 640 214" preserveAspectRatio="none">
+          <path d="M208 126 A112 112 0 0 1 432 126" fill="none" stroke="#B4BEC9" stroke-width="13"/>
+          <path d="M208 126 A112 112 0 0 1 240 60" fill="none" stroke="#E67E22" stroke-width="13"/>
+          <circle cx="320" cy="126" r="26" fill="#FFFFFF" stroke="#C6CDD6"/>
+          <path d="M320 126 L262 158" stroke="#1E2A38" stroke-width="4" stroke-linecap="round"/>
+          <g stroke="#8D9AA8" stroke-width="1.4">
+            <path d="M208 126h12M216 88l10 6M239 55l7 9M275 33l4 10M320 24v11M365 33l-4 10M401 55l-7 9M424 88l-10 6M432 126h-12"/>
+          </g>
+          <text x="184" y="152" font-size="11" fill="#8D9AA8">0</text>
+          <text x="192" y="74" font-size="11" fill="#8D9AA8">200</text>
+          <text x="436" y="74" font-size="11" fill="#8D9AA8">400</text>
+        </svg>
+        <div class="gauge-val">0</div>
+      </div>
+      <div class="trend">
+        <svg viewBox="0 0 640 44" preserveAspectRatio="none">
+          <g stroke="#E1E6EC" stroke-width="1">
+            <path d="M40 4h590M40 14h590M40 24h590M40 34h590"/>
+          </g>
+          <g font-size="9" fill="#8D9AA8">
+            <text x="8" y="8">400</text><text x="8" y="18">300</text><text x="8" y="28">200</text><text x="8" y="38">100</text>
+          </g>
+          <polyline points="46,36 140,35 240,36 340,35 440,34 540,35 622,34" fill="none" stroke="#9FB0C2" stroke-width="1.5"/>
+          <polyline points="46,30 140,31 240,30 340,31 440,30 540,30 622,31" fill="none" stroke="#2E86AB" stroke-width="1.5" opacity=".55"/>
+        </svg>
+      </div>
+      <div class="legend">
+        <div class="lg">
+          <span><i style="background:#2E86AB"></i>巡航</span>
+          <span><i style="background:#9FB0C2"></i>实时</span>
+        </div>
+        <div>m/min</div>
+      </div>
+    </section>
+
+    <section class="card order-panel">
+      <div class="op-title">当前订单备注：</div>
+      <table class="metrics">
+        <thead>
+          <tr>
+            <th></th><th>总长<br/>(m)</th><th>生产<br/>(m)</th><th>剩余<br/>(m)</th><th>平方<br/>(m²)</th>
+            <th>均速<br/>(m/min)</th><th>不良<br/>(%)</th><th>修边率<br/>(%)</th><th>生产<br/>时间</th>
+            <th>停机<br/>时间</th><th>停次</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>本班</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>本单</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+        </tbody>
+      </table>
+      <div class="summary">
+        总计剩余：<b>16275</b>　当前剩余：<b>0</b>　预计时间：08-26 11:09:06　1/32　选中订单总长：<b>525</b>
+      </div>
+      <table class="order-table">
+        <thead>
+          <tr><th style="width:12%">楞型</th><th style="width:13%">门幅<br/>(mm)</th><th style="width:19%">材质</th>
+              <th style="width:14%">客户</th><th style="width:12%">切长<br/>(mm)</th><th style="width:12%">切宽<br/>(mm)</th>
+              <th style="width:9%">修边<br/>(mm)</th><th style="width:9%">排程<br/>米数</th></tr>
+        </thead>
+        <tbody>
+          <tr class="row-navy"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-orange"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-yellow"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-white"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-orange"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-yellow"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-white"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-yellow"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+          <tr class="row-white"><td>5BA</td><td>2500</td><td>Q.9.Q.Q.9</td><td>测试</td><td>700</td><td>600</td><td>100</td><td>525</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+</div>
+</body>
+</html>

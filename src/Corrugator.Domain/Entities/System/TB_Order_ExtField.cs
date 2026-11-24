@@ -1,0 +1,44 @@
+using SqlSugar;
+
+namespace Corrugator.Domain.Entities.System;
+
+/// <summary>
+/// 订单扩展字段设置（基础信息 → 订单扩展字段设置）。
+/// 固定 18 个 Define 槽位，订单表里以 Json 存放扩展值。
+/// </summary>
+[SugarTable("TB_Order_ExtField", TableDescription = "订单扩展字段设置")]
+public class TB_Order_ExtField
+{
+    /// <summary>序号 1..18</summary>
+    [SugarColumn(ColumnName = "F_Seq", ColumnDescription = "序号")]
+    public int F_Seq { get; set; }
+
+    /// <summary>字段编码 Define1..Define18</summary>
+    [SugarColumn(ColumnName = "F_Code", Length = 40, ColumnDescription = "字段编码")]
+    public string F_Code { get; set; } = default!;
+
+    /// <summary>Json 字段编码 ex1..ex18</summary>
+    [SugarColumn(ColumnName = "F_JsonCode", Length = 40, IsNullable = true, ColumnDescription = "Json字段编码")]
+    public string? F_JsonCode { get; set; }
+
+    /// <summary>扩展字段显示名称</summary>
+    [SugarColumn(ColumnName = "F_Name", Length = 100, IsNullable = true, ColumnDescription = "扩展字段显示名称")]
+    public string? F_Name { get; set; }
+
+    /// <summary>数据类型 string / int / bool / decimal / datetime</summary>
+    [SugarColumn(ColumnName = "F_DataType", Length = 20, IsNullable = true, ColumnDescription = "数据类型")]
+    public string? F_DataType { get; set; }
+
+    /// <summary>是否在列表中显示</summary>
+    [SugarColumn(ColumnName = "F_IsShowInList", IsNullable = true, ColumnDescription = "是否要在列表中显示")]
+    public bool? F_IsShowInList { get; set; }
+
+    [SugarColumn(ColumnName = "F_Editor", Length = 50, IsNullable = true)]
+    public string? F_Editor { get; set; }
+
+    [SugarColumn(ColumnName = "F_EditTime", IsNullable = true)]
+    public DateTime? F_EditTime { get; set; }
+
+    [SugarColumn(ColumnName = "F_ID", IsPrimaryKey = true, IsIdentity = true)]
+    public long F_ID { get; set; }
+}

@@ -1,0 +1,17 @@
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\bin\Debug\net8.0\Corrugator.Application.deps.json
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\bin\Debug\net8.0\Corrugator.Application.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\bin\Debug\net8.0\Corrugator.Application.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\bin\Debug\net8.0\Corrugator.Domain.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\bin\Debug\net8.0\Corrugator.Shared.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\bin\Debug\net8.0\Corrugator.Domain.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\bin\Debug\net8.0\Corrugator.Shared.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugator.Application.csproj.AssemblyReference.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugator.Application.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugator.Application.AssemblyInfoInputs.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugator.Application.AssemblyInfo.cs
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugator.Application.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugat.20D6164C.Up2Date
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugator.Application.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\refint\Corrugator.Application.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\Corrugator.Application.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Application\obj\Debug\net8.0\ref\Corrugator.Application.dll

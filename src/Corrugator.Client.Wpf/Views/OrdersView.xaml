@@ -1,0 +1,87 @@
+﻿<UserControl x:Class="Corrugator.Client.Wpf.Views.OrdersView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Grid Margin="6">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Column="0" Margin="0,0,12,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal" Margin="0,0,0,10">
+                <TextBlock Text="关键字" Style="{StaticResource CaptionText}" VerticalAlignment="Center" Margin="0,0,6,0" />
+                <TextBox Width="180" Text="{Binding Keyword, UpdateSourceTrigger=PropertyChanged}" />
+                <TextBlock Text="楞型" Style="{StaticResource CaptionText}" VerticalAlignment="Center" Margin="12,0,6,0" />
+                <TextBox Width="90" Text="{Binding WaveFilter, UpdateSourceTrigger=PropertyChanged}" />
+                <Button Content="查询" Command="{Binding SearchCommand}" Margin="12,0,8,0" />
+                <Button Content="刷新" Command="{Binding LoadCommand}" />
+                <Button Content="删除选中" Command="{Binding DeleteCommand}" Background="#C0392B" />
+                <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource CaptionText}" VerticalAlignment="Center" Margin="12,0,0,0" />
+            </StackPanel>
+
+            <DataGrid Grid.Row="1" ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedOrder}"
+                      AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="ID" Binding="{Binding WO_ID}" Width="60" />
+                    <DataGridTextColumn Header="工号" Binding="{Binding WO_WorkNo}" Width="60" />
+                    <DataGridTextColumn Header="材质" Binding="{Binding WO_PaperCode}" Width="110" />
+                    <DataGridTextColumn Header="楞型" Binding="{Binding WO_Wave}" Width="70" />
+                    <DataGridTextColumn Header="门幅" Binding="{Binding WO_Width}" Width="80" />
+                    <DataGridTextColumn Header="切长" Binding="{Binding WO_CutLength}" Width="80" />
+                    <DataGridTextColumn Header="切数" Binding="{Binding WO_CutQty}" Width="70" />
+                    <DataGridTextColumn Header="限速" Binding="{Binding WO_Speed}" Width="70" />
+                    <DataGridTextColumn Header="客户" Binding="{Binding WO_CustName}" Width="*" />
+                    <DataGridTextColumn Header="状态" Binding="{Binding Status}" Width="80" />
+                    <DataGridCheckBoxColumn Header="插单" Binding="{Binding WO_IsUrgent}" Width="55" />
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" Margin="0,10,0,0" HorizontalAlignment="Right">
+                <Button Content="上一页" Command="{Binding PrevPageCommand}" />
+                <Button Content="下一页" Command="{Binding NextPageCommand}" />
+                <TextBlock Text="{Binding StatusMessage}" Style="{StaticResource CaptionText}" VerticalAlignment="Center" />
+            </StackPanel>
+        </Grid>
+
+        <Border Grid.Column="1" Style="{StaticResource CardBorder}">
+            <StackPanel>
+                <TextBlock Text="新增订单" FontWeight="SemiBold" FontSize="14"
+                           Foreground="{StaticResource BrushPrimary}" Margin="0,0,0,10" />
+
+                <TextBlock Text="工号" Style="{StaticResource CaptionText}" Margin="0,0,0,3" />
+                <TextBox Text="{Binding NewWorkNo, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="材质" Style="{StaticResource CaptionText}" Margin="0,10,0,3" />
+                <TextBox Text="{Binding NewPaperCode, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="楞型" Style="{StaticResource CaptionText}" Margin="0,10,0,3" />
+                <TextBox Text="{Binding NewWave, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="门幅 mm" Style="{StaticResource CaptionText}" Margin="0,10,0,3" />
+                <TextBox Text="{Binding NewWidth, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="切长 mm" Style="{StaticResource CaptionText}" Margin="0,10,0,3" />
+                <TextBox Text="{Binding NewCutLength, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="切数" Style="{StaticResource CaptionText}" Margin="0,10,0,3" />
+                <TextBox Text="{Binding NewCutQty, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="限速 m/min" Style="{StaticResource CaptionText}" Margin="0,10,0,3" />
+                <TextBox Text="{Binding NewSpeed, UpdateSourceTrigger=PropertyChanged}" />
+
+                <TextBlock Text="客户名称" Style="{StaticResource CaptionText}" Margin="0,10,0,3" />
+                <TextBox Text="{Binding NewCustName, UpdateSourceTrigger=PropertyChanged}" />
+
+                <CheckBox Content="插单（优先排产）" IsChecked="{Binding NewIsUrgent}" Margin="0,12,0,0" />
+
+                <Button Content="保存新增订单" Command="{Binding CreateCommand}" Margin="0,14,0,0" Height="34" />
+            </StackPanel>
+        </Border>
+    </Grid>
+</UserControl>

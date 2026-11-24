@@ -1,0 +1,11 @@
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\bin\Debug\net8.0\Corrugator.Shared.deps.json
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\bin\Debug\net8.0\Corrugator.Shared.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\bin\Debug\net8.0\Corrugator.Shared.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\Corrugator.Shared.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\Corrugator.Shared.AssemblyInfoInputs.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\Corrugator.Shared.AssemblyInfo.cs
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\Corrugator.Shared.csproj.CoreCompileInputs.cache
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\Corrugator.Shared.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\refint\Corrugator.Shared.dll
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\Corrugator.Shared.pdb
+C:\Users\Administrator\Downloads\Corrugator-Solution\src\Corrugator.Shared\obj\Debug\net8.0\ref\Corrugator.Shared.dll

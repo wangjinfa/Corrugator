@@ -1,0 +1,43 @@
+using SqlSugar;
+
+namespace Corrugator.Domain.Entities.Process.Dry;
+
+/// <summary>
+/// PLC热喷雾车速系数
+/// </summary>
+[SugarTable("TB_QDM_PLCSpraySpeedFactor", TableDescription = "PLC热喷雾车速系数")]
+public class TB_QDM_PLCSpraySpeedFactor
+{
+    /// <summary>F_Flute</summary>
+    [SugarColumn(ColumnName = "F_Flute", Length = 50, ColumnDescription = "F_Flute")]
+    public string F_Flute { get; set; } = default!;
+
+    /// <summary>速度</summary>
+    [SugarColumn(ColumnName = "F_Speed", ColumnDescription = "速度")]
+    public int F_Speed { get; set; }
+
+    /// <summary>系数</summary>
+    [SugarColumn(ColumnName = "F_Factor", Length = 18, DecimalDigits = 2, ColumnDescription = "系数")]
+    public decimal F_Factor { get; set; }
+
+    /// <summary>创建人</summary>
+    [SugarColumn(ColumnName = "F_Creator", Length = 50, IsNullable = true, ColumnDescription = "创建人")]
+    public string? F_Creator { get; set; }
+
+    /// <summary>创建时间</summary>
+    [SugarColumn(ColumnName = "F_CreateTime", IsNullable = true, ColumnDescription = "创建时间")]
+    public DateTime? F_CreateTime { get; set; }
+
+    /// <summary>编辑人</summary>
+    [SugarColumn(ColumnName = "F_Editor", Length = 50, IsNullable = true, ColumnDescription = "编辑人")]
+    public string? F_Editor { get; set; }
+
+    /// <summary>编辑时间</summary>
+    [SugarColumn(ColumnName = "F_EditTime", IsNullable = true, ColumnDescription = "编辑时间")]
+    public DateTime? F_EditTime { get; set; }
+
+    /// <summary>F_Id</summary>
+    [SugarColumn(ColumnName = "F_Id", IsPrimaryKey = true, IsIdentity = true, ColumnDescription = "F_Id")]
+    public int F_Id { get; set; }
+
+}

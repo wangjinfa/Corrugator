@@ -1,0 +1,139 @@
+﻿<UserControl x:Class="Corrugator.Client.Wpf.Views.OrderColorView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <UserControl.Resources>
+        <Style x:Key="SaveButton" TargetType="Button">
+            <Setter Property="Height" Value="30" />
+            <Setter Property="Width" Value="96" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bg" Background="#1A6FD0" CornerRadius="3">
+                            <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#3582D8" />
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bg" Property="Background" Value="#1662BB" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <!-- 色块按钮：点击后弹调色板 -->
+        <Style x:Key="SwatchButton" TargetType="Button">
+            <Setter Property="Width" Value="46" />
+            <Setter Property="Height" Value="22" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Outer" BorderBrush="#BFC8D2" BorderThickness="1" Background="White">
+                            <Border x:Name="Inner" Margin="1" Background="White" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Outer" Property="BorderBrush" Value="#1A6FD0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="#F4F6F9">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Margin="8,6,8,0" Background="White" BorderBrush="#E2E7ED" BorderThickness="1">
+            <DataGrid ItemsSource="{Binding Rows}" AutoGenerateColumns="False"
+                      BorderThickness="0" HeadersVisibility="Column" CanUserAddRows="False"
+                      GridLinesVisibility="None" RowHeight="36" RowBackground="White"
+                      AlternatingRowBackground="#F7F9FB" IsReadOnly="False">
+                <DataGrid.ColumnHeaderStyle>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Height" Value="34" />
+                        <Setter Property="Background" Value="#F2F4F7" />
+                        <Setter Property="Foreground" Value="#4A5663" />
+                        <Setter Property="FontSize" Value="12" />
+                        <Setter Property="FontWeight" Value="Normal" />
+                        <Setter Property="BorderBrush" Value="#E2E7ED" />
+                        <Setter Property="BorderThickness" Value="0,0,0,1" />
+                        <Setter Property="Padding" Value="8,0" />
+                    </Style>
+                </DataGrid.ColumnHeaderStyle>
+                <DataGrid.CellStyle>
+                    <Style TargetType="DataGridCell">
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Padding" Value="6,0" />
+                        <Setter Property="VerticalContentAlignment" Value="Center" />
+                    </Style>
+                </DataGrid.CellStyle>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="条件" Binding="{Binding Condition}" Width="200" IsReadOnly="True" />
+                    <DataGridTemplateColumn Header="优先级" Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBox Text="{Binding Priority, UpdateSourceTrigger=PropertyChanged}"
+                                         Width="60" Height="24" FontSize="12" VerticalContentAlignment="Center"
+                                         Padding="4,0" BorderBrush="#D5DCE4" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="背景颜色" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource SwatchButton}" Click="OnPickBackColor"
+                                        Background="{Binding BackBrush}" ToolTip="点击选择背景颜色">
+                                    <Border Background="{Binding BackBrush}" Width="38" Height="16"
+                                            BorderBrush="#00000000" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="字体颜色" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Style="{StaticResource SwatchButton}" Click="OnPickFontColor"
+                                        ToolTip="点击选择字体颜色">
+                                    <Border Background="{Binding FontBrush}" Width="38" Height="16"
+                                            BorderBrush="#00000000" />
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTemplateColumn Header="启用" Width="90">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <CheckBox HorizontalAlignment="Left" VerticalAlignment="Center"
+                                          Margin="6,0,0,0" IsChecked="{Binding IsUse, Mode=TwoWay}" />
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                    <DataGridTextColumn Header="" Binding="{Binding Condition}" Width="*" Visibility="Hidden" />
+                </DataGrid.Columns>
+            </DataGrid>
+        </Border>
+
+        <Grid Grid.Row="1" Margin="8,8,8,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0" Content="保存" Style="{StaticResource SaveButton}" Click="OnSaveClick" />
+            <TextBlock Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center" TextWrapping="Wrap"
+                       FontSize="11.5" Foreground="#C00000"
+                       Text="优先级数量越小表示优先级越高，例如当一行数据同时满足几个条件的时候，最终显示的是优先级最高的条件颜色！" />
+        </Grid>
+    </Grid>
+</UserControl>
